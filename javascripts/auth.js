@@ -1,4 +1,8 @@
 // Handle authentication and token management
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000'
+    : 'https://your-render-url.onrender.com'; // Replace with your actual Render URL
+
 const authService = {
     saveToken(token) {
         localStorage.setItem('token', token);
@@ -17,7 +21,7 @@ const authService = {
         return !!token;
     },    async login(email, password) {
         try {
-            const response = await fetch('/login', {
+            const response = await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,11 +42,7 @@ const authService = {
         }
     },    async signup(userData) {
         try {
-            console.log('Attempting to sign up with:', {
-                ...userData,
-                password: '[REDACTED]'
-            });
-            const response = await fetch('/signup', {
+            const response = await fetch(`${API_URL}/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,6 +53,10 @@ const authService = {
             const data = await response.json();
 
             if (!response.ok) {
+                if (data.errors) {
+                    const errorMessages = data.errors.map(err => err.msg).join('\n');
+                    throw new Error(errorMessages);
+                }
                 throw new Error(data.message || 'Signup failed');
             }
 
@@ -96,6 +100,10 @@ const authService = {
 document.querySelector('.signup-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  // Clear any existing error messages
+  const existingMessages = document.querySelectorAll('.message');
+  existingMessages.forEach(msg => msg.remove());
+
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -104,12 +112,18 @@ document.querySelector('.signup-form')?.addEventListener('submit', async (e) => 
     return;
   }
 
+  // Disable submit button and show loading state
+  const submitButton = e.target.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  submitButton.textContent = 'Creating account...';
+
   const userData = {
     firstName: document.getElementById('firstName').value,
     lastName: document.getElementById('lastName').value,
     email: document.getElementById('email').value,
     password: password
   };
+
   try {
     const response = await authService.signup(userData);
     showMessage('Account created successfully!', 'success');
@@ -117,10 +131,13 @@ document.querySelector('.signup-form')?.addEventListener('submit', async (e) => 
     // Save the token and redirect to profile
     authService.saveToken(response.token);
     setTimeout(() => {
-      window.location.href = '/profile.html';
+      window.location.href = 'profile.html';
     }, 1500);
   } catch (error) {
     showMessage(error.message || 'Failed to create account', 'error');
+    // Re-enable submit button
+    submitButton.disabled = false;
+    submitButton.textContent = 'Create Account';
   }
 });
 
