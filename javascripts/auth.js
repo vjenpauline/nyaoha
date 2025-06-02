@@ -145,3 +145,23 @@ document.querySelector('.login-form')?.addEventListener('submit', async (e) => {
     showMessage(error.message || 'Login failed.', 'error');
   }
 });
+
+document.querySelectorAll('a[href="profile.html"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const isLoggedIn = localStorage.getItem('token');
+    if (!isLoggedIn) {
+      e.preventDefault();
+      window.location.href = 'log-in.html';
+    }
+  });
+});
+
+document.querySelectorAll('a[href="log-in.html"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const isLoggedIn = localStorage.getItem('token');
+    if (isLoggedIn) {
+      e.preventDefault();
+      window.location.href = 'profile.html';
+    }
+  });
+});

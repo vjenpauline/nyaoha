@@ -92,5 +92,11 @@
         <hr>
         <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with hate by pauline villahermosa</p>
     </footer>
+    <script>
+  const token = localStorage.getItem('token');
+  if (token) {
+    window.location.href = "profile.html";
+  }
+</script>
 </body>
 </html>

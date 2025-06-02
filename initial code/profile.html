@@ -173,39 +173,8 @@
         <hr>
         <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with hate by pauline villahermosa</p>
     </footer>
-
-  <script>
-    const tabs = document.querySelectorAll('.tab');
-    const contents = document.querySelectorAll('.tab-content');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-      });
-    });
-  </script>
-
-  <script>
-  const subTabs = document.querySelectorAll('.sub-tab');
-  const exploreBtn = document.querySelector('.explore-btn');
-
-  subTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      subTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      // You can update the content dynamically here
-      if (tab.textContent.includes('Plants')) {
-        exploreBtn.textContent = 'Explore Plants';
-      } else {
-        exploreBtn.textContent = 'Explore Plans';
-      }
-    });
-  });
-</script>
+    <script src="../javascripts/auth.js" defer></script>
+<script src="../javascripts/profile.js" defer></script>
 
 </body>
 </html>
