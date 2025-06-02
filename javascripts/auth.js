@@ -100,20 +100,10 @@ const authService = {
 document.querySelector('.signup-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // Clear any existing error messages
-  const existingMessages = document.querySelectorAll('.message');
-  existingMessages.forEach(msg => msg.remove());
-
-  const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-
-  if (password !== confirmPassword) {
-    showMessage('Passwords do not match', 'error');
-    return;
-  }
+  const signupForm = e.target;
+  const submitButton = signupForm.querySelector('button[type="submit"]');
 
   // Disable submit button and show loading state
-  const submitButton = e.target.querySelector('button[type="submit"]');
   submitButton.disabled = true;
   submitButton.textContent = 'Creating account...';
 
@@ -121,20 +111,19 @@ document.querySelector('.signup-form')?.addEventListener('submit', async (e) => 
     firstName: document.getElementById('firstName').value,
     lastName: document.getElementById('lastName').value,
     email: document.getElementById('email').value,
-    password: password
+    password: document.getElementById('password').value
   };
 
   try {
     const response = await authService.signup(userData);
     showMessage('Account created successfully!', 'success');
-    
+
     // Save the token and redirect to profile
     authService.saveToken(response.token);
-    setTimeout(() => {
-      window.location.href = 'profile.html';
-    }, 1500);
+    window.location.href = 'profile.html';
   } catch (error) {
     showMessage(error.message || 'Failed to create account', 'error');
+  } finally {
     // Re-enable submit button
     submitButton.disabled = false;
     submitButton.textContent = 'Create Account';
