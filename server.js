@@ -21,6 +21,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'initial code')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/pictures', express.static(path.join(__dirname, 'initial code/pictures')));
+app.use('/stylescripts', express.static(path.join(__dirname, 'stylescripts')));
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
