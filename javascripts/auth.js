@@ -154,7 +154,7 @@ function showMessage(message, type) {
     const submitButton = signupForm?.querySelector('button[type="submit"]');
 
     if (signupForm && submitButton) {
-        signupForm.insertBefore(messageDiv, submitButton);
+        signupForm.appendChild(messageDiv);
         setTimeout(() => messageDiv.remove(), 3000);
     } else {
         console.error('Unable to find form to display message.');
