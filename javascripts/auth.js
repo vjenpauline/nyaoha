@@ -38,6 +38,10 @@ const authService = {
         }
     },    async signup(userData) {
         try {
+            console.log('Attempting to sign up with:', {
+                ...userData,
+                password: '[REDACTED]'
+            });
             const response = await fetch('/signup', {
                 method: 'POST',
                 headers: {

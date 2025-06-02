@@ -13,10 +13,16 @@ const { body, validationResult } = require('express-validator');
 
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:5500', 'http://127.0.0.1:5500', 'https://nyaoha.onrender.com'],
+    origin: '*', // Allow all origins in production
     credentials: true
 }));
 app.use(express.json());
+
+// Log all incoming requests for debugging
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+    next();
+});
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'initial code')));
@@ -65,6 +71,12 @@ app.post('/signup', [
   body('email').isEmail().withMessage('Invalid email format'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
 ], async (req, res) => {
+  console.log('Received signup request:', {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    hasPassword: !!req.body.password
+  });
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
