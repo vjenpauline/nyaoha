@@ -84,8 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  searchInput.addEventListener("input", applyFilters);
-
   // Create animal filter checkboxes (allowing multiple selections)
   if (animalFilters) {
     animalTypes.forEach(type => {
@@ -126,6 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   fetchPlants();
+
+  searchInput.addEventListener("input", applyFilters);
 });
 
 function renderPlants(plants, append = false) {
