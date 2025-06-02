@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+      <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
+    <link rel="stylesheet" href="../stylescripts/style-signup.css"/>
+    <script src="../javascripts/auth.js" defer></script>
+    <title>Nyaoha | Sign Up</title>
+    
+</head>
+<body>
+  <div class="top-bar">
+            <div class="leftnav-container">
+                <button class="profile-btn"><span class="icon">👤</span></button>
+                <a href="log-in.html">
+                  <button class="login-btn">Log In</button>
+                </a>
+            </div>
+
+            <nav class="navbar">
+                <button class="nav-button"> </button>
+                <div class="dropdown">
+                    <a href="1-index.html">Home</a>
+                    <a href="2-plant-database.html">Plant Database</a>
+                    <a href="3-garden-journal.html">Garden Journal</a>
+                    <a href="4-garden-planner.html">Garden Planner</a>
+                    <a href="5-about.html">About</a>
+                </div>
+            </nav>
+        </div>
+        
+  <div class="signup-page">
+    <form class="signup-form">
+      <img src="pictures\logo_icon_dark.png" alt="Nyaoha Logo" class="logo" />
+
+      <h2>Join <em>nyaoha</em></h2>
+      <p>Create your account and start gardening safely.</p>
+
+      <div class="name-fields">
+        <div class="field-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="John" required />
+        </div>
+        <div class="field-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" placeholder="Doe" required />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="john@example.com" required />
+      </div>
+
+      <div class="field-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Create a strong password" required />
+      </div>
+
+      <div class="field-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
+      </div>
+
+      <label class="terms">
+        <input type="checkbox" required />I agree to the <a href="#">Terms of Service</a>and<a href="#">Privacy Policy</a>
+      </label>
+
+      <button type="submit">Create Account</button>
+
+      <p class="signin">Already have an account? <a href="log-in.html">Sign in</a></p>
+    </form>
+  </div>
+
+  <footer class="footer">
+        <div class="footer-container">
+            <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
+
+            <div class="footer-section">
+                <img src="pictures/wordmark_light.svg" alt="Nyaoha Wordmark" class="footer-wordmark">  
+                <p class="footer-text"> Your go-to platform for gardening: Helping pet owners create beautiful, safe gardens since 2025. </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="2-plant-database.html">Plant Database</a></li>
+                    <li><a href="3-garden-journal.html">Garden Journal</a></li>
+                    <li><a href="4-garden-planner.html">Garden Planner</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="5-about.html">About Us</a></li>
+                    <li><a href="5-about.html#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Account</h3>
+                <ul>
+                    <li><a href="log-in.html">Log In</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with hate by pauline villahermosa</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,336 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #F3EDE4;
+  color: #23231A;
+}
+
+.db-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.header {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  background: url("../initial code/pictures/background/front-bg.png") center/cover no-repeat;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: relative;
+}
+.top-bar .leftnav-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+.top-bar .profile-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.top-bar .login-btn {
+  background: #4F7E24;
+  color: #F3EDE4;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.top-bar .login-btn .icon {
+  margin-right: 0.5rem;
+}
+
+.navbar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.navbar .nav-button {
+  background: #4F7E24;
+  color: #F3EDE4;
+  border: none;
+  padding: 1rem 6rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  background: url("../initial code/pictures/wordmark_light.svg") center/40% no-repeat #4F7E24;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.navbar .dropdown {
+  display: none;
+  position: absolute;
+  background-color: #23231A;
+  border-radius: 0 0 10px 10px;
+  min-width: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+  z-index: 1;
+  padding: 1rem 0;
+}
+.navbar .dropdown a {
+  display: block;
+  padding: 0.7rem 1.5rem;
+  color: #F3EDE4;
+  text-decoration: none;
+}
+.navbar .dropdown a:hover {
+  background-color: #060604;
+}
+.navbar:hover .dropdown {
+  display: block;
+}
+
+.footer {
+  background-color: #4F7E24;
+  color: white;
+  padding: 3rem 2rem;
+}
+.footer .footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+.footer .footer-section {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+.footer .footer-section h4 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.footer .footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer .footer-section ul li {
+  margin-bottom: 0.3rem;
+}
+.footer .footer-section ul li a {
+  color: #F3EDE4;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+.footer .footer-section ul li a:hover {
+  text-decoration: underline;
+}
+.footer .footer-icon {
+  width: 10rem;
+  height: auto;
+}
+.footer .footer-wordmark {
+  width: 160px;
+  height: auto;
+  margin-bottom: 15px;
+}
+.footer .footer-text {
+  font-size: 0.875rem;
+  max-width: 250px;
+  text-align: left;
+}
+.footer hr {
+  border-color: #F3EDE4;
+  margin: 2rem 0;
+}
+.footer .footer-bottom {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #F3EDE4;
+}
+
+.hero {
+  height: 100vh;
+  overflow: hidden;
+}
+.hero .hero-container {
+  display: flex;
+  height: 100%;
+}
+.hero .image-wrapper {
+  flex: 1;
+  background: url("../initial code/pictures/background/about-bg.png") no-repeat right center;
+}
+
+.text-content {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #F3EDE4;
+}
+.text-content .hero-text h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+.text-content .logo-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.text-content .logo-text .logo {
+  width: 150px;
+}
+.text-content .logo-text .brand-name {
+  width: 300px;
+  height: auto;
+}
+.text-content .about h3 {
+  font-size: 1.4rem;
+  margin: 1rem 0;
+}
+.text-content .about p {
+  max-width: 500px;
+  line-height: 1.6;
+  color: #23231A;
+}
+
+.team {
+  background-color: #4F7E24;
+  padding: 4rem;
+  color: white;
+  text-align: center;
+}
+.team h3 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.team .team-members {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+.team .team-members .member {
+  background: #F3EDE4;
+  color: #23231A;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  width: 300px;
+}
+.team .team-members .member .avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+  overflow: hidden;
+}
+.team .team-members .member .avatar img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.team .team-members .role {
+  display: inline-block;
+  background: #4F7E24;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+.team .team-members p {
+  font-size: 0.85rem;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #F3EDE4;
+  padding: 7rem;
+}
+.contact .contact-info,
+.contact .contact-form {
+  flex: 1;
+  padding: 1rem;
+}
+.contact .contact-info {
+  background: white;
+  padding: 3rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+.contact .contact-info p {
+  width: 400px;
+}
+.contact .contact-info h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.contact .contact-info .socials {
+  margin-top: 5rem;
+}
+.contact .contact-info .socials a {
+  margin-right: 0.2rem;
+}
+.contact .contact-info .socials a img {
+  width: 50px;
+}
+.contact .contact-form {
+  background: #4F7E24;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 2rem;
+  color: white;
+}
+.contact .contact-form h4 {
+  margin-bottom: 1rem;
+}
+.contact .contact-form input,
+.contact .contact-form textarea {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1rem;
+  background-color: #779858;
+  font-family: "Poppins", sans-serif;
+}
+.contact .contact-form ::-webkit-input-placeholder {
+  color: white;
+}
+.contact .contact-form textarea {
+  height: 200px;
+  border-radius: 1rem;
+}
+.contact .contact-form button {
+  background: white;
+  color: #4F7E24;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.contact .contact-form button:hover {
+  background: #F3EDE4;
+}/*# sourceMappingURL=style-about.css.map */

@@ -1,0 +1,91 @@
+@import 'mixin';
+@import 'globals';
+
+.logo {
+  background: #4c7410;
+  padding: 0.5rem 2rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.login-form {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  text-align: center;
+  margin: 2rem 0;
+
+  .logo-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  h2 {
+    margin: 1rem 0 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    font-size: 0.9rem;
+    margin: 1rem 0 0.25rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 20px;
+    border: 1px solid #4c7410;
+  }
+
+  .forgot {
+    display: block;
+    text-align: left;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    color: #4c7410;
+  }
+
+  .login-btn {
+    background: #4c7410;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.8rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      background: #3a5b0f;
+    }
+  }
+
+  .signup-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+
+    a {
+      color: #4c7410;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+}

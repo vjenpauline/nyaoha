@@ -1,0 +1,102 @@
+@import 'mixin';
+@import 'globals';
+
+header {
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d2d2d;
+}
+
+.create-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.announcement {
+  background-color: #d9eacc;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+
+  h2 {
+    color: #2b7a2b;
+  }
+}
+
+.beta-button {
+  background-color: #ffffff;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  margin-top: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popular-section {
+  padding: 2rem;
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+}
+
+.cards {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+
+  img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    padding: 1rem;
+
+    .card-title {
+      font-weight: bold;
+    }
+
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .card-list {
+      list-style: none;
+      padding-left: 1rem;
+    }
+  }
+
+  .view-button {
+    display: block;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0 0 1rem 1rem;
+    text-decoration: none;
+  }
+}

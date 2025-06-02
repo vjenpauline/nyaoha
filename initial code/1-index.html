@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
+    <link rel="stylesheet" href="../stylescripts/style-index-db.css"/>
+    <title>Nyaoha</title>
+    
+</head>
+<body>
+    <header class="header">
+        <div class="top-bar">
+            <div class="leftnav-container">
+                <button class="profile-btn"><span class="icon">👤</span></button>
+                <a href="log-in.html">
+                  <button class="login-btn">Log In</button>
+                </a>
+            </div>
+
+            <nav class="navbar">
+                <button class="nav-button"> </button>
+                <div class="dropdown">
+                    <a href="1-index.html">Home</a>
+                    <a href="2-plant-database.html">Plant Database</a>
+                    <a href="3-garden-journal.html">Garden Journal</a>
+                    <a href="4-garden-planner.html">Garden Planner</a>
+                    <a href="5-about.html">About</a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="hero">
+            <div class="hero-text">
+                <h1>
+                PLAN <em>and</em> GROW YOUR <br>
+                <em>dream garden,</em><br>
+                KEEP YOUR PETS <em>safe.</em>
+                </h1>
+                <p class="subtext">Search our database of over 1000+ pet-safe plants</p>
+                <div class="search-bar">
+                    <input type="text" id="homeSearchInput" placeholder="🔍 Search for a plant...">
+                    <button class="search-btn" id="homeSearchBtn">Search</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="info-grid">
+        <div class="section-header">
+            <h1>Gardening Made Safe for You & Your Pets</h1>
+            <p>With smart planning tools, create the perfect patch and keep everyone happy.</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card cyan">
+                <img src="pictures\icons\icon-planting.png" alt="Icon" />
+                <h2>Comprehensive Plant Database</h2>
+                <p>Explore a vast collection of plants with detailed care instructions and pet toxicity warnings.</p>
+            </div>
+
+            <div class="card coral">
+                <img src="pictures\icons\icon-planner.png" alt="Icon" />
+                <h2>Interactive Garden Planner</h2>
+                <p>Design your dream garden effortlessly with drag-and-drop tools. Visualize your space before bringing it to life.</p>
+            </div>
+
+            <div class="card brown">
+                <img src="pictures\icons\icon-blog.png" alt="Icon" />
+                <h2>Community Blog</h2>
+                <p>Discover inspiring garden plans from fellow plant lovers, or share your own with the nyaoha community.</p>
+            </div>
+
+            <div class="card yellow">
+                <img src="pictures\icons\icon-error.png" alt="Icon" />
+                <h2>Pet-Safe Filters</h2>
+                <p>Quickly find pet-friendly plants with smart filters and get notified of potential hazards for pets in your selection.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="feature-section">
+        <div class="feature-content">
+            <h1><strong>Ready to Create Your Safe Space?</strong></h1>
+            <p>Join thousands of plant and pet owners who trust <strong> nyaoha </strong> for their gardening needs.</p>
+            <div class="buttons">
+                <a href="3-garden-journal.html">Join Our Community</a>
+                <a href="2-plant-database.html">Explore Plants</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
+
+            <div class="footer-section">
+                <img src="pictures/wordmark_light.svg" alt="Nyaoha Wordmark" class="footer-wordmark">  
+                <p class="footer-text"> Your go-to platform for gardening: Helping pet owners create beautiful, safe gardens since 2025. </p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="2-plant-database.html">Plant Database</a></li>
+                    <li><a href="3-garden-journal.html">Garden Journal</a></li>
+                    <li><a href="4-garden-planner.html">Garden Planner</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="5-about.html">About Us</a></li>
+                    <li><a href="5-about.html#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Account</h3>
+                <ul>
+                    <li><a href="log-in.html">Log In</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with hate by pauline villahermosa</p>
+    </footer>
+
+</body>
+
+<script>
+  document.getElementById("homeSearchBtn").addEventListener("click", () => {
+    const query = document.getElementById("homeSearchInput").value.trim();
+    if (query) {
+      window.location.href = `2-plant-database.html?search=${encodeURIComponent(query)}`;
+    } else {
+      window.location.href = "2-plant-database.html";
+    }
+  });
+</script>
+
+</html>

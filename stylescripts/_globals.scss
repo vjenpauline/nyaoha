@@ -1,0 +1,164 @@
+// FONT & COLOR VARIABLES
+$font-primary: 'Poppins', sans-serif;
+$black: #23231A;
+$cream: #F3EDE4;
+$green: #4F7E24;
+$light-green: #CCDBBF;
+$teal: #36C9C6;
+$yellow: #FFE8BC;
+$brown: #694A38;
+$light-brown: #DAB39D;
+$red: #ED6A5A;
+$grey: #959595;
+
+// RESET & BASE
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-primary;
+}
+
+body {
+  background: $cream;
+  color: $black;
+}
+
+.db-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+// HEADER
+.header {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  background: url('../initial code/pictures/background/front-bg.png') center/cover no-repeat;
+}
+
+// TOP BAR
+.top-bar {
+  @include flex-between;
+  padding: 1rem 2rem;
+  position: relative;
+
+  .leftnav-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .profile-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .login-btn {
+    @include rounded-button($green, $cream);
+    .icon { margin-right: 0.5rem; }
+  }
+}
+
+// NAVIGATION
+.navbar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+
+  .nav-button {
+    @include green-button(1rem 6rem);
+    background: url('../initial code/pictures/wordmark_light.svg') center/40% no-repeat $green;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    background-color: $black;
+    border-radius: 0 0 10px 10px;
+    min-width: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+    z-index: 1;
+    padding: 1rem 0;
+
+    a {
+      display: block;
+      padding: 0.7rem 1.5rem;
+      color: $cream;
+      text-decoration: none;
+      &:hover { background-color: darken($black, 10%); }
+    }
+  }
+
+  &:hover .dropdown { display: block; }
+}
+
+// FOOTER
+.footer {
+  background-color: $green;
+  color: white;
+  padding: 3rem 2rem;
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .footer-section {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+
+    h4 { font-weight: bold; margin-bottom: 0.5rem; }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 0.3rem;
+
+        a {
+          color: $cream;
+          text-decoration: none;
+          font-size: 0.875rem;
+
+          &:hover { text-decoration: underline; }
+        }
+      }
+    }
+  }
+
+  .footer-icon { width: 10rem; height: auto; }
+  .footer-wordmark { width: 160px; height: auto; margin-bottom: 15px; }
+  .footer-text {
+    font-size: 0.875rem;
+    max-width: 250px;
+    text-align: left;
+  }
+
+  hr {
+    border-color: $cream;
+    margin: 2rem 0;
+  }
+
+  .footer-bottom {
+    font-size: 0.75rem;
+    text-align: center;
+    color: $cream;
+  }
+}
