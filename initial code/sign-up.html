@@ -36,7 +36,7 @@
         
   <div class="signup-page">
     <!-- Form with proper autofill structure -->
-    <form class="signup-form" method="post" autocomplete="on">
+    <form class="signup-form" method="post" action="/signup" autocomplete="on">
         <div class="form-header">
             <img src="pictures\logo_icon_dark.png" alt="Nyaoha Logo" class="logo" />
             <h2>Join <em>nyaoha</em></h2>
@@ -179,5 +179,45 @@
     </footer>
     <!-- Move scripts to end of body -->
     <script defer src="/javascripts/auth.js"></script>
+    <script>
+        document.querySelector('.signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Creating account...';
+
+            const userData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Signup failed');
+                }
+
+                showMessage('Account created successfully!', 'success');
+                submitButton.textContent = 'Create Account';
+                submitButton.disabled = false;
+            } catch (error) {
+                showMessage(error.message, 'error');
+                submitButton.textContent = 'Create Account';
+                submitButton.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>
