@@ -108,7 +108,7 @@ document.querySelector('.signup-form')?.addEventListener('submit', async (e) => 
   };
 
   try {
-    await authService.signup(userData);
+    const response = await authService.signup(userData);
     showMessage('Account created successfully!', 'success');
     setTimeout(() => {
       window.location.href = '/log-in.html';
@@ -136,34 +136,12 @@ document.querySelector('.login-form')?.addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
 
   try {
-    const res = await fetch('/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-
-    const result = await res.json();
-    if (res.ok) {
-      showMessage('Login successful!', 'success');
-      setTimeout(() => {
-        window.location.href = 'profile.html';
-      }, 1000);
-    } else {
-      showMessage(result.message || 'Login failed.', 'error');
-    }
-  } catch (err) {
-    console.error(err);
-    showMessage('Something went wrong.', 'error');
+    const response = await authService.login(email, password);
+    showMessage('Login successful!', 'success');
+    setTimeout(() => {
+      window.location.href = '/profile.html';
+    }, 1000);
+  } catch (error) {
+    showMessage(error.message || 'Login failed.', 'error');
   }
 });
-
-function showMessage(message, type) {
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${type}`;
-  messageDiv.textContent = message;
-  document.querySelector('.login-form')?.insertBefore(
-    messageDiv,
-    document.querySelector('.login-btn')
-  );
-  setTimeout(() => messageDiv.remove(), 3000);
-}
