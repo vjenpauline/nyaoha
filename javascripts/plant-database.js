@@ -2,7 +2,7 @@
 const plantService = {
     async getAllPlants() {
         try {
-            const response = await fetch('/api/plants');
+            const response = await fetch('https://plantsm.art/static/api/plants.json');
             if (!response.ok) {
                 throw new Error('Failed to fetch plants');
             }
@@ -19,7 +19,7 @@ const plantService = {
                 query: query,
                 ...filters
             });
-            const response = await fetch(`/api/plants/search?${params}`);
+            const response = await fetch(`https://plantsm.art/static/api/plants.json?${params}`);
             if (!response.ok) {
                 throw new Error('Failed to search plants');
             }
@@ -32,7 +32,7 @@ const plantService = {
 
     async getPlantById(id) {
         try {
-            const response = await fetch(`/api/plants/${id}`);
+            const response = await fetch(`https://plantsm.art/static/api/plants/${id}.json`);
             if (!response.ok) {
                 throw new Error('Failed to fetch plant details');
             }
@@ -51,19 +51,6 @@ const plantService = {
                 return !pets.some(pet => plant.toxicity.toxicTo.includes(pet));
             });
         };
-    },
-
-    async getRecommendedPlants(pets = []) {
-        try {
-            const plants = await this.getAllPlants();
-            return plants.filter(plant => {
-                return !plant.toxicity || !plant.toxicity.toxicTo || 
-                    !pets.some(pet => plant.toxicity.toxicTo.includes(pet));
-            });
-        } catch (error) {
-            console.error('Error getting recommended plants:', error);
-            throw error;
-        }
     }
 };
 

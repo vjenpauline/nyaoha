@@ -46,7 +46,12 @@
   bottom: 0;
   width: 100%;
   text-align: center;
-  img { max-width: 100%; height: auto; display: block; }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    background: url('/pictures/background/front-bg.png');
+  }
 }
 
 // INFO GRID SECTION
@@ -84,7 +89,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: url('../initial code/pictures/background/front-bg2.png') no-repeat right center;
+  background: url('../pictures/background/front-bg2.png') no-repeat right center;
   background-color: $cream;
   background-size: contain;
   height: 80vh;
@@ -171,6 +176,7 @@
     width: 100%;
     height: 160px;
     object-fit: cover;
+    background: url('../pictures/background/image.png');
   }
 
   .card-header {
