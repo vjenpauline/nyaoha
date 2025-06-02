@@ -13,7 +13,7 @@ const { body, validationResult } = require('express-validator');
 
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:5500', 'http://127.0.0.1:5500'],
+    origin: ['http://localhost:5500', 'http://127.0.0.1:5500', 'https://nyaoha.onrender.com'],
     credentials: true
 }));
 app.use(express.json());
@@ -25,9 +25,20 @@ app.use('/pictures', express.static(path.join(__dirname, 'initial code/pictures'
 app.use('/stylescripts', express.static(path.join(__dirname, 'stylescripts')));
 app.use('/javascripts', express.static(path.join(__dirname, 'javascripts')));
 
+console.log('Attempting to connect to MongoDB with URI:', process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch((err) => console.error('❌ MongoDB connection error:', err));
+  .then(() => {
+    console.log('✅ MongoDB connected successfully');
+    // Test the connection by counting users
+    return User.countDocuments();
+  })
+  .then(count => {
+    console.log(`Current number of users in database: ${count}`);
+  })
+  .catch((err) => {
+    console.error('❌ MongoDB connection error:', err);
+    console.error('Error details:', JSON.stringify(err, null, 2));
+  });
 
 // Route handlers
 app.get('/', (req, res) => {
@@ -73,10 +84,24 @@ app.post('/signup', [
       lastName,
       email,
       password: hashedPassword,
-    });
+    });    await newUser.save();
+    
+    // Generate JWT token for new user
+    const token = jwt.sign(
+      { userId: newUser._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
 
-    await newUser.save();
-    res.status(201).json({ message: 'Account created successfully' });
+    res.status(201).json({ 
+      message: 'Account created successfully',
+      token,
+      user: {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email
+      }
+    });
   } catch (error) {
     console.error('Server error:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -203,6 +228,43 @@ async function importPlantsData() {
     console.error('❌ Error importing plants data:', error);
   }
 }
+
+// Health check endpoint - place this near the top of your routes
+app.get('/status', async (req, res) => {
+  try {
+    // Check MongoDB connection
+    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+    
+    // Basic connection test
+    const userCount = await User.estimatedDocumentCount();
+    
+    res.json({
+      timestamp: new Date().toISOString(),
+      status: 'ok',
+      service: 'nyaoha-api',
+      mongodb: {
+        status: dbStatus,
+        userCount,
+      },
+      env: {
+        nodeEnv: process.env.NODE_ENV || 'not set',
+        port: PORT,
+        mongoConnected: mongoose.connection.readyState === 1
+      }
+    });
+  } catch (error) {
+    console.error('Health check error:', error);
+    res.status(500).json({
+      timestamp: new Date().toISOString(),
+      status: 'error',
+      service: 'nyaoha-api',
+      error: {
+        message: error.message,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      }
+    });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

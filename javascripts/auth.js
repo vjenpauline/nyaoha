@@ -106,12 +106,14 @@ document.querySelector('.signup-form')?.addEventListener('submit', async (e) => 
     email: document.getElementById('email').value,
     password: password
   };
-
   try {
     const response = await authService.signup(userData);
     showMessage('Account created successfully!', 'success');
+    
+    // Save the token and redirect to profile
+    authService.saveToken(response.token);
     setTimeout(() => {
-      window.location.href = '/log-in.html';
+      window.location.href = '/profile.html';
     }, 1500);
   } catch (error) {
     showMessage(error.message || 'Failed to create account', 'error');
