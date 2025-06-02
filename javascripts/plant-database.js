@@ -133,7 +133,9 @@ function renderPlants(plants, append = false) {
 
   plants.forEach(plant => {
     const common = plant.common?.[0]?.name || "Unnamed Plant";
-    const img = (plant.images && plant.images.length > 0 && plant.images[0].source_url) ? plant.images[0].source_url : "pictures/background/image.png";
+    const img = (plant.images && plant.images.length > 0 && plant.images[0].source_url) 
+        ? `url(${plant.images[0].source_url})` 
+        : `url(pictures/background/image.png)`;
     const scientific = plant.name || "";
     const severity = plant.severity?.label || "Unknown";
     const severitySlug = plant.severity?.slug || "";
@@ -144,10 +146,9 @@ function renderPlants(plants, append = false) {
     const card = document.createElement("div");
     card.className = "plant-card";
     card.innerHTML = `
-      <div class="card-header">
+      <div class="card-header" style="background-image: ${img}; background-size: cover; background-position: center;">
         <span class="severity-badge ${severitySlug}">${severity}</span>
         <span class="favorite-icon">♡</span>
-        <img src="${img}" alt="${common}" />
       </div>
       <div class="card-content">
         <h3>${common}</h3>
