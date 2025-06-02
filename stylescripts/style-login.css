@@ -71,7 +71,7 @@ body {
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
-  background: url("../initial code/pictures/wordmark_light.svg") center/40% no-repeat #4F7E24;
+  background: url("/pictures/wordmark_light.svg") center/40% no-repeat #4F7E24;
   border-radius: 25px;
   cursor: pointer;
 }

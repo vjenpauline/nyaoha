@@ -73,7 +73,7 @@ body {
 
   .nav-button {
     @include green-button(1rem 6rem);
-    background: url('../initial code/pictures/wordmark_light.svg') center/40% no-repeat $green;
+    background: url('/pictures/wordmark_light.svg') center/40% no-repeat $green;
     border-radius: 25px;
     cursor: pointer;
   }
