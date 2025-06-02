@@ -1,7 +1,7 @@
 // Handle authentication and token management
 const API_URL = window.location.hostname === 'localhost' 
     ? 'http://localhost:5000'
-    : 'https://your-render-url.onrender.com'; // Replace with your actual Render URL
+    : 'https://nyaoha.onrender.com';
 
 const authService = {
     saveToken(token) {
