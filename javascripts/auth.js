@@ -17,7 +17,7 @@ const authService = {
         return !!token;
     },    async login(email, password) {
         try {
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const authService = {
         }
     },    async signup(userData) {
         try {
-            const response = await fetch('http://localhost:5000/signup', {
+            const response = await fetch('/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
