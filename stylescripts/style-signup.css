@@ -20,7 +20,7 @@ body {
   position: relative;
   overflow: hidden;
   height: 100vh;
-  background: url("../initial code/pictures/background/front-bg.png") center/cover no-repeat;
+  background: url("/pictures/background/front-bg.png") center/cover no-repeat;
 }
 
 .top-bar {
