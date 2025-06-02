@@ -2,7 +2,7 @@
 const plantService = {
     async getAllPlants() {
         try {
-            const response = await fetch('https://plantsm.art/static/api/plants.json');
+            const response = await fetch('https://nyaoha.onrender.com/api/plants.json');
             if (!response.ok) {
                 throw new Error('Failed to fetch plants');
             }
@@ -19,7 +19,7 @@ const plantService = {
                 query: query,
                 ...filters
             });
-            const response = await fetch(`https://plantsm.art/static/api/plants.json?${params}`);
+            const response = await fetch(`https://nyaoha.onrender.com/api/plants.json?${params}`);
             if (!response.ok) {
                 throw new Error('Failed to search plants');
             }
@@ -32,7 +32,7 @@ const plantService = {
 
     async getPlantById(id) {
         try {
-            const response = await fetch(`https://plantsm.art/static/api/plants/${id}.json`);
+            const response = await fetch(`https://nyaoha.onrender.com/api/plants/${id}.json`);
             if (!response.ok) {
                 throw new Error('Failed to fetch plant details');
             }
