@@ -55,7 +55,6 @@ const plantService = {
 };
 
 const grid = document.getElementById("plantGrid");
-const searchInput = document.getElementById("searchInput");
 const sortDropdown = document.getElementById("sortDropdown");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 const API_URL = window.location.hostname === 'localhost' 
@@ -71,11 +70,24 @@ let currentIndex = 0;
 const PLANTS_PER_PAGE = 12;
 
 document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("searchInput");
   const animalFilters = document.getElementById("animalFilters");
   const severityFilters = document.getElementById("severityFilters");
 
+  if (!searchInput) {
+    console.error("searchInput element not found");
+    return;
+  }
+
+  if (!grid) {
+    console.error("plantGrid element not found");
+    return;
+  }
+
+  searchInput.addEventListener("input", applyFilters);
+
+  // Create animal filter checkboxes (allowing multiple selections)
   if (animalFilters) {
-    // Create animal filter checkboxes (allowing multiple selections)
     animalTypes.forEach(type => {
       const label = document.createElement("label");
       label.innerHTML = `<input type="checkbox" value="${type}" class="animal-checkbox"> ${type}`;
@@ -85,8 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("animalFilters element not found");
   }
 
+  // Create severity filter checkboxes (allowing multiple selections)
   if (severityFilters) {
-    // Create severity filter checkboxes (allowing multiple selections)
     severityLevels.forEach(level => {
       const label = document.createElement("label");
       label.innerHTML = `<input type="checkbox" value="${level}" class="severity-checkbox"> ${level}`;
@@ -101,19 +113,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchTerm) {
     searchInput.value = searchTerm;
   }
+  
+  async function fetchPlants() {
+    try {
+      const res = await fetch(API_URL);
+      plantData = await res.json();
+      applyFilters();
+    } catch (err) {
+      grid.innerHTML = `<p>Error loading data. Check your server: ${API_URL}</p>`;
+      console.error(err);
+    }
+  }
+
   fetchPlants();
 });
-
-async function fetchPlants() {
-  try {
-    const res = await fetch(API_URL);
-    plantData = await res.json();
-    applyFilters();
-  } catch (err) {
-    grid.innerHTML = `<p>Error loading data. Check your server: ${API_URL}</p>`;
-    console.error(err);
-  }
-}
 
 function renderPlants(plants, append = false) {
   if (!append) grid.innerHTML = "";
@@ -190,7 +203,6 @@ function renderNextPage() {
   }
 }
 
-searchInput.addEventListener("input", applyFilters);
 sortDropdown.addEventListener("change", applyFilters);
 document.addEventListener("change", applyFilters);
 loadMoreBtn.addEventListener("click", renderNextPage);
