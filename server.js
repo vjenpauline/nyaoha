@@ -44,6 +44,11 @@ app.use('/pictures', express.static(path.join(__dirname, 'initial code/pictures'
 app.use('/stylescripts', express.static(path.join(__dirname, 'stylescripts')));
 app.use('/javascripts', express.static(path.join(__dirname, 'javascripts')));
 
+// Plant Database API Routes
+app.get('/api/plants.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'api', 'plants.json'));
+});
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));

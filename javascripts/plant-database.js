@@ -60,7 +60,9 @@ const sortDropdown = document.getElementById("sortDropdown");
 const animalFilters = document.getElementById("animalFilters");
 const severityFilters = document.getElementById("severityFilters");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
-const API_URL = "http://localhost:5173/api/plants.json";
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000/api/plants.json'
+    : 'https://nyaoha.onrender.com/api/plants.json';
 
 const animalTypes = ["dogs", "cats", "horses", "reptiles", "birds", "fish", "small-mammals"];
 const severityLevels = ["mild", "moderate", "severe", "critical"];
