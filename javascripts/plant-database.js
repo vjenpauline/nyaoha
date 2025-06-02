@@ -57,8 +57,6 @@ const plantService = {
 const grid = document.getElementById("plantGrid");
 const searchInput = document.getElementById("searchInput");
 const sortDropdown = document.getElementById("sortDropdown");
-const animalFilters = document.getElementById("animalFilters");
-const severityFilters = document.getElementById("severityFilters");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 const API_URL = window.location.hostname === 'localhost' 
     ? 'http://localhost:5000/api/plants.json'
@@ -72,18 +70,38 @@ let filteredData = [];
 let currentIndex = 0;
 const PLANTS_PER_PAGE = 12;
 
-// Create animal filter checkboxes (allowing multiple selections)
-animalTypes.forEach(type => {
-  const label = document.createElement("label");
-  label.innerHTML = `<input type="checkbox" value="${type}" class="animal-checkbox"> ${type}`;
-  animalFilters.appendChild(label);
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const animalFilters = document.getElementById("animalFilters");
+  const severityFilters = document.getElementById("severityFilters");
 
-// Create severity filter checkboxes (allowing multiple selections)
-severityLevels.forEach(level => {
-  const label = document.createElement("label");
-  label.innerHTML = `<input type="checkbox" value="${level}" class="severity-checkbox"> ${level}`;
-  severityFilters.appendChild(label);
+  if (animalFilters) {
+    // Create animal filter checkboxes (allowing multiple selections)
+    animalTypes.forEach(type => {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="checkbox" value="${type}" class="animal-checkbox"> ${type}`;
+      animalFilters.appendChild(label);
+    });
+  } else {
+    console.error("animalFilters element not found");
+  }
+
+  if (severityFilters) {
+    // Create severity filter checkboxes (allowing multiple selections)
+    severityLevels.forEach(level => {
+      const label = document.createElement("label");
+      label.innerHTML = `<input type="checkbox" value="${level}" class="severity-checkbox"> ${level}`;
+      severityFilters.appendChild(label);
+    });
+  } else {
+    console.error("severityFilters element not found");
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const searchTerm = params.get("search");
+  if (searchTerm) {
+    searchInput.value = searchTerm;
+  }
+  fetchPlants();
 });
 
 async function fetchPlants() {
@@ -175,13 +193,4 @@ function renderNextPage() {
 searchInput.addEventListener("input", applyFilters);
 sortDropdown.addEventListener("change", applyFilters);
 document.addEventListener("change", applyFilters);
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const searchTerm = params.get("search");
-  if (searchTerm) {
-    searchInput.value = searchTerm;
-  }
-  fetchPlants();
-});
-
 loadMoreBtn.addEventListener("click", renderNextPage);
