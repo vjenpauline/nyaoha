@@ -145,11 +145,16 @@ function showMessage(message, type) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${type}`;
   messageDiv.textContent = message;
-  document.querySelector('.signup-form')?.insertBefore(
-    messageDiv,
-    document.querySelector('button[type="submit"]')
-  );
-  setTimeout(() => messageDiv.remove(), 3000);
+
+  const signupForm = document.querySelector('.signup-form');
+  const submitButton = signupForm?.querySelector('button[type="submit"]');
+
+  if (signupForm && submitButton) {
+    signupForm.insertBefore(messageDiv, submitButton);
+    setTimeout(() => messageDiv.remove(), 3000);
+  } else {
+    console.error('Failed to find the signup form or submit button for displaying the message.');
+  }
 }
 
 document.querySelector('.login-form')?.addEventListener('submit', async (e) => {
