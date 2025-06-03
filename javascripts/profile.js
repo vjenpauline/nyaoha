@@ -1,7 +1,10 @@
+// --- API URL UNIFICATION ---
+// Use port 10000 for localhost for consistency with your backend
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:10000'
+  : 'https://nyaoha.onrender.com';
+
 (async function () {
-  const API_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:10000'
-    : 'https://nyaoha.onrender.com';
   const token = localStorage.getItem('token');
   if (!token) return window.location.href = 'log-in.html';
 
@@ -52,7 +55,7 @@
       };
 
       try {
-        const response = await fetch('/api/user/update', {
+        const response = await fetch(`${API_URL}/api/user/update`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -99,9 +102,6 @@
 
 // Favorite Plants logic
 async function renderFavoritePlants() {
-  const API_URL = window.location.hostname === 'localhost'
-    ? 'http://localhost:10000'
-    : 'https://nyaoha.onrender.com';
   const token = localStorage.getItem('token');
   const noFavoritesDiv = document.getElementById('no-favorites');
   const favoritesListDiv = document.getElementById('favorites-list');
@@ -209,7 +209,7 @@ if (changePasswordBtn && changePasswordModal && changePasswordForm && closePassw
     }
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('/api/user/change-password', {
+      const res = await fetch(`${API_URL}/api/user/change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ if (deleteAccountBtn) {
     if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('/api/user/delete-account', {
+      const res = await fetch(`${API_URL}/api/user/delete-account`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -273,7 +273,7 @@ if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verificatio
   sendVerificationBtn.addEventListener('click', async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('/api/user/send-verification-email', {
+      const res = await fetch(`${API_URL}/api/user/send-verification-email`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -326,7 +326,7 @@ function showVerificationModal() {
     }
     const token = localStorage.getItem('token');
     try {
-      const verifyRes = await fetch('/api/user/verify-email', {
+      const verifyRes = await fetch(`${API_URL}/api/user/verify-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
