@@ -62,3 +62,62 @@
     window.location.href = 'log-in.html';
   }
 })();
+
+// Favorite Plants logic
+async function renderFavoritePlants() {
+  const token = localStorage.getItem('token');
+  const noFavoritesDiv = document.getElementById('no-favorites');
+  const favoritesListDiv = document.getElementById('favorites-list');
+  if (!token) {
+    noFavoritesDiv.style.display = 'flex';
+    favoritesListDiv.style.display = 'none';
+    return;
+  }
+  try {
+    const res = await fetch('/api/user/favorites', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Failed to load favorites');
+    const favorites = await res.json();
+    if (!favorites.length) {
+      noFavoritesDiv.style.display = 'flex';
+      favoritesListDiv.style.display = 'none';
+      return;
+    }
+    // Render cards
+    favoritesListDiv.innerHTML = favorites.map(plant => `
+      <div class="favorite-plant-card" style="display:flex;align-items:center;gap:1.5rem;padding:1rem 0;border-bottom:1px solid #eee;">
+        <div style="flex:2;font-weight:bold;">${plant.name}</div>
+        <div style="flex:3;">Pets affected: <span style="color:#a50000;">${plant.petsAffected?.join(', ') || 'None'}</span></div>
+        <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(plant.name)}" target="_blank" style="flex:1;">
+          <button class="explore-btn" style="padding:0.4rem 1rem;">View Details</button>
+        </a>
+      </div>
+    `).join('');
+    noFavoritesDiv.style.display = 'none';
+    favoritesListDiv.style.display = 'flex';
+  } catch (e) {
+    noFavoritesDiv.style.display = 'flex';
+    favoritesListDiv.style.display = 'none';
+  }
+}
+
+// Sub-tab switching (if you want to expand for Favorite Plans later)
+document.querySelectorAll('.sub-tab').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (btn.dataset.subtab === 'favorite-plants') {
+      document.getElementById('no-favorites').style.display = '';
+      document.getElementById('favorites-list').style.display = '';
+      renderFavoritePlants();
+    } else {
+      document.getElementById('no-favorites').style.display = 'none';
+      document.getElementById('favorites-list').style.display = 'none';
+      // Add logic for Favorite Plans if needed
+    }
+  });
+});
+
+// Initial render
+if (document.getElementById('favorites-list')) renderFavoritePlants();

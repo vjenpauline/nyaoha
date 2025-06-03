@@ -78,13 +78,16 @@
     <div class="tab-content" id="favorites">
         <div class="card favorites-card">
   <div class="sub-tabs">
-    <button class="sub-tab active">Favorite Plants</button>
-    <button class="sub-tab">Favorite Plans</button>
+    <button class="sub-tab active" data-subtab="favorite-plants">Favorite Plants</button>
+    <button class="sub-tab" data-subtab="favorite-plans">Favorite Plans</button>
   </div>
-  <div class="favorites-content">
-    <img src="your-image-path.png" alt="Cute Plant Mascot">
-    <p>Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-    <button class="explore-btn">Explore Plants</button>
+  <div class="favorites-content no-favorites" id="no-favorites">
+    <img src="pictures/logo_colored_black.svg" alt="Cute Plant Mascot">
+    <p>You have no favorite plants yet.</p>
+    <a href="2-plant-database.html"><button class="explore-btn">Explore Plants</button></a>
+  </div>
+  <div class="favorites-content favorites-list" id="favorites-list" style="display:none; flex-direction:column; gap:1rem;">
+    <!-- Favorite plant cards will be injected here by JS -->
   </div>
 </div>
 

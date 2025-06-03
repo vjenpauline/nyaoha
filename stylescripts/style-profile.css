@@ -418,4 +418,41 @@ body {
 }
 .card.journal-card .journal-content .write-post-btn:hover {
   background: #eee;
+}
+
+.favorite-plant-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  background: #f9f9f9;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+.favorite-plant-card:last-child {
+  border-bottom: none;
+}
+.favorite-plant-card > div {
+  flex: 2;
+}
+.favorite-plant-card > div:nth-child(2) {
+  flex: 3;
+}
+.favorite-plant-card a {
+  flex: 1;
+  text-align: right;
+}
+.favorite-plant-card .explore-btn {
+  background: #4f8a10;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.favorite-plant-card .explore-btn:hover {
+  background: #3b6d0d;
 }/*# sourceMappingURL=style-profile.css.map */
