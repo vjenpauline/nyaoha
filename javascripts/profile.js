@@ -74,7 +74,7 @@ async function renderFavoritePlants() {
     return;
   }
   try {
-    const res = await fetch('/api/user/favorites', {
+    const res = await fetch('/api/favorites', {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to load favorites');
@@ -121,3 +121,79 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
 
 // Initial render
 if (document.getElementById('favorites-list')) renderFavoritePlants();
+
+// Password change
+const changePasswordBtn = document.getElementById('change-password-btn');
+const changePasswordForm = document.getElementById('change-password-form');
+if (changePasswordBtn && changePasswordForm) {
+  changePasswordBtn.addEventListener('click', () => {
+    changePasswordForm.style.display = changePasswordForm.style.display === 'none' ? 'flex' : 'none';
+  });
+  changePasswordForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    if (newPassword !== confirmPassword) {
+      alert('New passwords do not match.');
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/user/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ currentPassword, newPassword })
+      });
+      const result = await res.json();
+      if (res.ok) {
+        alert('Password changed successfully!');
+        changePasswordForm.reset();
+        changePasswordForm.style.display = 'none';
+      } else {
+        alert(result.message || 'Failed to change password.');
+      }
+    } catch (err) {
+      alert('An error occurred while changing password.');
+    }
+  });
+}
+
+// Logout
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.href = '1-index.html';
+  });
+}
+
+// Delete Account
+const deleteAccountBtn = document.querySelector('.btn.delete');
+if (deleteAccountBtn) {
+  deleteAccountBtn.addEventListener('click', async () => {
+    if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) return;
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/user/delete-account', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const result = await res.json();
+      if (res.ok) {
+        alert('Account deleted successfully.');
+        localStorage.removeItem('token');
+        window.location.href = '1-index.html';
+      } else {
+        alert(result.message || 'Failed to delete account.');
+      }
+    } catch (err) {
+      alert('An error occurred while deleting account.');
+    }
+  });
+}

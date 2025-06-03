@@ -160,7 +160,6 @@ async function fetchFavorites() {
 async function toggleFavorite(id, iconEl) {
   const token = localStorage.getItem("token");
   if (!token) {
-    // Graceful alert or toast (no redirect, no content hiding)
     alert("Please log in to add favorites.");
     return;
   }
@@ -179,7 +178,7 @@ async function toggleFavorite(id, iconEl) {
 
     const data = await res.json();
     userFavorites = data.favorites;
-    iconEl.classList.toggle("favorited");
+    applyFilters(); // Re-render grid so all favorite icons are correct
   } catch (err) {
     console.error("Failed to update favorite", err);
   }

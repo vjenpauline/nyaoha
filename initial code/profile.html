@@ -106,7 +106,7 @@
     <div class="tab-content" id="settings">
   <div class="card">
     <div class="settings-section">
-      <div class="icon">logo</div>
+      <div class="icon"><img src="pictures/icons/icon-email.png" alt="Email Icon" style="height:32px;width:32px;"></div>
       <div class="info">
         <h3>Email Verification</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
@@ -115,23 +115,29 @@
     </div>
 
     <div class="settings-section">
-      <div class="icon">logo</div>
+      <div class="icon"><img src="pictures/icons/icon-password.png" alt="Password Icon" style="height:32px;width:32px;"></div>
       <div class="info">
         <h3>Password and Security</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
       </div>
-      <button class="btn">Change Password</button>
+      <button class="btn" id="change-password-btn">Change Password</button>
+      <form id="change-password-form" style="display:none;flex-direction:column;gap:0.5rem;margin-top:1rem;">
+        <input type="password" id="current-password" placeholder="Current Password" required />
+        <input type="password" id="new-password" placeholder="New Password" required />
+        <input type="password" id="confirm-password" placeholder="Confirm New Password" required />
+        <button type="submit" class="btn">Save New Password</button>
+      </form>
     </div>
 
     <div class="settings-section">
-      <div class="icon">logo</div>
+      <div class="icon"><img src="pictures/icons/icon-alert.png" alt="Alert Icon" style="height:32px;width:32px;"></div>
       <div class="info">
         <h3>Delete Account</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
       </div>
       <div class="actions">
         <button class="btn delete">Delete Account</button>
-        <button class="btn">Log Out</button>
+        <button class="btn" id="logout-btn">Log Out</button>
       </div>
     </div>
   </div>
