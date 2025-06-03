@@ -1,29 +1,54 @@
-// routes/favorites.js
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-const Plant = require('../models/plant');
-const auth = require('../middleware/auth'); // JWT auth middleware
+const auth = require('../middleware/auth');
+const fs = require('fs').promises;
+const path = require('path');
 
-// Get user's favorites
+async function loadPlants() {
+  const data = await fs.readFile(path.join(__dirname, '..', 'public', 'api', 'plants.json'), 'utf-8');
+  return JSON.parse(data);
+}
+
+// Get user's favorite plants full info
 router.get('/', auth, async (req, res) => {
-  const user = await User.findById(req.user.id).populate('favorites');
-  res.json(user.favorites);
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const plants = await loadPlants();
+
+    // Filter plants by matching pid with user's favorites
+    const favoritePlants = plants.filter(plant => user.favorites.includes(plant.pid));
+
+    res.json(favoritePlants);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
-// Toggle favorite
-router.post('/:plantId', auth, async (req, res) => {
-  const user = await User.findById(req.user.id);
-  const plantId = req.params.plantId;
+// Toggle favorite plant by pid
+router.post('/:pid', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-  const index = user.favorites.indexOf(plantId);
-  if (index === -1) {
-    user.favorites.push(plantId);
-  } else {
-    user.favorites.splice(index, 1);
+    const pid = req.params.pid;
+
+    const index = user.favorites.indexOf(pid);
+    if (index === -1) {
+      user.favorites.push(pid);
+    } else {
+      user.favorites.splice(index, 1);
+    }
+    await user.save();
+
+    res.json({ success: true, favorites: user.favorites });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
-  await user.save();
-  res.json({ success: true, favorites: user.favorites });
 });
 
 module.exports = router;
