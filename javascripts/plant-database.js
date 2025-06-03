@@ -81,6 +81,7 @@ async function fetchFavorites() {
     userFavorites = await res.json();
   } catch (err) {
     console.error("Failed to load favorites", err);
+    userFavorites = [];
   }
 }
 
@@ -138,9 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  fetchFavorites();
-  fetchPlants();
-
+  fetchFavorites().then(fetchPlants);
   searchInput.addEventListener("input", applyFilters);
 });
 
@@ -165,6 +164,7 @@ function renderPlants(plants, append = false) {
   if (!append) grid.innerHTML = "";
 
   plants.forEach(plant => {
+    const id = plant.id; // Make sure ID is present
     const common = plant.common?.[0]?.name || "Unnamed Plant";
     const imgUrl = plant.images?.[0]?.source_url;
     const scientific = plant.name || "";
@@ -173,6 +173,9 @@ function renderPlants(plants, append = false) {
     const symptoms = plant.symptoms?.map(s => s.name).join(", ") || "None listed";
     const link = plant.wikipedia_url || "#";
     const animals = plant.animals?.map(a => `<span class='tag'>${a}</span>`).join(" ") || "";
+
+    // Fix: define isFavorited for each plant
+    const isFavorited = userFavorites && userFavorites.includes && id ? userFavorites.includes(id) : false;
 
     const card = document.createElement("div");
     card.className = "plant-card";
@@ -201,25 +204,9 @@ function renderPlants(plants, append = false) {
   });
 }
 
-async function toggleFavorite(id, iconEl) {
-  try {
-    const res = await fetch(`/api/favorites/${id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
-    });
-
-    const data = await res.json();
-    userFavorites = data.favorites;
-    iconEl.classList.toggle("favorited");
-  } catch (err) {
-    console.error("Failed to update favorite", err);
-  }
-}
-
 function applyFilters() {
-  const term = searchInput.value.toLowerCase();
+  const searchInput = document.getElementById("searchInput");
+  const term = searchInput ? searchInput.value.toLowerCase() : '';
   const sort = sortDropdown.value;
   const selectedAnimals = Array.from(document.querySelectorAll(".animal-checkbox:checked")).map(c => c.value);
   const selectedSeverities = Array.from(document.querySelectorAll(".severity-checkbox:checked")).map(c => c.value);
