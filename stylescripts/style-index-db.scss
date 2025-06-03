@@ -187,11 +187,27 @@
       background: $red;
       color: white;
       padding: 0.25rem 0.5rem;
-      border-radius: 6px;
+      border-radius: 2rem;
       top: 0.5rem;
       left: 0.5rem;
       font-size: 0.75rem;
       font-weight: 600;
+
+      .severity-badge.mild {
+        background-color: $yellow;
+      }
+
+      .severity-badge.moderate {
+        background-color: $teal;
+      }
+
+      .severity-badge.severe {
+        background-color: $brown;
+      }
+
+      .severity-badge.critical {
+        background-color: $red;
+      }
     }
 
     .favorite-icon {
