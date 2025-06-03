@@ -116,10 +116,12 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
     if (btn.dataset.subtab === 'favorite-plants') {
       document.getElementById('no-favorites').style.display = '';
       document.getElementById('favorites-list').style.display = '';
+      document.getElementById('no-favorite-plans').style.display = 'none';
       renderFavoritePlants();
     } else {
       document.getElementById('no-favorites').style.display = 'none';
       document.getElementById('favorites-list').style.display = 'none';
+      document.getElementById('no-favorite-plans').style.display = 'flex';
       // Add logic for Favorite Plans if needed
     }
   });
