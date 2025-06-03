@@ -70,6 +70,11 @@ body {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 1rem;
+  z-index: 10;
 
   .nav-button {
     @include green-button(1rem 6rem);
@@ -78,24 +83,37 @@ body {
     cursor: pointer;
   }
 
+
   .dropdown {
     display: none;
-    position: absolute;
-    background-color: $black;
-    border-radius: 0 0 10px 10px;
-    min-width: 200px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 100%;
-    z-index: 1;
-    padding: 1rem 0;
-
+    gap: 0.7rem;
+    width: auto;
+    white-space: nowrap;
+    justify-content: center;
+    margin-top: 0.3rem;
+    background: $black;
+    padding: 0.5rem 3rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    
     a {
-      display: block;
-      padding: 0.7rem 1.5rem;
+      text-decoration: none;
+      color: $cream;
+      margin-right: 0.5rem;
+    }
+
+    a:hover {
+      background-color: $cream;
+      color: $black;
+      padding: 0 0.7rem;
+      border-radius: 1rem;
+    }
+
+    .nav-button {
+      @include green-button(0.5rem 1.2rem);
+      background: none;
       color: $cream;
       text-decoration: none;
-      &:hover { background-color: darken($black, 10%); }
     }
   }
 
