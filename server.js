@@ -48,6 +48,7 @@ app.use('/api/plants', require('./routes/plants'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/favorites', require('./routes/favorites'));
 app.use('/api/contact', require('./routes/contact'));
+app.use('/api/journal', require('./routes/journal'));
 
 // Import plants data from plantsm.art
 async function importPlantsData() {

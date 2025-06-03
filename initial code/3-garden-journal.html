@@ -53,29 +53,39 @@
       <button class="write-post">✏️ Write a Post</button>
     </div>
 
+    <!-- Write Post Modal -->
+    <div id="writePostModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModalBtn">&times;</span>
+        <h2>Write a Post</h2>
+        <form id="postForm">
+          <label>Title</label>
+          <input type="text" id="postTitle" required maxlength="100" />
+          <label>Summary</label>
+          <textarea id="postSummary" required maxlength="300"></textarea>
+          <label>Tags (comma separated)</label>
+          <input type="text" id="postTags" placeholder="e.g. Nature, Flowers" />
+          <button type="submit">Post</button>
+        </form>
+      </div>
+    </div>
+
     <section class="post-list">
       <div class="card">
         <div class="card-header">
           <div class="avatar"></div>
           <div class="user-info">
             <p class="author">Donald Trump</p>
-            <p class="date">2 days ago</p>
+            <p class="date">June 3, 2025</p>
           </div>
         </div>
 
         <h3 class="post-title">Lorem ipsum dolor sit amet consectetur adipiscing.</h3>
         <p class="post-summary">Lorem ipsum dolor sit amet consectetur adipiscing.</p>
 
-        <div class="image-placeholder"></div>
-
         <span class="tag">#Nature</span>
 
         <div class="card-footer">
-          <div class="actions">
-            <span>💬 24</span>
-            <span>❤️ 8</span>
-            <span>🔗 Share</span>
-          </div>
           <button class="read-more">Read More</button>
         </div>
       </div>
@@ -122,5 +132,7 @@
 
     <script defer src="/javascripts/auth.js"></script>
     <script defer src="/javascripts/auth-btn.js"></script>
+        <script defer src="/javascripts/modal.js"></script>
+
 </body>
 </html>
