@@ -162,7 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
 async function toggleFavorite(id, iconEl) {
   const token = localStorage.getItem("token");
   if (!token) {
-    alert("Please log in to save favorites.");
+    // Graceful alert or toast (no redirect, no content hiding)
+    alert("Please log in to add favorites.");
     return;
   }
 
@@ -185,6 +186,7 @@ async function toggleFavorite(id, iconEl) {
     console.error("Failed to update favorite", err);
   }
 }
+
 
 
 function renderPlants(plants, append = false) {
