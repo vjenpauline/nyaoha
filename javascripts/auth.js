@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const isAuthPage = window.location.pathname.endsWith('log-in.html') || window.location.pathname.endsWith('sign-up.html');
 
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     // Redirect logged-in users away from login page
     if (token && window.location.pathname.endsWith('log-in.html')) {
@@ -26,7 +26,7 @@ const authService = {
         return sessionStorage.getItem('token');
     },
     removeToken() {
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
     },
     isLoggedIn() {
         return !!this.getToken();
