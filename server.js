@@ -8,10 +8,6 @@ const nodemailer = require('nodemailer');
 const fs = require('fs').promises;
 const Plant = require('./models/plant');
 const Contact = require('./models/contact'); // Assuming the Contact model is defined separately in models/contact.js
-const API_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:5000/api/plants'
-    : 'https://nyaoha.onrender.com/api/plants';
-
 // Initialize Express
 const app = express();
 
