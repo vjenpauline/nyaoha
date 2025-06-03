@@ -3,6 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+const fs = require('fs').promises;
+const Plant = require('./models/plant');
+const Contact = require('./models/contact'); // Assuming the Contact model is defined separately in models/contact.js
 
 // Initialize Express
 const app = express();
@@ -22,6 +27,7 @@ app.use(cors({
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(bodyParser.json()); // Added body-parser middleware for compatibility
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'initial code')));
@@ -31,9 +37,11 @@ app.use('/stylescripts', express.static(path.join(__dirname, 'stylescripts')));
 app.use('/javascripts', express.static(path.join(__dirname, 'javascripts')));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB connected'))
-    .catch((err) => console.error('❌ MongoDB connection error:', err));
+mongoose.connect(process.env.MONGODB_URI || process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => console.log('✅ MongoDB connected'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
 // Routes
 app.use('/', require('./routes/static'));
@@ -41,19 +49,42 @@ app.use('/api/plants', require('./routes/plants'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/favorites', require('./routes/favorites'));
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ 
-        message: 'Internal server error',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
-    });
+// Configure Nodemailer transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // Use 'gmail' or another email provider
+    auth: {
+        user: process.env.EMAIL, // Your email from environment variables
+        pass: process.env.EMAIL_PASSWORD, // Your email password or app password
+    },
+});
+
+// Contact Form Endpoint
+app.post('/api/contact', async (req, res) => {
+    const { name, email, phone, message } = req.body;
+
+    try {
+        // Save the form data to MongoDB
+        const contact = new Contact({ name, email, phone, message });
+        await contact.save();
+
+        // Send email notification
+        const mailOptions = {
+            from: `"Nyaoha Contact Form" <${process.env.EMAIL}>`, // Sender email address
+            to: process.env.RECIPIENT_EMAIL, // Recipient email address
+            subject: `New Contact Form Submission from ${name}`,
+            text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).send({ message: 'Message sent successfully!' });
+    } catch (error) {
+        console.error('Error processing contact form:', error);
+        res.status(500).send({ message: 'Failed to send message' });
+    }
 });
 
 // Import plants data from plantsm.art
-const fs = require('fs').promises;
-const Plant = require('./models/plant');
-
 async function importPlantsData() {
     try {
         const plantsData = await fs.readFile(path.join(__dirname, 'plantsm.art/static/api/plants.json'), 'utf8');
@@ -71,6 +102,15 @@ async function importPlantsData() {
         console.error('❌ Error importing plants data:', error);
     }
 }
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ 
+        message: 'Internal server error',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
 
 // Start the server
 const PORT = process.env.PORT || 10000;
