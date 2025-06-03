@@ -178,11 +178,11 @@ router.post('/delete-account', auth, async (req, res) => {
 });
 
 // Profile photo upload endpoint
-router.post('/api/user/photo', auth, upload.single('photo'), async (req, res) => {
+router.post('/photo', auth, upload.single('photo'), async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
   try {
     const user = await User.findByIdAndUpdate(
-      req.user.id,
+      req.userId, // use req.userId instead of req.user.id
       {
         photo: {
           data: req.file.buffer,
