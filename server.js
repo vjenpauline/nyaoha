@@ -8,6 +8,9 @@ const nodemailer = require('nodemailer');
 const fs = require('fs').promises;
 const Plant = require('./models/plant');
 const Contact = require('./models/contact'); // Assuming the Contact model is defined separately in models/contact.js
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000/api/plants'
+    : 'https://nyaoha.onrender.com/api/plants';
 
 // Initialize Express
 const app = express();
@@ -48,41 +51,7 @@ app.use('/', require('./routes/static'));
 app.use('/api/plants', require('./routes/plants'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/favorites', require('./routes/favorites'));
-
-// Configure Nodemailer transporter
-const transporter = nodemailer.createTransport({
-    service: 'gmail', // Use 'gmail' or another email provider
-    auth: {
-        user: process.env.EMAIL, // Your email from environment variables
-        pass: process.env.EMAIL_PASSWORD, // Your email password or app password
-    },
-});
-
-// Contact Form Endpoint
-app.post('/api/contact', async (req, res) => {
-    const { name, email, phone, message } = req.body;
-
-    try {
-        // Save the form data to MongoDB
-        const contact = new Contact({ name, email, phone, message });
-        await contact.save();
-
-        // Send email notification
-        const mailOptions = {
-            from: `"Nyaoha Contact Form" <${process.env.EMAIL}>`, // Sender email address
-            to: process.env.RECIPIENT_EMAIL, // Recipient email address
-            subject: `New Contact Form Submission from ${name}`,
-            text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
-        };
-
-        await transporter.sendMail(mailOptions);
-
-        res.status(200).send({ message: 'Message sent successfully!' });
-    } catch (error) {
-        console.error('Error processing contact form:', error);
-        res.status(500).send({ message: 'Failed to send message' });
-    }
-});
+app.use('/api/contact', require('./routes/contact'));
 
 // Import plants data from plantsm.art
 async function importPlantsData() {

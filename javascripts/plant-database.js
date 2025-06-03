@@ -2,7 +2,7 @@
 const plantService = {
     async getAllPlants() {
         try {
-            const response = await fetch('https://nyaoha.onrender.com/api/plants.json');
+            const response = await fetch('https://nyaoha.onrender.com/api/plants');
             if (!response.ok) {
                 throw new Error('Failed to fetch plants');
             }
@@ -58,8 +58,8 @@ const grid = document.getElementById("plantGrid");
 const sortDropdown = document.getElementById("sortDropdown");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 const API_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:5000/api/plants.json'
-    : 'https://nyaoha.onrender.com/api/plants.json';
+    ? 'http://localhost:5000/api/plants'
+    : 'https://nyaoha.onrender.com/api/plants';
 
 const animalTypes = ["dogs", "cats", "horses", "reptiles", "birds", "fish", "small-mammals"];
 const severityLevels = ["mild", "moderate", "severe", "critical"];
