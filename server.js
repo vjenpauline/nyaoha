@@ -29,6 +29,7 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(bodyParser.json()); // Added body-parser middleware for compatibility
+app.use(express.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'initial code')));
@@ -80,3 +81,5 @@ app.use((err, req, res, next) => {
 // Start the server
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+module.exports = app;
