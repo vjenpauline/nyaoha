@@ -195,20 +195,5 @@
     <script src="/javascripts/auth.js"></script>
 <script src="/javascripts/profile.js"></script>
 <script src="/javascripts/profile-tabs.js"></script>
-<script>
-// Ensure tab-content visibility is toggled by active class
-// This is a fallback for CSS issues
-const observer = new MutationObserver(() => {
-  document.querySelectorAll('.tab-content').forEach(el => {
-    if (el.classList.contains('active')) {
-      el.style.display = '';
-    } else {
-      el.style.display = 'none';
-    }
-  });
-});
-observer.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
-</script>
-
 </body>
 </html>
