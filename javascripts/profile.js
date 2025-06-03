@@ -85,15 +85,21 @@ async function renderFavoritePlants() {
       return;
     }
     // Render cards
-    favoritesListDiv.innerHTML = favorites.map(plant => `
+    favoritesListDiv.innerHTML = favorites.map(plant => {
+      // Use animals or fallback to None
+      const pets = plant.animals && plant.animals.length
+        ? plant.animals.join(', ')
+        : 'None';
+      return `
       <div class="favorite-plant-card" style="display:flex;align-items:center;gap:1.5rem;padding:1rem 0;border-bottom:1px solid #eee;">
         <div style="flex:2;font-weight:bold;">${plant.name}</div>
-        <div style="flex:3;">Pets affected: <span style="color:#a50000;">${plant.petsAffected?.join(', ') || 'None'}</span></div>
+        <div style="flex:3;">Pets affected: <span style="color:#a50000;">${pets}</span></div>
         <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(plant.name)}" target="_blank" style="flex:1;">
           <button class="explore-btn" style="padding:0.4rem 1rem;">View Details</button>
         </a>
       </div>
-    `).join('');
+      `;
+    }).join('');
     noFavoritesDiv.style.display = 'none';
     favoritesListDiv.style.display = 'flex';
   } catch (e) {

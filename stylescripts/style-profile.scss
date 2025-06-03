@@ -347,3 +347,9 @@
     }
   }
 }
+
+#favorites-list {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+}
