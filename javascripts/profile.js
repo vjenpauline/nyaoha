@@ -142,6 +142,83 @@ async function renderFavoritePlants() {
   }
 }
 
+// --- Journal Posts logic ---
+async function renderJournalPosts() {
+  const token = localStorage.getItem('token');
+  const journalContentDiv = document.querySelector('.journal-content');
+  if (!journalContentDiv) return;
+
+  // Show loading state
+  journalContentDiv.innerHTML = '<p>Loading your posts...</p>';
+
+  try {
+    // Fetch all posts, then filter by current user
+    const res = await fetch(`${API_URL}/api/journal`);
+    if (!res.ok) throw new Error('Failed to load journal posts');
+    const posts = await res.json();
+    // Get user email from localStorage (already set above)
+    const userEmail = document.querySelector('.email')?.value || localStorage.getItem('userEmail');
+    const userPosts = posts.filter(post => post.author === userEmail);
+
+    if (!userPosts.length) {
+      // Show mascot and button
+      journalContentDiv.innerHTML = `
+        <img src="pictures/logo_icon_dark.png" alt="Journal mascot" />
+        <p>You have no written posts yet.</p>
+        <button class="write-post-btn">Write Your First Post</button>
+      `;
+      journalContentDiv.querySelector('.write-post-btn').onclick = () => {
+        window.location.href = '3-garden-journal.html';
+      };
+      return;
+    }
+
+    // Render cards for each post
+    journalContentDiv.innerHTML = userPosts.map(post => `
+      <div class="journal-post-card" style="display:flex;flex-direction:column;gap:0.5rem;padding:1rem 0.5rem;border-bottom:1px solid #eee;position:relative;">
+        <div style="font-weight:bold;font-size:1.1em;">${post.title}</div>
+        <div style="color:#555;">${post.summary}</div>
+        <div style="font-size:0.95em;color:#888;">${post.date}</div>
+        <div style="font-size:0.9em;color:#4c7410;">${(post.tags||[]).map(t => `#${t}`).join(' ')}</div>
+        <button class="delete-journal-btn" data-id="${post._id}" style="position:absolute;top:1rem;right:1rem;background:#a50000;color:#fff;border:none;padding:0.3rem 0.8rem;border-radius:6px;cursor:pointer;font-size:0.95em;">Delete</button>
+      </div>
+    `).join('');
+    // Add delete event listeners
+    journalContentDiv.querySelectorAll('.delete-journal-btn').forEach(btn => {
+      btn.onclick = async function() {
+        if (!confirm('Delete this post?')) return;
+        const postId = btn.getAttribute('data-id');
+        try {
+          const res = await fetch(`${API_URL}/api/journal/${postId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (res.ok) {
+            btn.closest('.journal-post-card').remove();
+            // If no more posts, show mascot and button
+            if (!journalContentDiv.querySelector('.journal-post-card')) {
+              journalContentDiv.innerHTML = `
+                <img src="pictures/logo_icon_dark.png" alt="Journal mascot" />
+                <p>You have no written posts yet.</p>
+                <button class="write-post-btn">Write Your First Post</button>
+              `;
+              journalContentDiv.querySelector('.write-post-btn').onclick = () => {
+                window.location.href = '3-garden-journal.html';
+              };
+            }
+          } else {
+            alert('Failed to delete post.');
+          }
+        } catch (e) {
+          alert('An error occurred while deleting post.');
+        }
+      };
+    });
+  } catch (e) {
+    journalContentDiv.innerHTML = '<p style="color:#a50000;">Failed to load your journal posts.</p>';
+  }
+}
+
 // Sub-tab switching (if you want to expand for Favorite Plans later)
 document.querySelectorAll('.sub-tab').forEach(btn => {
   btn.addEventListener('click', function() {
@@ -357,4 +434,16 @@ function showVerificationModal() {
   document.getElementById('verify-cancel-btn').onclick = function() {
     modal.remove();
   };
+}
+
+// Journal tab initial render
+const journalTab = document.querySelector('.tab[data-tab="journal"]');
+if (journalTab) {
+  journalTab.addEventListener('click', () => {
+    renderJournalPosts();
+  });
+  // Initial render if already on journal tab
+  if (document.getElementById('journal')?.classList.contains('active')) {
+    renderJournalPosts();
+  }
 }

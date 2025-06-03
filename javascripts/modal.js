@@ -1,5 +1,9 @@
 // Modal logic and post creation for Garden Journal
 
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:5000/api/journal'
+  : 'https://nyaoha.onrender.com/api/journal';
+
 document.addEventListener('DOMContentLoaded', function () {
   const modal = document.getElementById('writePostModal');
   const openBtn = document.querySelector('.write-post');
@@ -8,15 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const postList = document.querySelector('.post-list');
   const sortDropdown = document.getElementById('journalSortDropdown');
 
-  // Tag color cycle
-  const tagColors = ['#4F7E24', '#36C9C6', '#ED6A5A', '#CCDBBF', '#959595', '#e07a5f'];
+  // Tag color cycle (use more colors for variety)
+  const tagColors = ['#4F7E24', '#36C9C6', '#ED6A5A', '#CCDBBF', '#959595'];
 
-  // Get username from auth (fallback to 'Anonymous')
   function getCurrentUser() {
     return window.currentUserName || localStorage.getItem('username') || 'Anonymous';
   }
 
-  // Format date as "Month Day, Year"
   function formatDate(date) {
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
@@ -25,15 +27,19 @@ document.addEventListener('DOMContentLoaded', function () {
   closeBtn.onclick = () => { modal.style.display = 'none'; };
   window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 
-  // Helper: Fetch posts from backend
+  // Fetch all posts
   async function fetchPosts() {
-    const res = await fetch('/api/journal');
-    return res.ok ? await res.json() : [];
+    try {
+      const res = await fetch(API_URL);
+      return res.ok ? await res.json() : [];
+    } catch {
+      return [];
+    }
   }
 
-  // Helper: Post a new journal entry
+  // Create a new post
   async function createPost(post) {
-    const res = await fetch('/api/journal', {
+    const res = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(post)
@@ -41,12 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
     return res.ok ? await res.json() : null;
   }
 
-  // Helper: Delete a post by ID
+  // Delete a post by ID
   async function deletePost(id) {
-    await fetch(`/api/journal/${id}`, { method: 'DELETE' });
+    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
   }
 
-  // Helper: Render all posts from backend
+  // Render all posts from backend, sorted
   async function renderPosts() {
     postList.innerHTML = '';
     let posts = await fetchPosts();
@@ -57,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function () {
       posts.sort((a, b) => (a.author || '').localeCompare(b.author || ''));
     } else if (sortValue === 'date') {
       posts.sort((a, b) => {
-        // Try to parse as date, fallback to string compare
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         return dateB - dateA;
