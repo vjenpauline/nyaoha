@@ -291,24 +291,8 @@ if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verificatio
       const result = await res.json();
       if (res.ok) {
         alert('Verification email sent! Please check your inbox.');
-        // Prompt for code
-        const code = prompt('Enter the 6-digit code sent to your email:');
-        if (code) {
-          const verifyRes = await fetch('/api/user/verify-email', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ code })
-          });
-          const verifyResult = await verifyRes.json();
-          if (verifyRes.ok) {
-            alert('Email verified successfully!');
-          } else {
-            alert(verifyResult.message || 'Verification failed.');
-          }
-        }
+        // Show custom modal for code entry
+        showVerificationModal();
       } else {
         alert(result.message || 'Failed to send verification email.');
       }
@@ -316,4 +300,63 @@ if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verificatio
       alert('An error occurred while sending verification email.');
     }
   });
+}
+
+// --- Custom modal for verification code entry ---
+function showVerificationModal() {
+  // Remove existing modal if present
+  document.getElementById('verify-modal')?.remove();
+  const modal = document.createElement('div');
+  modal.id = 'verify-modal';
+  modal.style.position = 'fixed';
+  modal.style.top = '0';
+  modal.style.left = '0';
+  modal.style.width = '100vw';
+  modal.style.height = '100vh';
+  modal.style.background = 'rgba(0,0,0,0.4)';
+  modal.style.display = 'flex';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
+  modal.style.zIndex = '9999';
+  modal.innerHTML = `
+    <div style="background:#fff;padding:2rem 2.5rem;border-radius:1.2rem;box-shadow:0 2px 24px #0002;max-width:350px;width:100%;text-align:center;">
+      <h3 style='margin-bottom:1rem;'>Enter Verification Code</h3>
+      <input id="verify-code-input" type="text" maxlength="6" style="font-size:1.2rem;padding:0.5rem 1rem;border-radius:8px;border:1px solid #aaa;width:80%;margin-bottom:1rem;" placeholder="6-digit code" autofocus />
+      <div style="margin-bottom:1rem;color:#888;font-size:0.95em;">Check your email for the code.</div>
+      <button id="verify-code-btn" style="background:#4c7410;color:#fff;padding:0.6rem 1.5rem;border:none;border-radius:8px;font-size:1rem;">Verify</button>
+      <button id="verify-cancel-btn" style="margin-left:1rem;background:#eee;color:#333;padding:0.6rem 1.5rem;border:none;border-radius:8px;font-size:1rem;">Cancel</button>
+      <div id="verify-error" style="color:#a50000;margin-top:1rem;font-size:0.95em;"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  document.getElementById('verify-code-btn').onclick = async function() {
+    const code = document.getElementById('verify-code-input').value.trim();
+    if (!/^\d{6}$/.test(code)) {
+      document.getElementById('verify-error').textContent = 'Please enter a valid 6-digit code.';
+      return;
+    }
+    const token = localStorage.getItem('token');
+    try {
+      const verifyRes = await fetch('/api/user/verify-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ code })
+      });
+      const verifyResult = await verifyRes.json();
+      if (verifyRes.ok) {
+        alert('Email verified successfully!');
+        modal.remove();
+      } else {
+        document.getElementById('verify-error').textContent = verifyResult.message || 'Verification failed.';
+      }
+    } catch (err) {
+      document.getElementById('verify-error').textContent = 'An error occurred.';
+    }
+  };
+  document.getElementById('verify-cancel-btn').onclick = function() {
+    modal.remove();
+  };
 }
