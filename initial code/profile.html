@@ -107,7 +107,7 @@
 </div>
 
     </div>
-    <div class="tab-content" id="settings">
+    <div class="tab-content" id="settings" style="display:none;">
   <div class="card">
     <div class="settings-section">
       <div class="icon"><img src="pictures/icons/icon-email.png" alt="Email Icon" style="height:32px;width:32px;"></div>
@@ -196,32 +196,19 @@
 <script src="/javascripts/profile.js"></script>
 <script src="/javascripts/profile-tabs.js"></script>
 <script>
-// Fallback: ensure only one .tab-content has 'active' at a time on page load
-// and that the first .tab and .tab-content are active if none are.
-document.addEventListener('DOMContentLoaded', function () {
-  const tabs = document.querySelectorAll('.tab');
-  const tabContents = document.querySelectorAll('.tab-content');
-  // Remove all 'active' classes except the first
-  let foundActive = false;
-  tabs.forEach((tab, i) => {
-    if (tab.classList.contains('active') && !foundActive) {
-      foundActive = true;
+// Ensure tab-content visibility is toggled by active class
+// This is a fallback for CSS issues
+const observer = new MutationObserver(() => {
+  document.querySelectorAll('.tab-content').forEach(el => {
+    if (el.classList.contains('active')) {
+      el.style.display = '';
     } else {
-      tab.classList.remove('active');
+      el.style.display = 'none';
     }
   });
-  foundActive = false;
-  tabContents.forEach((content, i) => {
-    if (content.classList.contains('active') && !foundActive) {
-      foundActive = true;
-    } else {
-      content.classList.remove('active');
-    }
-  });
-  // If none active, activate the first
-  if (!document.querySelector('.tab.active') && tabs.length) tabs[0].classList.add('active');
-  if (!document.querySelector('.tab-content.active') && tabContents.length) tabContents[0].classList.add('active');
 });
+observer.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
 </script>
+
 </body>
 </html>
