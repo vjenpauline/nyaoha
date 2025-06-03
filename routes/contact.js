@@ -15,6 +15,11 @@ router.post('/', async (req, res) => {
     const contact = new Contact({ name, email, phone, message });
     await contact.save();
 
+    // ✅ DEBUG: Log env vars before sending email
+    console.log('EMAIL:', process.env.EMAIL);
+    console.log('EMAIL_PASSWORD:', process.env.EMAIL_PASSWORD ? 'Exists' : 'Missing');
+    console.log('RECIPIENT_EMAIL:', process.env.RECIPIENT_EMAIL);
+
     const mailOptions = {
         from: `"Nyaoha Contact Form" <${process.env.EMAIL}>`,
         to: process.env.RECIPIENT_EMAIL,

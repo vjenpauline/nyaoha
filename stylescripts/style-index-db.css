@@ -396,7 +396,6 @@ body {
   height: 160px;
   -o-object-fit: cover;
      object-fit: cover;
-  background: url("/pictures/background/image.png");
 }
 .plant-card .card-header {
   position: relative;
