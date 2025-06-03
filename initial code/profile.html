@@ -121,12 +121,18 @@
         <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
       </div>
       <button class="btn" id="change-password-btn">Change Password</button>
-      <form id="change-password-form" style="display:none;flex-direction:column;gap:0.5rem;margin-top:1rem;">
-        <input type="password" id="current-password" placeholder="Current Password" required />
-        <input type="password" id="new-password" placeholder="New Password" required />
-        <input type="password" id="confirm-password" placeholder="Confirm New Password" required />
-        <button type="submit" class="btn">Save New Password</button>
-      </form>
+      <!-- Password Change Modal -->
+      <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+          <button class="modal-close" id="close-password-modal" aria-label="Close">&times;</button>
+          <form id="change-password-form">
+            <input type="password" id="current-password" placeholder="Current Password" required />
+            <input type="password" id="new-password" placeholder="New Password" required />
+            <input type="password" id="confirm-password" placeholder="Confirm New Password" required />
+            <button type="submit" class="btn">Save New Password</button>
+          </form>
+        </div>
+      </div>
     </div>
 
     <div class="settings-section">

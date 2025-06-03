@@ -128,12 +128,25 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
 // Initial render
 if (document.getElementById('favorites-list')) renderFavoritePlants();
 
-// Password change
+// Password change modal logic
 const changePasswordBtn = document.getElementById('change-password-btn');
+const changePasswordModal = document.getElementById('change-password-modal');
 const changePasswordForm = document.getElementById('change-password-form');
-if (changePasswordBtn && changePasswordForm) {
+const closePasswordModal = document.getElementById('close-password-modal');
+
+if (changePasswordBtn && changePasswordModal && changePasswordForm && closePasswordModal) {
   changePasswordBtn.addEventListener('click', () => {
-    changePasswordForm.style.display = changePasswordForm.style.display === 'none' ? 'flex' : 'none';
+    changePasswordModal.style.display = 'flex';
+  });
+  closePasswordModal.addEventListener('click', () => {
+    changePasswordModal.style.display = 'none';
+    changePasswordForm.reset();
+  });
+  changePasswordModal.addEventListener('click', (e) => {
+    if (e.target === changePasswordModal) {
+      changePasswordModal.style.display = 'none';
+      changePasswordForm.reset();
+    }
   });
   changePasswordForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -158,7 +171,7 @@ if (changePasswordBtn && changePasswordForm) {
       if (res.ok) {
         alert('Password changed successfully!');
         changePasswordForm.reset();
-        changePasswordForm.style.display = 'none';
+        changePasswordModal.style.display = 'none';
       } else {
         alert(result.message || 'Failed to change password.');
       }
