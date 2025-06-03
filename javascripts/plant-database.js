@@ -86,14 +86,12 @@ async function fetchFavorites() {
       }
     });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch favorites");
-    }
+    if (!res.ok) throw new Error("Unauthorized or failed fetch");
 
     userFavorites = await res.json();
   } catch (err) {
-    console.error("Failed to load favorites", err);
-    userFavorites = [];
+    console.warn("Favorites fetch failed:", err.message);
+    userFavorites = []; // Safe fallback
   }
 }
 
@@ -152,8 +150,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  fetchFavorites().then(fetchPlants);
-  searchInput.addEventListener("input", applyFilters);
+   fetchFavorites()
+    .catch(err => {
+      console.warn("Skipping favorites due to error:", err);
+    })
+    .finally(() => {
+      fetchPlants(); // Always run this!
+    });
 });
 
 async function toggleFavorite(id, iconEl) {
