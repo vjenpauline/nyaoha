@@ -69,6 +69,21 @@ let filteredData = [];
 let currentIndex = 0;
 const PLANTS_PER_PAGE = 12;
 
+let userFavorites = [];
+
+async function fetchFavorites() {
+  try {
+    const res = await fetch('/api/favorites', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+    userFavorites = await res.json();
+  } catch (err) {
+    console.error("Failed to load favorites", err);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
   const animalFilters = document.getElementById("animalFilters");
@@ -123,10 +138,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  fetchFavorites();
   fetchPlants();
 
   searchInput.addEventListener("input", applyFilters);
 });
+
+async function toggleFavorite(id, iconEl) {
+  try {
+    const res = await fetch(`/api/favorites/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+    const data = await res.json();
+    userFavorites = data.favorites;
+    iconEl.classList.toggle("favorited");
+  } catch (err) {
+    console.error("Failed to update favorite", err);
+  }
+}
 
 function renderPlants(plants, append = false) {
   if (!append) grid.innerHTML = "";
@@ -148,7 +181,7 @@ function renderPlants(plants, append = false) {
       <div class="card-header">
         <img src="${imgUrl}" alt="${common}" onerror="this.onerror=null; this.src='pictures/background/unavailable.jpg';" class="plant-image" />
         <span class="severity-badge ${severitySlug}">${severity}</span>
-        <span class="favorite-icon">♡</span>
+        <span class="favorite-icon ${isFavorited ? 'favorited' : ''}" data-id="${id}">♡</span>
       </div>
       <div class="card-content">
         <h3>${common}</h3>
@@ -166,6 +199,23 @@ function renderPlants(plants, append = false) {
 
     grid.appendChild(card);
   });
+}
+
+async function toggleFavorite(id, iconEl) {
+  try {
+    const res = await fetch(`/api/favorites/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+    const data = await res.json();
+    userFavorites = data.favorites;
+    iconEl.classList.toggle("favorited");
+  } catch (err) {
+    console.error("Failed to update favorite", err);
+  }
 }
 
 function applyFilters() {
