@@ -1,7 +1,7 @@
 // --- API URL UNIFICATION ---
 // Use port 10000 for localhost for consistency with your backend
 const API_URL = window.location.hostname === 'localhost'
-  ? 'http://localhost:10000'
+  ? 'http://localhost:5000'
   : 'https://nyaoha.onrender.com';
 
 (async function () {
