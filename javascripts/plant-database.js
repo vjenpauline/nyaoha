@@ -133,7 +133,7 @@ function renderPlants(plants, append = false) {
 
   plants.forEach(plant => {
     const common = plant.common?.[0]?.name || "Unnamed Plant";
-    const imgUrl = plant.images?.[0]?.source_url || "pictures/background/image.png";
+    const imgUrl = plant.images?.[0]?.source_url;
     const scientific = plant.name || "";
     const severity = plant.severity?.label || "Unknown";
     const severitySlug = plant.severity?.slug || "";
