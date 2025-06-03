@@ -5,12 +5,12 @@ const userSchema = new mongoose.Schema({
   lastName:  { type: String, required: true },
   email:     { type: String, required: true, unique: true },
   password:  { type: String, required: true },
-  favorites: [{ type: String }],  // store plant 'pid' strings here
   photo: {
     data: { type: Buffer, default: null },
     contentType: { type: String, default: null }
   },
-  emailVerified: { type: Boolean, default: false }
+  emailVerified: { type: Boolean, default: false, index: true },
+  favorites: [{ type: String, index: true }]  // store plant 'pid' strings here
 });
 
 module.exports = mongoose.model('User', userSchema);

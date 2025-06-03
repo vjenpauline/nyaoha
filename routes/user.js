@@ -112,7 +112,7 @@ router.post('/login', [
 
 router.get('/me', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('firstName lastName email');
+    const user = await User.findById(req.user.id).select('firstName lastName email emailVerified favorites photo');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

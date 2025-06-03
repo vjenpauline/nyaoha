@@ -16,6 +16,10 @@
 
     const user = await res.json();
 
+    // Persist verification and favorites state
+    localStorage.setItem('emailVerified', user.emailVerified ? 'true' : 'false');
+    localStorage.setItem('favorites', JSON.stringify(user.favorites || []));
+
     // Fill input fields
     const firstNameInput = document.querySelector('.first-name');
     const lastNameInput = document.querySelector('.last-name');
@@ -112,6 +116,7 @@ async function renderFavoritePlants() {
     });
     if (!res.ok) throw new Error('Failed to load favorites');
     const favorites = await res.json();
+    localStorage.setItem('favorites', JSON.stringify(favorites.map(p => p.pid)));
     if (!favorites.length) {
       noFavoritesDiv.style.display = 'flex';
       favoritesListDiv.style.display = 'none';
@@ -119,7 +124,6 @@ async function renderFavoritePlants() {
     }
     // Render cards
     favoritesListDiv.innerHTML = favorites.map(plant => {
-      // Use animals or fallback to None
       const pets = plant.animals && plant.animals.length
         ? plant.animals.join(', ')
         : 'None';

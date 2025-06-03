@@ -71,6 +71,16 @@ const PLANTS_PER_PAGE = 12;
 
 let userFavorites = [];
 
+function syncFavoritesFromStorage() {
+  try {
+    const favs = JSON.parse(localStorage.getItem('favorites'));
+    if (Array.isArray(favs)) userFavorites = favs;
+  } catch {}
+}
+
+function saveFavoritesToStorage() {
+  localStorage.setItem('favorites', JSON.stringify(userFavorites));
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
@@ -125,10 +135,11 @@ document.addEventListener("DOMContentLoaded", () => {
   (async () => {
     try {
       await fetchFavorites();
+      saveFavoritesToStorage();
     } catch (err) {
-      console.warn("Skipping favorites due to error:", err);
+      syncFavoritesFromStorage();
     } finally {
-      await fetchPlants(); // Always runs
+      await fetchPlants();
     }
   })();
 });
@@ -136,24 +147,20 @@ document.addEventListener("DOMContentLoaded", () => {
 async function fetchFavorites() {
   const token = localStorage.getItem("token");
   if (!token) {
-    console.log("User not logged in — skipping favorites fetch.");
     userFavorites = [];
+    saveFavoritesToStorage();
     return;
   }
-
   try {
     const res = await fetch('/api/favorites', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      headers: { Authorization: `Bearer ${token}` }
     });
-
     if (!res.ok) throw new Error("Unauthorized or failed fetch");
-
-    userFavorites = await res.json();
+    const favs = await res.json();
+    userFavorites = favs.map(p => p.pid || p.id || p._id);
+    saveFavoritesToStorage();
   } catch (err) {
-    console.warn("Favorites fetch failed:", err.message);
-    userFavorites = []; // Safe fallback
+    syncFavoritesFromStorage();
   }
 }
 
@@ -163,34 +170,43 @@ async function toggleFavorite(id, iconEl) {
     alert("Please log in to add favorites.");
     return;
   }
-
+  // Optimistically update UI
+  if (userFavorites.includes(id)) {
+    userFavorites = userFavorites.filter(fav => fav !== id);
+    iconEl.classList.remove('favorited');
+  } else {
+    userFavorites.push(id);
+    iconEl.classList.add('favorited');
+  }
+  saveFavoritesToStorage();
   try {
     const res = await fetch(`/api/favorites/${id}`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      headers: { Authorization: `Bearer ${token}` }
     });
-
-    if (!res.ok) {
-      throw new Error("Failed to toggle favorite");
-    }
-
+    if (!res.ok) throw new Error("Failed to toggle favorite");
     const data = await res.json();
     userFavorites = data.favorites;
-    applyFilters(); // Re-render grid so all favorite icons are correct
+    saveFavoritesToStorage();
+    applyFilters();
   } catch (err) {
-    console.error("Failed to update favorite", err);
+    // Revert UI if failed
+    if (userFavorites.includes(id)) {
+      userFavorites = userFavorites.filter(fav => fav !== id);
+      iconEl.classList.remove('favorited');
+    } else {
+      userFavorites.push(id);
+      iconEl.classList.add('favorited');
+    }
+    saveFavoritesToStorage();
+    alert("Failed to update favorite");
   }
 }
 
-
-
 function renderPlants(plants, append = false) {
   if (!append) grid.innerHTML = "";
-
+  syncFavoritesFromStorage();
   plants.forEach(plant => {
-    // Use pid as the primary ID for favorites, fallback to id/_id if missing
     const id = plant.pid || plant.id || plant._id;
     const common = plant.common?.[0]?.name || "Unnamed Plant";
     const imgUrl = plant.images?.[0]?.source_url;
@@ -225,8 +241,9 @@ function renderPlants(plants, append = false) {
     `;
 
     const favoriteBtn = card.querySelector(".favorite-icon");
+    if (isFavorited) favoriteBtn.classList.add('favorited');
+    else favoriteBtn.classList.remove('favorited');
     favoriteBtn.addEventListener("click", () => toggleFavorite(id, favoriteBtn));
-
     grid.appendChild(card);
   });
 }
