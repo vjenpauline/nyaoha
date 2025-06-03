@@ -40,9 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Create a new post
   async function createPost(post) {
+    const token = localStorage.getItem('token');
     const res = await fetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(post)
     });
     return res.ok ? await res.json() : null;

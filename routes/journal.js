@@ -1,27 +1,48 @@
 const express = require('express');
 const router = express.Router();
 const JournalPost = require('../models/journalPost');
+const auth = require('../middleware/auth');
+const User = require('../models/user');
 
 // Get all posts (newest first)
 router.get('/', async (req, res) => {
   try {
-    const posts = await JournalPost.find().sort({ createdAt: -1 });
-    res.json(posts);
+    const posts = await JournalPost.find().sort({ createdAt: -1 }).populate('author', 'firstName lastName email');
+    // Format author as a string for frontend
+    const formatted = posts.map(post => ({
+      ...post.toObject(),
+      author: post.author ? `${post.author.firstName} ${post.author.lastName}` : 'Unknown'
+    }));
+    res.json(formatted);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch posts.' });
   }
 });
 
-// Create a new post (no auth required)
-router.post('/', async (req, res) => {
-  const { title, summary, tags, author, date } = req.body;
-  if (!title || !summary || !author || !date) {
+// Create a new post (auth required)
+router.post('/', auth, async (req, res) => {
+  const { title, summary, tags, date } = req.body;
+  if (!title || !summary || !date) {
     return res.status(400).json({ message: 'Missing required fields.' });
   }
   try {
-    const post = new JournalPost({ title, summary, tags, author, date });
+    // Use user id from token
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(401).json({ message: 'User not found.' });
+    const post = new JournalPost({
+      title,
+      summary,
+      tags,
+      author: user._id,
+      date
+    });
     await post.save();
-    res.status(201).json(post);
+    // Populate author for response
+    await post.populate('author', 'firstName lastName email');
+    res.status(201).json({
+      ...post.toObject(),
+      author: `${user.firstName} ${user.lastName}`
+    });
   } catch (err) {
     res.status(500).json({ message: 'Failed to save post.' });
   }

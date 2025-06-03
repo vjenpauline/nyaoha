@@ -67,7 +67,7 @@ header p {
 
 .user-info .author {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
 .user-info .date {
@@ -88,20 +88,12 @@ header p {
   margin-bottom: 1rem;
 }
 
-.image-placeholder {
-  width: 100%;
-  height: 140px;
-  background-color: #d3d3d3;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
 .tag {
   background-color: #d0e5cf;
   color: #2b7a2b;
   padding: 0.3rem 0.6rem;
   border-radius: 8px;
-  font-size: 0.85rem;
+  font-size: 0.5rem;
   display: inline-block;
   margin-bottom: 1rem;
 }
@@ -115,7 +107,6 @@ header p {
   border-top: 1px solid #eee;
   padding-top: 1rem;
   font-family: 'Poppins', sans-serif;
-  background: #f7faf7;
   border-radius: 0 0 12px 12px;
   margin-top: 1rem;
 }
