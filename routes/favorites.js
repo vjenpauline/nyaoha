@@ -13,7 +13,7 @@ async function loadPlants() {
 // Get user's favorite plants full info
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     const plants = await loadPlants();
@@ -31,7 +31,7 @@ router.get('/', auth, async (req, res) => {
 // Toggle favorite plant by pid
 router.post('/:pid', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     const pid = req.params.pid;
