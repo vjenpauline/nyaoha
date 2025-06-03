@@ -307,7 +307,8 @@
 
 .favorite-plant-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start; // ensure items align to the top
+  justify-content: flex-start; // left-align all content in flex row
   gap: 1.5rem;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
@@ -338,12 +339,12 @@
     background: #4f8a10;
     color: white;
     border: none;
-    padding: 0.4rem 2.5rem;
+    padding: 0.4rem 3.5rem; // make button longer
     border-radius: 2rem;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s ease;
-    font-size: 1rem;
+    font-size: 0.95rem; // slightly smaller font
     margin-left: 0.5rem;
 
     &:hover {
@@ -361,9 +362,14 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     padding-left: 2rem;
     padding-right: 2rem;
+    align-items: flex-start;
     justify-content: flex-start;
     text-align: left;
-    align-items: flex-start;
+
+    .explore-btn {
+      padding: 0.4rem 3.5rem; // ensure longer button in context
+      font-size: 0.95rem;
+    }
   }
 }
 

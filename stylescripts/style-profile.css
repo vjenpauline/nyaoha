@@ -422,7 +422,8 @@ body {
 
 .favorite-plant-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 1.5rem;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
@@ -449,12 +450,12 @@ body {
   background: #4f8a10;
   color: white;
   border: none;
-  padding: 0.4rem 2.5rem;
+  padding: 0.4rem 3.5rem;
   border-radius: 2rem;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s ease;
-  font-size: 1rem;
+  font-size: 0.95rem;
   margin-left: 0.5rem;
 }
 .favorite-plant-card .explore-btn:hover {
@@ -469,9 +470,13 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding-left: 2rem;
   padding-right: 2rem;
+  align-items: flex-start;
   justify-content: flex-start;
   text-align: left;
-  align-items: flex-start;
+}
+.favorites-list .favorite-plant-card .explore-btn {
+  padding: 0.4rem 3.5rem;
+  font-size: 0.95rem;
 }
 
 #favorites-list {
