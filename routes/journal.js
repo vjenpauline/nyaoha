@@ -27,4 +27,15 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Delete a post by ID (auth required in real app)
+router.delete('/:id', async (req, res) => {
+  try {
+    const post = await JournalPost.findByIdAndDelete(req.params.id);
+    if (!post) return res.status(404).json({ message: 'Post not found.' });
+    res.json({ message: 'Post deleted.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to delete post.' });
+  }
+});
+
 module.exports = router;
