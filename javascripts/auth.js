@@ -1,11 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const isAuthPage = window.location.pathname.endsWith('log-in.html') || window.location.pathname.endsWith('sign-up.html');
 
-    // Always remove token on page load unless on auth pages
-    if (!isAuthPage) {
-        localStorage.removeItem('token');
-    }
-
     const token = localStorage.getItem('token');
 
     // Redirect logged-in users away from login page
@@ -25,13 +20,13 @@ const API_URL = window.location.hostname === 'localhost'
 
 const authService = {
     saveToken(token) {
-        localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
     },
     getToken() {
-        return localStorage.getItem('token');
+        return sessionStorage.getItem('token');
     },
     removeToken() {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
     },
     isLoggedIn() {
         return !!this.getToken();
