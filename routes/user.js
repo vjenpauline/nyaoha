@@ -238,7 +238,14 @@ router.post('/request-magic-link', async (req, res) => {
     const expiresAt = new Date(Date.now() + MAGIC_TOKEN_EXPIRY_MINUTES * 60 * 1000);
     await MagicToken.create({ userId: user._id, code: token, expiresAt, used: false });
     // Send email
-    const link = `${process.env.FRONTEND_URL || 'http://localhost:5500/initial%20code'}/magic-login.html?token=${token}`;
+    let frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5500/initial%20code';
+    // Always use https for production (Render), http for localhost
+    if (process.env.RENDER === 'true' || frontendUrl.startsWith('https://')) {
+      frontendUrl = frontendUrl.replace('http://', 'https://');
+    } else if (frontendUrl.includes('localhost')) {
+      frontendUrl = frontendUrl.replace('https://', 'http://');
+    }
+    const link = `${frontendUrl}/magic-login.html?token=${token}`;
     await transporter.sendMail({
       from: `Nyaoha <${process.env.EMAIL}>`,
       to: user.email,
