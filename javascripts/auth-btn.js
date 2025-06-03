@@ -3,7 +3,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   const token = localStorage.getItem('token');
-  const authBtn = document.getElementById('auth-btn');
+  const authBtn = document.querySelector('.login-btn, #auth-btn');
   if (authBtn) {
     if (token) {
       authBtn.textContent = 'Log Out';
