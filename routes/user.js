@@ -109,7 +109,7 @@ router.post('/login', [
 
 router.get('/me', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('firstName lastName email');
+    const user = await User.findById(req.user.id).select('firstName lastName email');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -122,7 +122,7 @@ router.get('/me', auth, async (req, res) => {
 
 // Update user info
 router.post('/update', auth, async (req, res) => {
-    const userId = req.userId; // comes from auth middleware
+    const userId = req.user.id; // comes from auth middleware
     const { firstName, lastName, email } = req.body;
 
     try {
@@ -145,7 +145,7 @@ router.post('/update', auth, async (req, res) => {
 
 // Change password endpoint
 router.post('/change-password', auth, async (req, res) => {
-    const userId = req.userId;
+    const userId = req.user.id;
     const { currentPassword, newPassword } = req.body;
     if (!currentPassword || !newPassword) {
         return res.status(400).json({ message: 'Current and new password required.' });
@@ -166,7 +166,7 @@ router.post('/change-password', auth, async (req, res) => {
 
 // Delete account endpoint
 router.post('/delete-account', auth, async (req, res) => {
-    const userId = req.userId;
+    const userId = req.user.id;
     try {
         const user = await User.findByIdAndDelete(userId);
         if (!user) return res.status(404).json({ message: 'User not found' });
@@ -182,7 +182,7 @@ router.post('/photo', auth, upload.single('photo'), async (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
   try {
     const user = await User.findByIdAndUpdate(
-      req.userId,
+      req.user.id,
       {
         photo: {
           data: req.file.buffer,
