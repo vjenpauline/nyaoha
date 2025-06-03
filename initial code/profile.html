@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    
-    <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
-    <link rel="stylesheet" href="../stylescripts/style-profile.css"/>
-    <title>Nyaoha | Profile</title>
-    
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap"
+    rel="stylesheet">
+
+  <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
+  <link rel="stylesheet" href="../stylescripts/style-profile.css" />
+  <title>Nyaoha | Profile</title>
+
 </head>
+
 <body>
   <div class="top-bar">
-            <div class="leftnav-container">
-                <button class="profile-btn"><span class="icon">👤</span></button>
-                <a href="log-in.html">
-                  <button class="login-btn">Log In</button>
-                </a>
-            </div>
+    <div class="leftnav-container">
+      <button class="profile-btn"><span class="icon">👤</span></button>
+      <a href="log-in.html">
+        <button class="login-btn">Log In</button>
+      </a>
+    </div>
 
-            <nav class="navbar">
-                <button class="nav-button"> </button>
-                <div class="dropdown">
-                    <a href="1-index.html">Home</a>
-                    <a href="2-plant-database.html">Plant Database</a>
-                    <a href="3-garden-journal.html">Garden Journal</a>
-                    <a href="4-garden-planner.html">Garden Planner</a>
-                    <a href="5-about.html">About</a>
-                </div>
-            </nav>
-        </div>
-        
+    <nav class="navbar">
+      <button class="nav-button"> </button>
+      <div class="dropdown">
+        <a href="1-index.html">Home</a>
+        <a href="2-plant-database.html">Plant Database</a>
+        <a href="3-garden-journal.html">Garden Journal</a>
+        <a href="4-garden-planner.html">Garden Planner</a>
+        <a href="5-about.html">About</a>
+      </div>
+    </nav>
+  </div>
+
   <section class="profile-container">
     <header class="profile-header">
       <h1>Your Profile</h1>
@@ -68,132 +72,138 @@
           </div>
           <div class="form-group">
             <label>Email</label>
-            <input type="email" class="email" name="email" autocomplete="email" placeholder="john@example.com"/>
+            <input type="email" class="email" name="email" autocomplete="email" placeholder="john@example.com" />
           </div>
           <button class="save-btn" type="submit">Save Changes</button>
         </form>
       </div>
     </div>
 
-    <!-- Placeholder containers for future tabs -->
     <div class="tab-content" id="favorites">
-        <div class="card favorites-card">
-  <div class="sub-tabs">
-    <button class="sub-tab active" data-subtab="favorite-plants">Favorite Plants</button>
-    <button class="sub-tab" data-subtab="favorite-plans">Favorite Plans</button>
-  </div>
-  <div class="favorites-content no-favorites" id="no-favorites">
-    <img src="pictures/logo_colored_black.svg" alt="Cute Plant Mascot">
-    <p>You have no favorite plants yet.</p>
-    <a href="2-plant-database.html"><button class="explore-btn">Explore Plants</button></a>
-  </div>
-  <div class="favorites-content favorites-list" id="favorites-list">
-  <!-- Favorite plant cards will be injected here by JS -->
-</div>
-<div class="favorites-content no-favorite-plans" id="no-favorite-plans">
-  <img src="pictures/logo_colored_black.svg" alt="Cute Plant Mascot">
-  <p>You have no favorite garden plans yet.</p>
-  <a href="4-garden-planner.html"><button class="explore-btn">Explore Gardens</button></a>
-</div>
-    </div>
-    <div class="tab-content" id="journal">
-        <div class="card journal-card">
-  <h2>My Garden Journal Posts</h2>
-  <div class="journal-content">
-    <img src="pictures/logo_icon_dark.png" alt="Journal mascot" />
-    <p>You have no written posts yet.</p>
-    <button class="write-post-btn">Write Your First Post</button>
-  </div>
-</div>
-
-    </div>
-    <div class="tab-content" id="settings">
-  <div class="card">
-    <div class="settings-section">
-      <div class="icon"><img src="pictures/icons/icon-email.png" alt="Email Icon" style="height:32px;width:32px;"></div>
-      <div class="info">
-        <h3>Email Verification</h3>
-        <p>Your email address needs to be verified.</p>
-      </div>
-      <button class="btn">Send Verification Email</button>
-    </div>
-
-    <div class="settings-section">
-      <div class="icon"><img src="pictures/icons/icon-password.png" alt="Password Icon" style="height:32px;width:32px;"></div>
-      <div class="info">
-        <h3>Password and Security</h3>
-        <p>Create a strong password that you don't use for other websites.</p>
-      </div>
-      <button class="btn" id="change-password-btn">Change Password</button>
-      <!-- Password Change Modal -->
-      <div id="change-password-modal" class="modal">
-        <div class="modal-content">
-          <button class="modal-close" id="close-password-modal" aria-label="Close">&times;</button>
-          <form id="change-password-form">
-            <input type="password" id="current-password" placeholder="Current Password" required />
-            <input type="password" id="new-password" placeholder="New Password" required />
-            <input type="password" id="confirm-password" placeholder="Confirm New Password" required />
-            <button type="submit" class="btn">Save New Password</button>
-          </form>
+      <div class="card favorites-card">
+        <div class="sub-tabs">
+          <button class="sub-tab active" data-subtab="favorite-plants">Favorite Plants</button>
+          <button class="sub-tab" data-subtab="favorite-plans">Favorite Plans</button>
+        </div>
+        <div class="favorites-content no-favorites" id="no-favorites">
+          <img src="pictures/logo_colored_black.svg" alt="Cute Plant Mascot">
+          <p>You have no favorite plants yet.</p>
+          <a href="2-plant-database.html"><button class="explore-btn">Explore Plants</button></a>
+        </div>
+        <div class="favorites-content favorites-list" id="favorites-list">
+          <!-- Favorite plant cards will be injected here by JS -->
+        </div>
+        <div class="favorites-content no-favorite-plans" id="no-favorite-plans">
+          <img src="pictures/logo_colored_black.svg" alt="Cute Plant Mascot">
+          <p>You have no favorite garden plans yet.</p>
+          <a href="4-garden-planner.html"><button class="explore-btn">Explore Gardens</button></a>
         </div>
       </div>
     </div>
 
-    <div class="settings-section">
-      <div class="icon"><img src="pictures/icons/icon-alert.png" alt="Alert Icon" style="height:32px;width:32px;"></div>
-      <div class="info">
-        <h3>Delete Account</h3>
-        <p>After deleting your account, you will not be able to log in anymore.</p>
+      <div class="tab-content" id="journal">
+        <div class="card journal-card">
+          <h2>My Garden Journal Posts</h2>
+          <div class="journal-content">
+            <img src="pictures/logo_icon_dark.png" alt="Journal mascot" />
+            <p>You have no written posts yet.</p>
+            <button class="write-post-btn">Write Your First Post</button>
+          </div>
+        </div>
       </div>
-      <div class="actions">
-        <button class="btn delete">Delete Account</button>
-        <button class="btn" id="logout-btn">Log Out</button>
+
+      <div class="tab-content" id="settings">
+        <div class="card">
+          <div class="settings-section">
+            <div class="icon"><img src="pictures/icons/icon-email.png" alt="Email Icon" style="height:32px;width:32px;">
+            </div>
+            <div class="info">
+              <h3>Email Verification</h3>
+              <p>Your email address needs to be verified.</p>
+            </div>
+            <button class="btn">Send Verification Email</button>
+          </div>
+
+          <div class="settings-section">
+            <div class="icon"><img src="pictures/icons/icon-password.png" alt="Password Icon"
+                style="height:32px;width:32px;"></div>
+            <div class="info">
+              <h3>Password and Security</h3>
+              <p>Create a strong password that you don't use for other websites.</p>
+            </div>
+            <button class="btn" id="change-password-btn">Change Password</button>
+            <!-- Password Change Modal -->
+            <div id="change-password-modal" class="modal">
+              <div class="modal-content">
+                <button class="modal-close" id="close-password-modal" aria-label="Close">&times;</button>
+                <form id="change-password-form">
+                  <input type="password" id="current-password" placeholder="Current Password" required />
+                  <input type="password" id="new-password" placeholder="New Password" required />
+                  <input type="password" id="confirm-password" placeholder="Confirm New Password" required />
+                  <button type="submit" class="btn">Save New Password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="icon"><img src="pictures/icons/icon-alert.png" alt="Alert Icon" style="height:32px;width:32px;">
+            </div>
+            <div class="info">
+              <h3>Delete Account</h3>
+              <p>After deleting your account, you will not be able to log in anymore.</p>
+            </div>
+            <div class="actions">
+              <button class="btn delete">Delete Account</button>
+              <button class="btn" id="logout-btn">Log Out</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
   </section>
 
   <footer class="footer">
-        <div class="footer-container">
-            <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
+    <div class="footer-container">
+      <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
 
-            <div class="footer-section">
-                <img src="pictures/wordmark_light.svg" alt="Nyaoha Wordmark" class="footer-wordmark">  
-                <p class="footer-text"> Your go-to platform for gardening: Helping pet owners create beautiful, safe gardens since 2025. </p>
-            </div>
+      <div class="footer-section">
+        <img src="pictures/wordmark_light.svg" alt="Nyaoha Wordmark" class="footer-wordmark">
+        <p class="footer-text"> Your go-to platform for gardening: Helping pet owners create beautiful, safe gardens
+          since 2025. </p>
+      </div>
 
-            <div class="footer-section">
-                <h3>Explore</h3>
-                <ul>
-                    <li><a href="2-plant-database.html">Plant Database</a></li>
-                    <li><a href="3-garden-journal.html">Garden Journal</a></li>
-                    <li><a href="4-garden-planner.html">Garden Planner</a></li>
-                </ul>
-            </div>
+      <div class="footer-section">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="2-plant-database.html">Plant Database</a></li>
+          <li><a href="3-garden-journal.html">Garden Journal</a></li>
+          <li><a href="4-garden-planner.html">Garden Planner</a></li>
+        </ul>
+      </div>
 
-            <div class="footer-section">
-                <h3>Community</h3>
-                <ul>
-                    <li><a href="5-about.html">About Us</a></li>
-                    <li><a href="5-about.html#contact">Contact Us</a></li>
-                </ul>
-            </div>
+      <div class="footer-section">
+        <h3>Community</h3>
+        <ul>
+          <li><a href="5-about.html">About Us</a></li>
+          <li><a href="5-about.html#contact">Contact Us</a></li>
+        </ul>
+      </div>
 
-            <div class="footer-section">
-                <h3>Account</h3>
-                <ul>
-                    <li><a href="log-in.html">Log In</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with hate by pauline villahermosa</p>
-    </footer>
-    <script src="/javascripts/auth.js"></script>
-<script src="/javascripts/profile.js"></script>
-<script src="/javascripts/profile-tabs.js"></script>
+      <div class="footer-section">
+        <h3>Account</h3>
+        <ul>
+          <li><a href="log-in.html">Log In</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with hate by pauline villahermosa</p>
+  </footer>
+  <script src="/javascripts/auth.js"></script>
+  <script src="/javascripts/profile.js"></script>
+  <script src="/javascripts/profile-tabs.js"></script>
 </body>
+
 </html>
