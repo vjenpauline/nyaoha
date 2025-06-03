@@ -159,6 +159,22 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
   });
 });
 
+// Ensure correct sub-tab and content on tab switch
+const favoritesTab = document.querySelector('.tab[data-tab="favorites"]');
+if (favoritesTab) {
+  favoritesTab.addEventListener('click', () => {
+    // Activate the 'Favorite Plants' sub-tab
+    document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+    const plantsTab = document.querySelector('.sub-tab[data-subtab="favorite-plants"]');
+    if (plantsTab) plantsTab.classList.add('active');
+    // Show only the plants section
+    document.getElementById('no-favorites').style.display = '';
+    document.getElementById('favorites-list').style.display = '';
+    document.getElementById('no-favorite-plans').style.display = 'none';
+    renderFavoritePlants();
+  });
+}
+
 // Initial render
 if (document.getElementById('favorites-list')) renderFavoritePlants();
 
