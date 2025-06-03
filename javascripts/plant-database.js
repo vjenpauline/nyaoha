@@ -133,7 +133,7 @@ function renderPlants(plants, append = false) {
 
   plants.forEach(plant => {
     const common = plant.common?.[0]?.name || "Unnamed Plant";
-    const imgUrl = plant.images?.[0]?.source_url || "https://via.placeholder.com/300x200?text=No+Image";
+    const imgUrl = plant.images?.[0]?.source_url || "pictures/background/image.png";
     const scientific = plant.name || "";
     const severity = plant.severity?.label || "Unknown";
     const severitySlug = plant.severity?.slug || "";
@@ -144,43 +144,25 @@ function renderPlants(plants, append = false) {
     const card = document.createElement("div");
     card.className = "plant-card";
 
-    const cardHeader = document.createElement("div");
-    cardHeader.className = "card-header";
-    cardHeader.style.backgroundImage = `url("${imgUrl}")`;
-    cardHeader.style.backgroundSize = "cover";
-    cardHeader.style.backgroundPosition = "center";
-
-    const badge = document.createElement("span");
-    badge.className = `severity-badge ${severitySlug}`;
-    badge.textContent = severity;
-
-    const favoriteIcon = document.createElement("span");
-    favoriteIcon.className = "favorite-icon";
-    favoriteIcon.textContent = "♡";
-
-    cardHeader.appendChild(badge);
-    cardHeader.appendChild(favoriteIcon);
-
-    const cardContent = document.createElement("div");
-    cardContent.className = "card-content";
-    cardContent.innerHTML = `
-      <h3>${common}</h3>
-      <em>${scientific}</em>
-      <div class="animal-tags">${animals}</div>
-      <p><strong>Symptoms:</strong> ${symptoms}</p>
+    card.innerHTML = `
+      <div class="card-header">
+        <img src="${imgUrl}" alt="${common}" onerror="this.onerror=null; this.src='pictures/background/unavailable.jpg';" class="plant-image" />
+        <span class="severity-badge ${severitySlug}">${severity}</span>
+        <span class="favorite-icon">♡</span>
+      </div>
+      <div class="card-content">
+        <h3>${common}</h3>
+        <em>${scientific}</em>
+        <div class="animal-tags">${animals}</div>
+        <p><strong>Symptoms:</strong> ${symptoms}</p>
+      </div>
+      <button class="view-button">
+        <a href="${link}" target="_blank">View Details</a>
+      </button>
     `;
-
-    const button = document.createElement("button");
-    button.className = "view-button";
-    button.innerHTML = `<a href="${link}" target="_blank">View Details</a>`;
-
-    card.appendChild(cardHeader);
-    card.appendChild(cardContent);
-    card.appendChild(button);
     grid.appendChild(card);
   });
 }
-
 
 function applyFilters() {
   const term = searchInput.value.toLowerCase();

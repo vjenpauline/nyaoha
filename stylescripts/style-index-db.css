@@ -404,7 +404,7 @@ body {
 .plant-card .card-header .severity-badge {
   position: absolute;
   background: #ED6A5A;
-  color: white;
+  color: #23231A;
   padding: 0.25rem 0.5rem;
   border-radius: 2rem;
   top: 0.5rem;
@@ -414,13 +414,13 @@ body {
 }
 .plant-card .card-header .severity-badge.mild {
   background-color: #FFE8BC;
-  color: #23231A;
 }
 .plant-card .card-header .severity-badge.moderate {
   background-color: #36C9C6;
 }
 .plant-card .card-header .severity-badge.severe {
   background-color: #694A38;
+  color: white;
 }
 .plant-card .card-header .severity-badge.critical {
   background-color: #ED6A5A;

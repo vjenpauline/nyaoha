@@ -185,7 +185,7 @@
     .severity-badge {
       position: absolute;
       background: $red;
-      color: white;
+      color: $black;
       padding: 0.25rem 0.5rem;
       border-radius: 2rem;
       top: 0.5rem;
@@ -196,7 +196,6 @@
 
     .severity-badge.mild {
         background-color: $yellow;
-        color: $black;
       }
 
       .severity-badge.moderate {
@@ -205,6 +204,7 @@
 
       .severity-badge.severe {
         background-color: $brown;
+        color: white;
       }
 
       .severity-badge.critical {
