@@ -22,6 +22,18 @@
     lastNameInput.value = user.lastName || '';
     emailInput.value = user.email || '';
 
+    // Show profile photo if exists
+    const avatarDiv = document.getElementById('profile-avatar');
+    if (user.photo && user.photo.data) {
+      // Convert Buffer to base64
+      const base64 = `data:${user.photo.contentType};base64,${user.photo.data}`;
+      avatarDiv.style.backgroundImage = `url('${base64}')`;
+      avatarDiv.style.backgroundSize = 'cover';
+      avatarDiv.style.backgroundPosition = 'center';
+    } else {
+      avatarDiv.style.backgroundImage = '';
+    }
+
     // Handle save button click
     document.querySelector('.save-btn').addEventListener('click', async (e) => {
       e.preventDefault();
@@ -215,6 +227,47 @@ if (deleteAccountBtn) {
       }
     } catch (err) {
       alert('An error occurred while deleting account.');
+    }
+  });
+}
+
+// Profile photo upload logic
+const changePhotoBtn = document.getElementById('change-photo-btn');
+const photoInput = document.getElementById('photo-input');
+const avatarDiv = document.getElementById('profile-avatar');
+
+if (changePhotoBtn && photoInput && avatarDiv) {
+  changePhotoBtn.addEventListener('click', () => {
+    photoInput.click();
+  });
+
+  photoInput.addEventListener('change', async function () {
+    const file = photoInput.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('photo', file);
+
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/user/photo', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+      const result = await res.json();
+      if (res.ok && result.photo && result.photo.data) {
+        const base64 = `data:${result.photo.contentType};base64,${result.photo.data}`;
+        avatarDiv.style.backgroundImage = `url('${base64}')`;
+        avatarDiv.style.backgroundSize = 'cover';
+        avatarDiv.style.backgroundPosition = 'center';
+        alert('Profile photo updated!');
+      } else {
+        alert(result.message || 'Failed to upload photo.');
+      }
+    } catch (err) {
+      alert('An error occurred while uploading photo.');
     }
   });
 }

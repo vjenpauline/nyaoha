@@ -8,6 +8,8 @@ const nodemailer = require('nodemailer');
 const fs = require('fs').promises;
 const Plant = require('./models/plant');
 const Contact = require('./models/contact'); // Assuming the Contact model is defined separately in models/contact.js
+const app = require('./app');
+
 // Initialize Express
 const app = express();
 

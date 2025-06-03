@@ -7,37 +7,23 @@ const jwt = require('jsonwebtoken');
  * @param {NextFunction} next - Express next middleware function
  */
 const auth = async (req, res, next) => {
+    // Get token from Authorization header
+    const authHeader = req.headers['authorization'];
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ message: 'No token, authorization denied' });
+    }
+    const token = authHeader.split(' ')[1];
+
     try {
-        // Get token from header
-        const authHeader = req.header('Authorization');
-        
-        if (!authHeader) {
-            return res.status(401).json({ message: 'No authentication token, access denied' });
-        }
-
-        // Check if the header follows Bearer scheme
-        if (!authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ message: 'Invalid authentication format' });
-        }
-
-        // Extract the token
-        const token = authHeader.replace('Bearer ', '');
-
-        try {
-            // Verify the token
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            
-            // Add user ID to request object
-            req.userId = decoded.userId;
-            
-            // Proceed to the protected route
-            next();
-        } catch (error) {
-            res.status(401).json({ message: 'Token is invalid or expired' });
-        }
-    } catch (error) {
-        console.error('Auth middleware error:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        // Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
+        // Attach user id to request
+        req.user = { id: decoded.id };
+        // Optionally, you can fetch the user object:
+        // req.user = await User.findById(decoded.id);
+        next();
+    } catch (err) {
+        res.status(401).json({ message: 'Token is not valid' });
     }
 };
 
