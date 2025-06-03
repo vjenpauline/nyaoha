@@ -36,10 +36,8 @@ app.use('/stylescripts', express.static(path.join(__dirname, 'stylescripts')));
 app.use('/javascripts', express.static(path.join(__dirname, 'javascripts')));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => console.log('✅ MongoDB connected'))
+mongoose.connect(process.env.MONGODB_URI || process.env.MONGO_URI)
+  .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));
 
 // Routes
