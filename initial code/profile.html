@@ -195,6 +195,33 @@
     <script src="/javascripts/auth.js"></script>
 <script src="/javascripts/profile.js"></script>
 <script src="/javascripts/profile-tabs.js"></script>
-
+<script>
+// Fallback: ensure only one .tab-content has 'active' at a time on page load
+// and that the first .tab and .tab-content are active if none are.
+document.addEventListener('DOMContentLoaded', function () {
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  // Remove all 'active' classes except the first
+  let foundActive = false;
+  tabs.forEach((tab, i) => {
+    if (tab.classList.contains('active') && !foundActive) {
+      foundActive = true;
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+  foundActive = false;
+  tabContents.forEach((content, i) => {
+    if (content.classList.contains('active') && !foundActive) {
+      foundActive = true;
+    } else {
+      content.classList.remove('active');
+    }
+  });
+  // If none active, activate the first
+  if (!document.querySelector('.tab.active') && tabs.length) tabs[0].classList.add('active');
+  if (!document.querySelector('.tab-content.active') && tabContents.length) tabContents[0].classList.add('active');
+});
+</script>
 </body>
 </html>
