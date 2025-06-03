@@ -178,12 +178,16 @@ async function renderJournalPosts() {
 
     // Render cards for each post
     journalContentDiv.innerHTML = userPosts.map(post => `
-      <div class="journal-post-card" style="display:flex;flex-direction:column;gap:0.5rem;padding:1rem 0.5rem;border-bottom:1px solid #eee;position:relative;">
-        <div style="font-weight:bold;font-size:1.1em;">${post.title}</div>
-        <div style="color:#555;">${post.summary}</div>
-        <div style="font-size:0.95em;color:#888;">${post.date}</div>
-        <div style="font-size:0.9em;color:#4c7410;">${(post.tags||[]).map(t => `#${t}`).join(' ')}</div>
-        <button class="delete-journal-btn" data-id="${post._id}" style="position:absolute;top:1rem;right:1rem;background:#a50000;color:#fff;border:none;padding:0.3rem 0.8rem;border-radius:6px;cursor:pointer;font-size:0.95em;">Delete</button>
+      <div class="journal-post-card">
+        <div class="journal-post-row">
+          <div class="journal-post-main">
+            <div class="journal-post-title">${post.title}</div>
+            <div class="journal-post-summary">${post.summary}</div>
+            <div class="journal-post-date">${post.date}</div>
+            <div class="journal-post-tags">${(post.tags||[]).map(t => `#${t}`).join(' ')}</div>
+          </div>
+          <button class="delete-journal-btn" data-id="${post._id}">Delete</button>
+        </div>
       </div>
     `).join('');
     // Add delete event listeners

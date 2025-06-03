@@ -550,4 +550,68 @@ body {
 
 .modal-close:hover {
   color: #a50000;
+}
+
+.journal-post-card {
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0.5rem;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.journal-post-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.journal-post-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.journal-post-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  font-family: "Poppins", sans-serif;
+}
+
+.journal-post-summary {
+  color: #555;
+  font-family: "Poppins", sans-serif;
+}
+
+.journal-post-date {
+  font-size: 0.95em;
+  color: #888;
+  font-family: "Poppins", sans-serif;
+}
+
+.journal-post-tags {
+  font-size: 0.9em;
+  color: #4c7410;
+  font-family: "Poppins", sans-serif;
+}
+
+.delete-journal-btn {
+  background: #a50000;
+  color: #fff;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  transition: background 0.18s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.0666666667);
+  margin-left: 1.5rem;
+}
+
+.delete-journal-btn:hover, .delete-journal-btn:focus {
+  background: #7a0000;
 }/*# sourceMappingURL=style-profile.css.map */
