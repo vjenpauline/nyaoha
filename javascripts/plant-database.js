@@ -72,18 +72,31 @@ const PLANTS_PER_PAGE = 12;
 let userFavorites = [];
 
 async function fetchFavorites() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    console.log("User not logged in — skipping favorites fetch.");
+    userFavorites = [];
+    return;
+  }
+
   try {
     const res = await fetch('/api/favorites', {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${token}`
       }
     });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch favorites");
+    }
+
     userFavorites = await res.json();
   } catch (err) {
     console.error("Failed to load favorites", err);
     userFavorites = [];
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
@@ -144,13 +157,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function toggleFavorite(id, iconEl) {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("Please log in to save favorites.");
+    return;
+  }
+
   try {
     const res = await fetch(`/api/favorites/${id}`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${token}`
       }
     });
+
+    if (!res.ok) {
+      throw new Error("Failed to toggle favorite");
+    }
 
     const data = await res.json();
     userFavorites = data.favorites;
@@ -159,6 +182,7 @@ async function toggleFavorite(id, iconEl) {
     console.error("Failed to update favorite", err);
   }
 }
+
 
 function renderPlants(plants, append = false) {
   if (!append) grid.innerHTML = "";
