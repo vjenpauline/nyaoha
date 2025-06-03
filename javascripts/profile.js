@@ -1,9 +1,12 @@
 (async function () {
+  const API_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:10000'
+    : 'https://nyaoha.onrender.com';
   const token = localStorage.getItem('token');
   if (!token) return window.location.href = 'log-in.html';
 
   try {
-    const res = await fetch('/api/user/me', {
+    const res = await fetch(`${API_URL}/api/user/me`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -77,6 +80,9 @@
 
 // Favorite Plants logic
 async function renderFavoritePlants() {
+  const API_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:10000'
+    : 'https://nyaoha.onrender.com';
   const token = localStorage.getItem('token');
   const noFavoritesDiv = document.getElementById('no-favorites');
   const favoritesListDiv = document.getElementById('favorites-list');
@@ -86,7 +92,7 @@ async function renderFavoritePlants() {
     return;
   }
   try {
-    const res = await fetch('/api/favorites', {
+    const res = await fetch(`${API_URL}/api/favorites`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to load favorites');
