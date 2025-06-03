@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     const isAuthPage = window.location.pathname.endsWith('log-in.html') || window.location.pathname.endsWith('sign-up.html');
-
     const token = sessionStorage.getItem('token');
 
     // Redirect logged-in users away from login page
@@ -26,7 +25,7 @@ const authService = {
         return sessionStorage.getItem('token');
     },
     removeToken() {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
     },
     isLoggedIn() {
         return !!this.getToken();
@@ -65,19 +64,15 @@ const authService = {
     async fetchAuthenticated(url, options = {}) {
         const token = this.getToken();
         if (!token) throw new Error('No authentication token found');
-
         const headers = {
             ...options.headers,
             'Authorization': `Bearer ${token}`
         };
-
         const response = await fetch(url, { ...options, headers });
-
         if (response.status === 401) {
             this.logout();
             throw new Error('Session expired');
         }
-
         return response;
     }
 };
@@ -150,11 +145,11 @@ function showMessage(message, type) {
     messageDiv.className = `message ${type}`;
     messageDiv.textContent = message;
 
-    const signupForm = document.querySelector('.signup-form');
-    const submitButton = signupForm?.querySelector('button[type="submit"]');
+    const form = document.querySelector('.signup-form') || document.querySelector('.login-form');
+    const submitButton = form?.querySelector('button[type="submit"]');
 
-    if (signupForm && submitButton) {
-        signupForm.appendChild(messageDiv);
+    if (form && submitButton) {
+        form.appendChild(messageDiv);
         setTimeout(() => messageDiv.remove(), 3000);
     } else {
         console.error('Unable to find form to display message.');
