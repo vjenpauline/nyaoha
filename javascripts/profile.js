@@ -70,6 +70,21 @@
       }
     });
 
+    // Email verification UI update
+    const verificationSection = document.querySelector('.settings-section .btn');
+    if (verificationSection && verificationSection.textContent.includes('Verification')) {
+      if (user.emailVerified) {
+        const parent = verificationSection.parentElement;
+        verificationSection.remove();
+        const verifiedMsg = document.createElement('div');
+        verifiedMsg.textContent = 'Email verified!';
+        verifiedMsg.style.color = '#4c7410';
+        verifiedMsg.style.fontWeight = 'bold';
+        verifiedMsg.style.marginTop = '0.5rem';
+        parent.appendChild(verifiedMsg);
+      }
+    }
+
   } catch (err) {
     console.error(err);
     alert('Session expired or user not found');
@@ -349,6 +364,18 @@ function showVerificationModal() {
       if (verifyRes.ok) {
         alert('Email verified successfully!');
         modal.remove();
+        // Remove button and show message
+        const verificationSection = document.querySelector('.settings-section .btn');
+        if (verificationSection && verificationSection.textContent.includes('Verification')) {
+          const parent = verificationSection.parentElement;
+          verificationSection.remove();
+          const verifiedMsg = document.createElement('div');
+          verifiedMsg.textContent = 'Email verified!';
+          verifiedMsg.style.color = '#4c7410';
+          verifiedMsg.style.fontWeight = 'bold';
+          verifiedMsg.style.marginTop = '0.5rem';
+          parent.appendChild(verifiedMsg);
+        }
       } else {
         document.getElementById('verify-error').textContent = verifyResult.message || 'Verification failed.';
       }
