@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nyaoha | Magic Login</title>
+  <link rel="stylesheet" href="../stylescripts/style-login.css"/>
+</head>
+<body>
+  <main class="login-container">
+    <div class="form-header">
+      <img src="pictures/logo_icon_dark.png" alt="Nyaoha logo" class="logo-img" />
+      <h2>Logging you in...</h2>
+      <p id="magic-status">Please wait.</p>
+    </div>
+  </main>
+  <script>
+    // If token is in URL, exchange for JWT
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const jwt = params.get('jwt');
+      const token = params.get('token');
+      if (jwt) {
+        localStorage.setItem('token', jwt);
+        document.getElementById('magic-status').textContent = 'Login successful! Redirecting...';
+        setTimeout(() => window.location.href = 'profile.html', 1200);
+      } else if (token) {
+        // If user lands here with ?token=..., call backend to exchange
+        try {
+          const res = await fetch(`/api/user/magic-login/${token}`);
+          if (res.redirected) {
+            window.location.href = res.url;
+          } else {
+            document.getElementById('magic-status').textContent = 'Invalid or expired link.';
+          }
+        } catch (e) {
+          document.getElementById('magic-status').textContent = 'Server error.';
+        }
+      } else {
+        document.getElementById('magic-status').textContent = 'No login token found.';
+      }
+    })();
+  </script>
+</body>
+</html>

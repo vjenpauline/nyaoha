@@ -222,4 +222,54 @@ router.post('/verify-email', auth, async (req, res) => {
   }
 });
 
+// Magic Link Login
+const MAGIC_TOKEN_EXPIRY_MINUTES = 15;
+const MagicToken = require('../models/verification'); // reuse verification model for magic links
+
+// Request magic link
+router.post('/request-magic-link', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: 'Email required.' });
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(200).json({ message: 'If your email is registered, you will receive a login link.' });
+    // Generate token
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + MAGIC_TOKEN_EXPIRY_MINUTES * 60 * 1000);
+    await MagicToken.create({ userId: user._id, code: token, expiresAt, used: false });
+    // Send email
+    const link = `${process.env.FRONTEND_URL || 'http://localhost:5500/initial%20code'}/magic-login.html?token=${token}`;
+    await transporter.sendMail({
+      from: `Nyaoha <${process.env.EMAIL}>`,
+      to: user.email,
+      subject: 'Your Nyaoha Magic Login Link',
+      html: `<p>Click the button below to sign in to Nyaoha. This link will expire in ${MAGIC_TOKEN_EXPIRY_MINUTES} minutes.</p><p><a href="${link}" style="background:#4c7410;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;">Sign In to Nyaoha</a></p>`
+    });
+    res.json({ message: 'If your email is registered, you will receive a login link.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to send magic link.' });
+  }
+});
+
+// Magic link login endpoint
+router.get('/magic-login/:token', async (req, res) => {
+  const { token } = req.params;
+  try {
+    const magic = await MagicToken.findOne({ code: token, used: false, expiresAt: { $gt: new Date() } });
+    if (!magic) return res.status(400).send('Invalid or expired link.');
+    magic.used = true;
+    await magic.save();
+    const user = await User.findById(magic.userId);
+    if (!user) return res.status(400).send('User not found.');
+    const jwtToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+    // Redirect to frontend with token as query param
+    const redirectUrl = `${process.env.FRONTEND_URL || 'http://localhost:5500/initial%20code'}/magic-login.html?jwt=${jwtToken}`;
+    res.redirect(redirectUrl);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error.');
+  }
+});
+
 module.exports = router;
