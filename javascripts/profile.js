@@ -6,7 +6,11 @@ const API_URL = window.location.hostname === 'localhost'
 
 (async function () {
   const token = localStorage.getItem('token');
-  if (!token) return window.location.href = 'log-in.html';
+  // if (!token) return window.location.href = 'log-in.html'; // <-- TEMPORARILY DISABLED FOR DEBUGGING
+  if (!token) {
+    console.warn('No token found in localStorage.');
+    // Optionally, you can show a message here for debugging
+  }
 
   try {
     const res = await fetch(`${API_URL}/api/user/me`, {
@@ -96,7 +100,7 @@ const API_URL = window.location.hostname === 'localhost'
     console.error(err);
     alert('Session expired or user not found');
     localStorage.removeItem('token');
-    window.location.href = 'log-in.html';
+    // window.location.href = 'log-in.html'; // <-- TEMPORARILY DISABLED FOR DEBUGGING
   }
 })();
 
