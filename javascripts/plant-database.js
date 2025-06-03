@@ -71,30 +71,6 @@ const PLANTS_PER_PAGE = 12;
 
 let userFavorites = [];
 
-async function fetchFavorites() {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    console.log("User not logged in — skipping favorites fetch.");
-    userFavorites = [];
-    return;
-  }
-
-  try {
-    const res = await fetch('/api/favorites', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    if (!res.ok) throw new Error("Unauthorized or failed fetch");
-
-    userFavorites = await res.json();
-  } catch (err) {
-    console.warn("Favorites fetch failed:", err.message);
-    userFavorites = []; // Safe fallback
-  }
-}
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
@@ -156,6 +132,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })();
 });
+
+async function fetchFavorites() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    console.log("User not logged in — skipping favorites fetch.");
+    userFavorites = [];
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/favorites', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) throw new Error("Unauthorized or failed fetch");
+
+    userFavorites = await res.json();
+  } catch (err) {
+    console.warn("Favorites fetch failed:", err.message);
+    userFavorites = []; // Safe fallback
+  }
+}
 
 async function toggleFavorite(id, iconEl) {
   const token = localStorage.getItem("token");
