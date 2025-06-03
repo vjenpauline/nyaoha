@@ -4,15 +4,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
-const multer = require('multer');
 const transporter = require('../config/nodemailer');
 const Verification = require('../models/verification');
 const crypto = require('crypto');
 
 const router = express.Router();
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
 // Signup route
 router.post('/signup', [
@@ -178,34 +174,6 @@ router.post('/delete-account', auth, async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Failed to delete account.' });
     }
-});
-
-// Profile photo upload endpoint
-router.post('/photo', auth, upload.single('photo'), async (req, res) => {
-  if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
-  try {
-    const user = await User.findByIdAndUpdate(
-      req.user.id,
-      {
-        photo: {
-          data: req.file.buffer,
-          contentType: req.file.mimetype
-        }
-      },
-      { new: true }
-    );
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    res.json({
-      photo: {
-        data: user.photo.data.toString('base64'),
-        contentType: user.photo.contentType
-      }
-    });
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to upload photo' });
-  }
 });
 
 // Send verification email

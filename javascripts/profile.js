@@ -267,47 +267,6 @@ if (deleteAccountBtn) {
   });
 }
 
-// Profile photo upload logic
-const changePhotoBtn = document.getElementById('change-photo-btn');
-const photoInput = document.getElementById('photo-input');
-const avatarDiv = document.getElementById('profile-avatar');
-
-if (changePhotoBtn && photoInput && avatarDiv) {
-  changePhotoBtn.addEventListener('click', () => {
-    photoInput.click();
-  });
-
-  photoInput.addEventListener('change', async function () {
-    const file = photoInput.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('photo', file);
-
-    try {
-      const token = localStorage.getItem('token');
-      const res = await fetch('/api/user/photo', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData
-      });
-      const result = await res.json();
-      if (res.ok && result.photo && result.photo.data) {
-        const base64 = `data:${result.photo.contentType};base64,${result.photo.data}`;
-        avatarDiv.style.backgroundImage = `url('${base64}')`;
-        avatarDiv.style.backgroundSize = 'cover';
-        avatarDiv.style.backgroundPosition = 'center';
-        alert('Profile photo updated!');
-      } else {
-        alert(result.message || 'Failed to upload photo.');
-      }
-    } catch (err) {
-      alert('An error occurred while uploading photo.');
-    }
-  });
-}
-
 // Email verification logic
 const sendVerificationBtn = document.querySelector('.settings-section .btn');
 if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verification')) {
