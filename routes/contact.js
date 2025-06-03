@@ -18,13 +18,13 @@ router.post('/', async (req, res) => {
     // ✅ DEBUG: Log env vars before sending email
     console.log('EMAIL:', process.env.EMAIL);
     console.log('EMAIL_PASSWORD:', process.env.EMAIL_PASSWORD ? 'Exists' : 'Missing');
-    console.log('RECIPIENT_EMAIL:', process.env.RECIPIENT_EMAIL);
+    console.log('RECIPIENT_EMAIL:', email);
 
     const mailOptions = {
-        from: `"Nyaoha Contact Form" <${process.env.EMAIL}>`,
-        to: process.env.RECIPIENT_EMAIL,
-        subject: `New Contact Form Submission from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
+    from: `"Nyaoha Team" <${process.env.EMAIL}>`,
+    to: email, // send to user's email
+    subject: `Thanks for contacting us!`,
+    text: `Hi ${name},\n\nThanks for reaching out. We'll get back to you shortly.\n\nBest,\nThe 'nyaoha' Team`,
     };
 
     const result = await transporter.sendMail(mailOptions);  // 🔍
