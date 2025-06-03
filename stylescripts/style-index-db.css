@@ -414,6 +414,7 @@ body {
 }
 .plant-card .card-header .severity-badge.mild {
   background-color: #FFE8BC;
+  color: #23231A;
 }
 .plant-card .card-header .severity-badge.moderate {
   background-color: #36C9C6;
