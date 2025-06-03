@@ -109,6 +109,11 @@ async function renderFavoritePlants() {
   const token = localStorage.getItem('token');
   const noFavoritesDiv = document.getElementById('no-favorites');
   const favoritesListDiv = document.getElementById('favorites-list');
+  // Safeguard: Only proceed if both elements exist
+  if (!noFavoritesDiv || !favoritesListDiv) {
+    console.warn('Favorites elements not found in DOM.');
+    return;
+  }
   if (!token) {
     noFavoritesDiv.style.display = 'flex';
     favoritesListDiv.style.display = 'none';
