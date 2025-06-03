@@ -8,10 +8,11 @@ const User = require('../models/user');
 router.get('/', async (req, res) => {
   try {
     const posts = await JournalPost.find().sort({ createdAt: -1 }).populate('author', 'firstName lastName email');
-    // Format author as a string for frontend
+    // Format author as a string and add authorId for frontend
     const formatted = posts.map(post => ({
       ...post.toObject(),
-      author: post.author ? `${post.author.firstName} ${post.author.lastName}` : 'Unknown'
+      author: post.author ? `${post.author.firstName} ${post.author.lastName}` : 'Unknown',
+      authorId: post.author ? post.author._id?.toString() : undefined
     }));
     res.json(formatted);
   } catch (err) {

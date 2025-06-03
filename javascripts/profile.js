@@ -28,6 +28,7 @@ const API_URL = window.location.hostname === 'localhost'
     localStorage.setItem('favorites', JSON.stringify(user.favorites || []));
     localStorage.setItem('firstName', user.firstName || '');
     localStorage.setItem('lastName', user.lastName || '');
+    localStorage.setItem('userId', user._id || '');
 
     // Fill input fields
     const firstNameInput = document.querySelector('.first-name');
@@ -158,9 +159,9 @@ async function renderJournalPosts() {
     const res = await fetch(`${API_URL}/api/journal`);
     if (!res.ok) throw new Error('Failed to load journal posts');
     const posts = await res.json();
-    // Get user email from localStorage (already set above)
-    const userEmail = document.querySelector('.email')?.value || localStorage.getItem('userEmail');
-    const userPosts = posts.filter(post => post.author === userEmail);
+    // Get user id from localStorage (set after login/profile fetch)
+    const userId = localStorage.getItem('userId');
+    const userPosts = posts.filter(post => post.authorId === userId);
 
     if (!userPosts.length) {
       // Show mascot and button
