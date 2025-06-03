@@ -28,15 +28,6 @@ app.use(cors({
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ 
-        message: 'Internal server error',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
-    });
-});
-
 // Serve static files
 app.use(express.static(path.join(__dirname, 'initial code')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -244,3 +235,12 @@ async function importPlantsData() {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ 
+        message: 'Internal server error',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
