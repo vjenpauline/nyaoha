@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return !!this.getToken();
         },
         async login(email, password) {
-            const response = await fetch(`${API_URL}/api/login`, {
+            const response = await fetch(`${API_URL}/api/user/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return data;
         },
         async signup(userData) {
-            const response = await fetch(`${API_URL}/api/signup`, {
+            const response = await fetch(`${API_URL}/api/user/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userData)
