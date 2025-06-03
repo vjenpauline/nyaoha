@@ -191,7 +191,8 @@ function renderPlants(plants, append = false) {
   if (!append) grid.innerHTML = "";
 
   plants.forEach(plant => {
-    const id = plant.id; // Make sure ID is present
+    // Use pid as the primary ID for favorites, fallback to id/_id if missing
+    const id = plant.pid || plant.id || plant._id;
     const common = plant.common?.[0]?.name || "Unnamed Plant";
     const imgUrl = plant.images?.[0]?.source_url;
     const scientific = plant.name || "";
@@ -201,7 +202,7 @@ function renderPlants(plants, append = false) {
     const link = plant.wikipedia_url || "#";
     const animals = plant.animals?.map(a => `<span class='tag'>${a}</span>`).join(" ") || "";
 
-    // Fix: define isFavorited for each plant
+    // Use pid/id/_id for favorites
     const isFavorited = userFavorites && userFavorites.includes && id ? userFavorites.includes(id) : false;
 
     const card = document.createElement("div");
