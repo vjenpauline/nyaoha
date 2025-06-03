@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('./models/user');
+const User = require('./models/User');
 const Plant = require('./models/plant');
 const auth = require('./middleware/auth');
 const cors = require('cors');
@@ -211,6 +211,8 @@ app.get('/api/user/garden', auth, async (req, res) => {
     res.status(500).json({ message: 'Error fetching user garden' });
   }
 });
+
+app.use('/api/user', require('./routes/user'));
 
 // Import plants data from plantsm.art
 const fs = require('fs').promises;
