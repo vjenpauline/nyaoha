@@ -119,29 +119,6 @@ router.get('/me', auth, async (req, res) => {
 });
 
 
-// Update user info
-router.post('/update', auth, async (req, res) => {
-    const userId = req.user.id; // comes from auth middleware
-    const { firstName, lastName, email } = req.body;
-
-    try {
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            { firstName, lastName, email },
-            { new: true }
-        );
-
-        if (!updatedUser) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.json({ message: 'User updated successfully', user: updatedUser });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Failed to update user' });
-    }
-});
-
 // Change password endpoint
 router.post('/change-password', auth, async (req, res) => {
     const userId = req.user.id;
@@ -152,9 +129,9 @@ router.post('/change-password', auth, async (req, res) => {
     try {
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ message: 'User not found' });
-        const isMatch = await require('bcrypt').compare(currentPassword, user.password);
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
         if (!isMatch) return res.status(401).json({ message: 'Current password is incorrect.' });
-        user.password = await require('bcrypt').hash(newPassword, 10);
+        user.password = await bcrypt.hash(newPassword, 10);
         await user.save();
         res.json({ message: 'Password changed successfully.' });
     } catch (err) {
@@ -176,11 +153,47 @@ router.post('/delete-account', auth, async (req, res) => {
     }
 });
 
+// Update user info
+router.post('/update', auth, async (req, res) => {
+    const userId = req.user.id; // comes from auth middleware
+    const { firstName, lastName, email } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        let updateFields = { firstName, lastName };
+        if (email && email !== user.email) {
+            updateFields.email = email;
+            updateFields.emailVerified = false; // Reset verification if email changes
+        }
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            updateFields,
+            { new: true }
+        );
+        res.json({ message: 'User updated successfully', user: updatedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to update user' });
+    }
+});
+
 // Send verification email
 router.post('/send-verification-email', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
+    // Check for existing, unexpired code
+    const existing = await Verification.findOne({
+      userId: user._id,
+      used: false,
+      expiresAt: { $gt: new Date() }
+    });
+    if (existing) {
+      return res.status(429).json({ message: 'A verification code was already sent. Please check your email or try again later.' });
+    }
     // Generate a 6-digit code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
@@ -213,7 +226,6 @@ router.post('/verify-email', auth, async (req, res) => {
     if (!verification) return res.status(400).json({ message: 'Invalid or expired code.' });
     verification.used = true;
     await verification.save();
-    // Optionally, mark user as verified (add field if not present)
     await User.findByIdAndUpdate(req.user.id, { emailVerified: true });
     res.json({ message: 'Email verified successfully.' });
   } catch (err) {

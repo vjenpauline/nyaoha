@@ -8,31 +8,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-      <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
-    <link rel="stylesheet" href="../stylescripts/style-login.css"/>
+      <link rel="icon" type="image/x-icon" href="/pictures/favicon.png">
+    <link rel="stylesheet" href="/stylescripts/style-login.css"/>
     <title>Nyaoha | Log-In</title>
     
 </head>
 <body>
   <div class="top-bar">
-            <div class="leftnav-container">
-                <button class="profile-btn"><span class="icon">👤</span></button>
-                <a href="log-in.html">
-                  <button class="login-btn">Log In</button>
-                </a>
-            </div>
+    <div class="leftnav-container">
+      <button class="profile-btn"><span class="icon">👤</span></button>
+      <button class="login-btn" id="auth-btn">Log In</button>
+    </div>
 
-            <nav class="navbar">
-                <button class="nav-button"> </button>
-                <div class="dropdown">
-                    <a href="1-index.html">Home</a>
-                    <a href="2-plant-database.html">Plant Database</a>
-                    <a href="3-garden-journal.html">Garden Journal</a>
-                    <a href="4-garden-planner.html">Garden Planner</a>
-                    <a href="5-about.html">About</a>
-                </div>
-            </nav>
+    <nav class="navbar">
+        <button class="nav-button"> </button>
+        <div class="dropdown">
+            <a href="1-index.html">Home</a>
+            <a href="2-plant-database.html">Plant Database</a>
+            <a href="3-garden-journal.html">Garden Journal</a>
+            <a href="4-garden-planner.html">Garden Planner</a>
+            <a href="5-about.html">About</a>
         </div>
+    </nav>
+</div>
 
   <main class="login-container">
     <!-- Form with proper autofill structure -->
@@ -119,6 +117,7 @@
         <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with hate by pauline villahermosa</p>
     </footer>
     <script defer src="/javascripts/auth.js"></script>
+    <script defer src="/javascripts/auth-btn.js"></script>
     
 </body>
 </html>
