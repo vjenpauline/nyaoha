@@ -1,12 +1,24 @@
-// Auto-redirect if already logged in
 document.addEventListener('DOMContentLoaded', function() {
+    const isAuthPage = window.location.pathname.endsWith('log-in.html') || window.location.pathname.endsWith('sign-up.html');
+
+    // Always remove token on page load unless on auth pages
+    if (!isAuthPage) {
+        localStorage.removeItem('token');
+    }
+
     const token = localStorage.getItem('token');
+
+    // Redirect logged-in users away from login page
     if (token && window.location.pathname.endsWith('log-in.html')) {
         window.location.href = "profile.html";
     }
+
+    // Redirect non-logged-in users to login page if trying to access protected pages
+    if (!token && window.location.pathname.endsWith('profile.html')) {
+        window.location.href = "log-in.html";
+    }
 });
 
-// Handle authentication and token management
 const API_URL = window.location.hostname === 'localhost' 
     ? 'http://localhost:5000'
     : 'https://nyaoha.onrender.com';
@@ -15,19 +27,15 @@ const authService = {
     saveToken(token) {
         localStorage.setItem('token', token);
     },
-
     getToken() {
         return localStorage.getItem('token');
     },
-
     removeToken() {
         localStorage.removeItem('token');
     },
-
     isLoggedIn() {
         return !!this.getToken();
     },
-
     async login(email, password) {
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
@@ -39,7 +47,6 @@ const authService = {
         this.saveToken(data.token);
         return data;
     },
-
     async signup(userData) {
         const response = await fetch(`${API_URL}/signup`, {
             method: 'POST',
@@ -56,12 +63,10 @@ const authService = {
         }
         return data;
     },
-
     logout() {
         this.removeToken();
         window.location.href = '/1-index.html';
     },
-
     async fetchAuthenticated(url, options = {}) {
         const token = this.getToken();
         if (!token) throw new Error('No authentication token found');
@@ -82,7 +87,7 @@ const authService = {
     }
 };
 
-// Signup form handling
+// Signup form
 document.querySelector('.signup-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const signupForm = e.target;
@@ -110,7 +115,7 @@ document.querySelector('.signup-form')?.addEventListener('submit', async (e) => 
     }
 });
 
-// Login form handling
+// Login form
 document.querySelector('.login-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
@@ -125,7 +130,7 @@ document.querySelector('.login-form')?.addEventListener('submit', async (e) => {
     }
 });
 
-// Redirect logic for links
+// Redirect links
 document.querySelectorAll('a[href="profile.html"]').forEach(link => {
     link.addEventListener('click', (e) => {
         if (!authService.isLoggedIn()) {
@@ -144,7 +149,7 @@ document.querySelectorAll('a[href="log-in.html"]').forEach(link => {
     });
 });
 
-// Utility to show feedback messages
+// Message feedback
 function showMessage(message, type) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}`;
