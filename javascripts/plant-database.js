@@ -111,26 +111,20 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Create animal filter checkboxes (allowing multiple selections)
   if (animalFilters) {
     animalTypes.forEach(type => {
       const label = document.createElement("label");
       label.innerHTML = `<input type="checkbox" value="${type}" class="animal-checkbox"> ${type}`;
       animalFilters.appendChild(label);
     });
-  } else {
-    console.error("animalFilters element not found");
   }
 
-  // Create severity filter checkboxes (allowing multiple selections)
   if (severityFilters) {
     severityLevels.forEach(level => {
       const label = document.createElement("label");
       label.innerHTML = `<input type="checkbox" value="${level}" class="severity-checkbox"> ${level}`;
       severityFilters.appendChild(label);
     });
-  } else {
-    console.error("severityFilters element not found");
   }
 
   const params = new URLSearchParams(window.location.search);
@@ -138,25 +132,29 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchTerm) {
     searchInput.value = searchTerm;
   }
-  
+
   async function fetchPlants() {
     try {
       const res = await fetch(API_URL);
+      if (!res.ok) throw new Error("Failed to load plant data");
       plantData = await res.json();
       applyFilters();
     } catch (err) {
       grid.innerHTML = `<p>Error loading data. Check your server: ${API_URL}</p>`;
-      console.error(err);
+      console.error("Error loading plants:", err);
     }
   }
 
-   fetchFavorites()
-    .catch(err => {
+  // Ensure fetchPlants() always runs
+  (async () => {
+    try {
+      await fetchFavorites();
+    } catch (err) {
       console.warn("Skipping favorites due to error:", err);
-    })
-    .finally(() => {
-      fetchPlants(); // Always run this!
-    });
+    } finally {
+      await fetchPlants(); // Always runs
+    }
+  })();
 });
 
 async function toggleFavorite(id, iconEl) {
