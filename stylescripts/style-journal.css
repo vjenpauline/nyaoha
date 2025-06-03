@@ -269,12 +269,34 @@ header p {
 
 .card-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #555;
   border-top: 1px solid #eee;
   padding-top: 1rem;
+  font-family: "Poppins", sans-serif;
+  background: #f7faf7;
+  border-radius: 0 0 12px 12px;
+  margin-top: 1rem;
+}
+
+.delete-post {
+  font-family: "Poppins", sans-serif;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 0.45rem 1.1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.0666666667);
+}
+
+.delete-post:hover, .delete-post:focus {
+  background: #c0392b;
 }
 
 .actions span {
