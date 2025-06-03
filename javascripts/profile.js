@@ -277,3 +277,43 @@ if (changePhotoBtn && photoInput && avatarDiv) {
     }
   });
 }
+
+// Email verification logic
+const sendVerificationBtn = document.querySelector('.settings-section .btn');
+if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verification')) {
+  sendVerificationBtn.addEventListener('click', async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch('/api/user/send-verification-email', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const result = await res.json();
+      if (res.ok) {
+        alert('Verification email sent! Please check your inbox.');
+        // Prompt for code
+        const code = prompt('Enter the 6-digit code sent to your email:');
+        if (code) {
+          const verifyRes = await fetch('/api/user/verify-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ code })
+          });
+          const verifyResult = await verifyRes.json();
+          if (verifyRes.ok) {
+            alert('Email verified successfully!');
+          } else {
+            alert(verifyResult.message || 'Verification failed.');
+          }
+        }
+      } else {
+        alert(result.message || 'Failed to send verification email.');
+      }
+    } catch (err) {
+      alert('An error occurred while sending verification email.');
+    }
+  });
+}

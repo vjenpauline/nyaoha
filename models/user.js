@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
   photo: {
     data: { type: Buffer, default: null },
     contentType: { type: String, default: null }
-  } // Add this line for profile photo
+  },
+  emailVerified: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('User', userSchema);

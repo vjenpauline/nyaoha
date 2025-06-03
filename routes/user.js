@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
 const multer = require('multer');
+const transporter = require('../config/nodemailer');
+const Verification = require('../models/verification');
+const crypto = require('crypto');
 
 const router = express.Router();
 
@@ -202,6 +205,52 @@ router.post('/photo', auth, upload.single('photo'), async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: 'Failed to upload photo' });
+  }
+});
+
+// Send verification email
+router.post('/send-verification-email', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    // Generate a 6-digit code
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+    // Save code in DB
+    await Verification.create({ userId: user._id, code, expiresAt });
+    // Send email
+    await transporter.sendMail({
+      from: `Nyaoha <${process.env.EMAIL}>`,
+      to: user.email,
+      subject: 'Your Nyaoha Verification Code',
+      text: `Your verification code is: ${code}\nThis code will expire in 15 minutes.`
+    });
+    res.json({ message: 'Verification email sent.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to send verification email.' });
+  }
+});
+
+// Verify code endpoint
+router.post('/verify-email', auth, async (req, res) => {
+  const { code } = req.body;
+  try {
+    const verification = await Verification.findOne({
+      userId: req.user.id,
+      code,
+      used: false,
+      expiresAt: { $gt: new Date() }
+    });
+    if (!verification) return res.status(400).json({ message: 'Invalid or expired code.' });
+    verification.used = true;
+    await verification.save();
+    // Optionally, mark user as verified (add field if not present)
+    await User.findByIdAndUpdate(req.user.id, { emailVerified: true });
+    res.json({ message: 'Email verified successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to verify email.' });
   }
 });
 
