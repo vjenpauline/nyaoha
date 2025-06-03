@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const tagColors = ['#4F7E24', '#36C9C6', '#ED6A5A', '#CCDBBF', '#959595'];
 
   function getCurrentUser() {
-    return window.currentUserName || localStorage.getItem('username') || 'Anonymous';
+    // Use firstName from localStorage (set after login/profile fetch)
+    return localStorage.getItem('firstName') || 'Anonymous';
   }
 
   function formatDate(date) {
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
       card.className = 'card';
       card.innerHTML = `
         <div class="card-header">
-          <div class="avatar"></div>
+          <div class="avatar"><img src="pictures/user_icon.jpg" alt="User Icon" onerror="this.style.display='none'" /></div>
           <div class="user-info">
             <p class="author">${post.author}</p>
             <p class="date">${post.date}</p>
