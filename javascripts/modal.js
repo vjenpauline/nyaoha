@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
       card.className = 'card';
       card.innerHTML = `
         <div class="card-header">
-          <div class="avatar"><img src="pictures/user_icon.jpg" alt="User Icon" onerror="this.style.display='none'" /></div>
           <div class="user-info">
             <p class="author">${post.author}</p>
             <p class="date">${post.date}</p>

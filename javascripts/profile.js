@@ -26,6 +26,7 @@ const API_URL = window.location.hostname === 'localhost'
     // Persist verification and favorites state
     localStorage.setItem('emailVerified', user.emailVerified ? 'true' : 'false');
     localStorage.setItem('favorites', JSON.stringify(user.favorites || []));
+    localStorage.setItem('firstName', user.firstName || '');
 
     // Fill input fields
     const firstNameInput = document.querySelector('.first-name');
