@@ -166,7 +166,7 @@ async function renderJournalPosts() {
     if (!userPosts.length) {
       // Show mascot and button
       journalContentDiv.innerHTML = `
-        <img src="pictures/logo_icon_dark.png" alt="Journal mascot" />
+        <img src="pictures/posts_logo.png" alt="Journal mascot" />
         <p>You have no written posts yet.</p>
         <button class="write-post-btn">Write Your First Post</button>
       `;
