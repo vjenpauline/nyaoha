@@ -6,7 +6,10 @@ const userSchema = new mongoose.Schema({
   email:     { type: String, required: true, unique: true },
   password:  { type: String, required: true },
   favorites: [{ type: String }],  // store plant 'pid' strings here
-  photo: { data: Buffer, contentType: String } // Add this line for profile photo
+  photo: {
+    data: { type: Buffer, default: null },
+    contentType: { type: String, default: null }
+  } // Add this line for profile photo
 });
 
 module.exports = mongoose.model('User', userSchema);
