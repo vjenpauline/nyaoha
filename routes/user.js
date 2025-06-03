@@ -102,6 +102,20 @@ router.post('/login', [
     }
 });
 
+
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('firstName lastName email');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to retrieve user' });
+  }
+});
+
+
 // Update user info
 router.post('/update', auth, async (req, res) => {
     const userId = req.userId; // comes from auth middleware
