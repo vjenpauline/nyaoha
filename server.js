@@ -213,6 +213,8 @@ app.get('/api/user/garden', auth, async (req, res) => {
 });
 
 app.use('/api/user', require('./routes/user'));
+app.use('/api/favorites', require('./routes/favorites'));
+
 // Import plants data from plantsm.art
 const fs = require('fs').promises;
 

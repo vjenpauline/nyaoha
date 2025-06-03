@@ -434,6 +434,11 @@ body {
   padding: 0.25rem 0.7rem;
   font-size: 1rem;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+.plant-card .card-header .favorite-icon.favorited {
+  background: #ED6A5A;
+  color: #F3EDE4;
 }
 .plant-card .card-content {
   padding: 1rem;

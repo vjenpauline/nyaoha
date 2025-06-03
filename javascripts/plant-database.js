@@ -160,6 +160,10 @@ function renderPlants(plants, append = false) {
         <a href="${link}" target="_blank">View Details</a>
       </button>
     `;
+
+    const favoriteBtn = card.querySelector(".favorite-icon");
+    favoriteBtn.addEventListener("click", () => toggleFavorite(id, favoriteBtn));
+
     grid.appendChild(card);
   });
 }
