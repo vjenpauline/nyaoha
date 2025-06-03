@@ -18,4 +18,17 @@ document.addEventListener('DOMContentLoaded', function() {
       };
     }
   }
+
+  // Profile button logic for all pages
+  const profileBtn = document.getElementById('profile-btn');
+  if (profileBtn) {
+    profileBtn.addEventListener('click', function() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        window.location.href = 'profile.html';
+      } else {
+        alert('Please log in to view your profile.');
+      }
+    });
+  }
 });

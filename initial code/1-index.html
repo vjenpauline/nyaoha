@@ -148,27 +148,6 @@
       window.location.href = "2-plant-database.html";
     }
   });
-
-  // Profile button logic
-  document.getElementById('profile-btn').addEventListener('click', function() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      window.location.href = 'profile.html';
-    } else {
-      showProfileWarning();
-    }
-  });
-
-  function showProfileWarning() {
-    let existing = document.getElementById('profile-warning');
-    if (existing) return;
-    const warning = document.createElement('div');
-    warning.id = 'profile-warning';
-    warning.className = 'message error';
-    warning.textContent = 'Please log in to view your profile.';
-    document.body.appendChild(warning);
-    setTimeout(() => warning.remove(), 2500);
-  }
 </script>
 
 </html>

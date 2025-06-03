@@ -36,18 +36,6 @@ const API_URL = window.location.hostname === 'localhost'
     lastNameInput.value = user.lastName || '';
     emailInput.value = user.email || '';
 
-    // Show profile photo if exists
-    const avatarDiv = document.getElementById('profile-avatar');
-    if (user.photo && user.photo.data) {
-      // Convert Buffer to base64
-      const base64 = `data:${user.photo.contentType};base64,${user.photo.data}`;
-      avatarDiv.style.backgroundImage = `url('${base64}')`;
-      avatarDiv.style.backgroundSize = 'cover';
-      avatarDiv.style.backgroundPosition = 'center';
-    } else {
-      avatarDiv.style.backgroundImage = '';
-    }
-
     // Handle save button click
     document.querySelector('.save-btn').addEventListener('click', async (e) => {
       e.preventDefault();
