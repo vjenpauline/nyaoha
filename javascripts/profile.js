@@ -150,17 +150,12 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    if (btn.dataset.subtab === 'favorite-plants') {
-      document.getElementById('no-favorites').style.display = '';
-      document.getElementById('favorites-list').style.display = '';
-      document.getElementById('no-favorite-plans').style.display = 'none';
-      renderFavoritePlants();
-    } else {
-      document.getElementById('no-favorites').style.display = 'none';
-      document.getElementById('favorites-list').style.display = 'none';
-      document.getElementById('no-favorite-plans').style.display = 'flex';
-      // Add logic for Favorite Plans if needed
-    }
+    const isPlants = btn.dataset.subtab === 'favorite-plants';
+    document.getElementById('no-favorites').style.display = isPlants ? '' : 'none';
+    document.getElementById('favorites-list').style.display = isPlants ? '' : 'none';
+    document.getElementById('no-favorite-plans').style.display = isPlants ? 'none' : 'flex';
+    if (isPlants) renderFavoritePlants();
+    // If you add logic for Favorite Plans, call it here
   });
 });
 
