@@ -192,8 +192,9 @@
       left: 0.5rem;
       font-size: 0.75rem;
       font-weight: 600;
+    }
 
-      .severity-badge.mild {
+    .severity-badge.mild {
         background-color: $yellow;
       }
 
@@ -208,7 +209,6 @@
       .severity-badge.critical {
         background-color: $red;
       }
-    }
 
     .favorite-icon {
       position: absolute;

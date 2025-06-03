@@ -412,16 +412,16 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
 }
-.plant-card .card-header .severity-badge .severity-badge.mild {
+.plant-card .card-header .severity-badge.mild {
   background-color: #FFE8BC;
 }
-.plant-card .card-header .severity-badge .severity-badge.moderate {
+.plant-card .card-header .severity-badge.moderate {
   background-color: #36C9C6;
 }
-.plant-card .card-header .severity-badge .severity-badge.severe {
+.plant-card .card-header .severity-badge.severe {
   background-color: #694A38;
 }
-.plant-card .card-header .severity-badge .severity-badge.critical {
+.plant-card .card-header .severity-badge.critical {
   background-color: #ED6A5A;
 }
 .plant-card .card-header .favorite-icon {
