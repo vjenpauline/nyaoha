@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const closeBtn = document.getElementById('closeModalBtn');
   const postForm = document.getElementById('postForm');
   const postList = document.querySelector('.post-list');
+  const sortDropdown = document.getElementById('journalSortDropdown');
 
   // Tag color cycle
   const tagColors = ['#4F7E24', '#36C9C6', '#ED6A5A', '#CCDBBF', '#959595', '#e07a5f'];
@@ -48,8 +49,20 @@ document.addEventListener('DOMContentLoaded', function () {
   // Helper: Render all posts from backend
   async function renderPosts() {
     postList.innerHTML = '';
-    const posts = await fetchPosts();
+    let posts = await fetchPosts();
     const currentUser = getCurrentUser();
+    // Sort posts based on dropdown
+    const sortValue = sortDropdown.value;
+    if (sortValue === 'author') {
+      posts.sort((a, b) => (a.author || '').localeCompare(b.author || ''));
+    } else if (sortValue === 'date') {
+      posts.sort((a, b) => {
+        // Try to parse as date, fallback to string compare
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB - dateA;
+      });
+    }
     posts.forEach(post => {
       const card = document.createElement('div');
       card.className = 'card';
@@ -98,4 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     this.reset();
     modal.style.display = 'none';
   };
+
+  // Listen for sort changes
+  sortDropdown.addEventListener('change', renderPosts);
 });
