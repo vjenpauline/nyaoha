@@ -16,8 +16,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const tagColors = ['#4F7E24', '#36C9C6', '#ED6A5A', '#CCDBBF', '#959595'];
 
   function getCurrentUser() {
-    // Use firstName from localStorage (set after login/profile fetch)
-    return localStorage.getItem('firstName') || 'Anonymous';
+    // Use full name from localStorage to match backend author string
+    const first = localStorage.getItem('firstName') || '';
+    const last = localStorage.getItem('lastName') || '';
+    return (first + ' ' + last).trim();
   }
 
   function formatDate(date) {
