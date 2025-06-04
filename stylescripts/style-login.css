@@ -56,6 +56,9 @@ body {
 .top-bar .login-btn .icon {
   margin-right: 0.5rem;
 }
+.top-bar .login-btn:hover {
+  color: #CCDBBF;
+}
 
 .navbar {
   position: absolute;
@@ -88,14 +91,14 @@ body {
   justify-content: center;
   margin-top: 0.3rem;
   background: #23231A;
-  padding: 0.5rem 3rem;
+  padding: 0.5rem 4rem;
   border-radius: 2rem;
   text-decoration: none;
 }
 .navbar .dropdown a {
   text-decoration: none;
   color: #F3EDE4;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 .navbar .dropdown a:hover {
   background-color: #F3EDE4;

@@ -56,6 +56,9 @@ body {
 .top-bar .login-btn .icon {
   margin-right: 0.5rem;
 }
+.top-bar .login-btn:hover {
+  color: #CCDBBF;
+}
 
 .navbar {
   position: absolute;
@@ -88,14 +91,14 @@ body {
   justify-content: center;
   margin-top: 0.3rem;
   background: #23231A;
-  padding: 0.5rem 3rem;
+  padding: 0.5rem 4rem;
   border-radius: 2rem;
   text-decoration: none;
 }
 .navbar .dropdown a {
   text-decoration: none;
   color: #F3EDE4;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 .navbar .dropdown a:hover {
   background-color: #F3EDE4;
@@ -409,6 +412,13 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  transition: 0.5s;
+}
+.plant-card:hover {
+  transition: all 0.2s ease-in-out;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(28, 12, 1, 0.365);
+  transform: scale(1.02);
 }
 .plant-card img {
   width: 100%;
@@ -452,11 +462,19 @@ body {
   padding: 0.25rem 0.7rem;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.plant-card .card-header .favorite-icon:hover {
+  background: #c4a67a;
+  color: white;
 }
 .plant-card .card-header .favorite-icon.favorited {
   background: #ED6A5A;
   color: #F3EDE4;
+}
+.plant-card .card-header .favorite-icon.favorited:hover {
+  background: #cb2a16;
+  color: white;
 }
 .plant-card .card-content {
   padding: 1rem;

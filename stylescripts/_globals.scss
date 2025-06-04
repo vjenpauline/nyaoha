@@ -62,6 +62,10 @@ body {
     @include rounded-button($green, $cream);
     .icon { margin-right: 0.5rem; }
   }
+
+  .login-btn:hover {
+    color: $light-green;
+  }
 }
 
 // NAVIGATION
@@ -92,14 +96,14 @@ body {
     justify-content: center;
     margin-top: 0.3rem;
     background: $black;
-    padding: 0.5rem 3rem;
+    padding: 0.5rem 4rem;
     border-radius: 2rem;
     text-decoration: none;
     
     a {
       text-decoration: none;
       color: $cream;
-      margin-right: 0.5rem;
+      margin-right: 1rem;
     }
 
     a:hover {
