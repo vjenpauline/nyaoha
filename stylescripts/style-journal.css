@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  cursor: none;
 }
 
 body {
@@ -191,6 +192,20 @@ body {
   color: #F3EDE4;
 }
 
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #4F7E24;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: width 0.15s ease, height 0.15s ease;
+  z-index: 10000;
+  mix-blend-mode: multiply;
+}
+
 header {
   margin-bottom: 2rem;
 }
@@ -203,7 +218,7 @@ header h1 {
 
 header p {
   font-size: 1rem;
-  color: #666;
+  color: #959595;
 }
 
 .controls {
@@ -216,23 +231,30 @@ header p {
 }
 
 .sort label {
-  margin-right: 0.5rem;
-  font-weight: 500;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 24px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .sort select {
-  padding: 0.4rem 0.6rem;
+  background: white;
   border: 1px solid #ccc;
-  border-radius: 2rem;
-  background-color: #fff;
+  border-radius: 24px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .write-post {
-  background-color: #4CAF50;
+  background-color: #4F7E24;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 82rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }

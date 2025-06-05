@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  cursor: none;
 }
 
 body {
@@ -191,8 +192,33 @@ body {
   color: #F3EDE4;
 }
 
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #4F7E24;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: width 0.15s ease, height 0.15s ease;
+  z-index: 10000;
+  mix-blend-mode: multiply;
+}
+
 header {
   margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d2d2d;
+}
+
+header p {
+  font-size: 1rem;
+  color: #959595;
 }
 
 .announcement {
@@ -232,12 +258,22 @@ header {
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 250px;
+  transition: 0.5s;
+}
+.card:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.02) translateY(-5px);
+  box-shadow: 0 4px 12px rgba(28, 12, 1, 0.365);
+}
+.card:hover img {
+  transform: scale(1);
 }
 .card img {
   width: 100%;
   height: 160px;
   -o-object-fit: cover;
      object-fit: cover;
+  transition: transform 0.3s ease;
 }
 .card .card-body {
   padding: 1rem;
@@ -255,9 +291,14 @@ header {
 .card .view-button {
   display: block;
   text-align: center;
-  background-color: #4CAF50;
+  background-color: #4F7E24;
   color: white;
   padding: 0.5rem;
   border-radius: 0 0 1rem 1rem;
   text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.card .view-button:hover {
+  transform: scale(1.05);
+  background-color: #365619;
 }/*# sourceMappingURL=style-planner.css.map */

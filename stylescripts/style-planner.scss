@@ -13,7 +13,7 @@ header h1 {
 
 header p {
   font-size: 1rem;
-  color: $gray;
+  color: $grey;
 }
 
 .announcement {
@@ -47,6 +47,7 @@ header p {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  
 }
 
 .card {
@@ -55,11 +56,23 @@ header p {
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   width: 250px;
+  transition: 0.5s;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0 4px 12px rgba(28, 12, 1, 0.365);
+
+    img {
+      transform: scale(1);
+    }
+  }
 
   img {
     width: 100%;
     height: 160px;
     object-fit: cover;
+    transition: transform 0.3s ease;
   }
 
   .card-body {
@@ -82,10 +95,16 @@ header p {
   .view-button {
     display: block;
     text-align: center;
-    background-color: #4CAF50;
+    background-color: $green;
     color: white;
     padding: 0.5rem;
     border-radius: 0 0 1rem 1rem;
     text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      background-color: darken($green, 10%);
+    }
   }
 }

@@ -17,6 +17,7 @@ $grey: #959595;
   padding: 0;
   box-sizing: border-box;
   font-family: $font-primary;
+  cursor: none;
 }
 
 body {
@@ -190,4 +191,20 @@ body {
     text-align: center;
     color: $cream;
   }
+}
+
+// CUSTOM CURSOR
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: $green;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: width 0.15s ease, height 0.15s ease;
+  z-index: 10000;
+  mix-blend-mode: multiply;
 }
