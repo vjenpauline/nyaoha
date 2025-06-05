@@ -219,7 +219,10 @@ function renderPlants(plants, append = false) {
     const isFavorited = userFavorites && userFavorites.includes && id ? userFavorites.includes(id) : false;
 
     const card = document.createElement("div");
-    card.className = "plant-card";
+    card.className = "plant-card animate-in";
+    card.addEventListener("animationend", () => {
+      card.classList.remove("animate-in");
+    });
 
     card.innerHTML = `
       <div class="card-header">

@@ -12,7 +12,7 @@
     <title>Nyaoha | Plant Database</title>
     <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
     <link rel="stylesheet" href="../stylescripts/style-index-db.css"/>
-
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   </head>
 
   <body>
@@ -36,7 +36,7 @@
 
     <!-- Page Content -->
     <div class="db-container"> 
-      <h1 >Plant Database</h1>
+      <h1 data-aos="fade-in">Plant Database</h1>
       <p class="description">Discover which plants are safe for your furry friends</p>
 
       <!-- Search + Sort + Filters -->
@@ -105,5 +105,10 @@
     <script defer src="/javascripts/auth.js"></script>
     <script defer src="/javascripts/auth-btn.js"></script>
     <script src="/javascripts/custom-cursor.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
   </body>
   </html>
