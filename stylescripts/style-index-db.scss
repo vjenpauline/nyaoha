@@ -35,7 +35,12 @@
         width: 250px;
         font-size: 1rem;
       }
-      .search-btn { @include green-button(); }
+      .search-btn { @include green-button(); transition: 0.3s ease;
+
+      &:hover {
+            background-color: $black;
+            color: $cream;
+          }}
     }
   }
 }
@@ -80,7 +85,7 @@
     &.brown  { @include card($brown, $cream); }
     &.yellow { @include card($yellow); }
 
-    &:hover { transform: translateY(-5px); }
+    &:hover { transform: translateY(-7px);}
   }
 }
 
@@ -117,16 +122,31 @@
       display: flex;
       gap: 1rem;
       justify-content: center;
-
       a {
         padding: 0.75rem 1.5rem;
         border-radius: 9999px;
         text-decoration: none;
         font-weight: 600;
         font-size: 0.875rem;
+        transition: background-color 0.3s ease, color 0.3s ease;
 
-        &:first-child { @include green-button() }
-        &:last-child  { border: 2px solid $green; color: $green; }
+        &:first-child { @include green-button(); border: 2px solid $green; 
+        
+          &:hover {
+            background-color: $black;
+            color: $cream;
+            border: 2px solid $black; 
+          }
+        }
+
+        &:last-child  { border: 2px solid $green; color: $green; 
+  
+
+        &:last-child:hover {
+          background-color: $black;
+          color: $cream;
+          border: 2px solid $black; 
+      }}
       }
     }
   }
@@ -297,9 +317,38 @@
   display: block;
   text-align: center;
   margin-top: auto;
+
+  position: relative;
+  overflow: hidden;
+  transition: color 0.5s ease-in-out;
+
   a {
     color: $cream;
     text-decoration: none;
+    position: relative;
+    z-index: 2;
+    transition: 0.5s ease-in-out;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 140%;
+    width: 240%;
+    background-color: darken($green, 10%); // optional darker fill
+    transform: translateX(-150%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 1;
+  }
+
+  &:hover::before {
+    transform: translateX(-50%);
+  }
+
+  &:hover a {
+    color: white;
   }
 }
 }
@@ -315,17 +364,24 @@
 
 #loadMoreBtn {
     padding: 0.75rem 1.5rem;
-        border-radius: 9999px;
-        text-decoration: none;
-        font-weight: 600;
+    border-radius: 9999px;
+    text-decoration: none;
+    font-weight: 600;
     font-size: 0.875rem;
-    border: 2px solid $green; 
+    border: 2px solid $green;
     color: $green;
     background-color: $cream;
     margin: 0 auto;
     margin-bottom: 2rem;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+#loadMoreBtn:hover {
+    background-color: $green;
+    color: $cream;
+}
+
 
 // === FILTER SECTION STYLES ===
 .filter-section {

@@ -49,4 +49,6 @@
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
+  
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

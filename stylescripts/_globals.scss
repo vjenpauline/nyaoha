@@ -81,47 +81,54 @@ body {
   z-index: 10;
 
   .nav-button {
-    @include green-button(1rem 6rem);
-    background: url('/pictures/wordmark_light.svg') center/40% no-repeat $green;
-    border-radius: 25px;
-    cursor: pointer;
+  @include green-button(1rem 6rem);
+  background: url('/pictures/wordmark_light.svg') center/40% no-repeat $green;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+  &:hover .nav-button {
+    background: url('/pictures/wordmark_dark.svg') center/40% no-repeat $black;
   }
-
-
+  
   .dropdown {
-    display: none;
-    gap: 0.7rem;
-    width: auto;
-    white-space: nowrap;
-    justify-content: center;
-    margin-top: 0.3rem;
-    background: $black;
-    padding: 0.5rem 4rem;
-    border-radius: 2rem;
+  display: none;
+  gap: 0.7rem;
+  width: auto;
+  white-space: nowrap;
+  justify-content: center;
+  margin-top: 0.3rem;
+  background: $black;
+  padding: 0.5rem 4rem;
+  border-radius: 2rem;
+  text-decoration: none;
+
+  a {
     text-decoration: none;
-    
-    a {
-      text-decoration: none;
-      color: $cream;
-      margin-right: 1rem;
-    }
-
-    a:hover {
-      background-color: $cream;
-      color: $black;
-      padding: 0 0.7rem;
-      border-radius: 1rem;
-    }
-
-    .nav-button {
-      @include green-button(0.5rem 1.2rem);
-      background: none;
-      color: $cream;
-      text-decoration: none;
-    }
+    color: $cream;
+    margin-right: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
   }
 
-  &:hover .dropdown { display: block; }
+  a:hover {
+    background-color: $cream;
+    color: $black;
+    padding: 0 0.7rem;
+    border-radius: 1rem;
+  }
+
+  .nav-button {
+    @include green-button(0.5rem 1.2rem);
+    background: none;
+    color: $cream;
+    text-decoration: none;
+  }
+}
+
+&:hover .dropdown {
+  display: block;
+}
 }
 
 // FOOTER
