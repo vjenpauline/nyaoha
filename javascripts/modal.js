@@ -1,5 +1,3 @@
-// Modal logic and post creation for Garden Journal
-
 const API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:5000/api/journal'
   : 'https://nyaoha.onrender.com/api/journal';
@@ -12,11 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const postList = document.querySelector('.post-list');
   const sortDropdown = document.getElementById('journalSortDropdown');
 
-  // Tag color cycle (use more colors for variety)
   const tagColors = ['#4F7E24', '#36C9C6', '#ED6A5A', '#CCDBBF', '#959595'];
 
   function getCurrentUser() {
-    // Use full name from localStorage to match backend author string
     const first = localStorage.getItem('firstName') || '';
     const last = localStorage.getItem('lastName') || '';
     return (first + ' ' + last).trim();
@@ -30,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
   closeBtn.onclick = () => { modal.style.display = 'none'; };
   window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 
-  // Fetch all posts
   async function fetchPosts() {
     try {
       const res = await fetch(API_URL);
@@ -40,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Create a new post
   async function createPost(post) {
     const token = localStorage.getItem('token');
     const res = await fetch(API_URL, {
@@ -54,17 +48,14 @@ document.addEventListener('DOMContentLoaded', function () {
     return res.ok ? await res.json() : null;
   }
 
-  // Delete a post by ID
   async function deletePost(id) {
     await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
   }
 
-  // Render all posts from backend, sorted
   async function renderPosts() {
     postList.innerHTML = '';
     let posts = await fetchPosts();
     const currentUser = getCurrentUser();
-    // Sort posts based on dropdown
     const sortValue = sortDropdown.value;
     if (sortValue === 'author') {
       posts.sort((a, b) => (a.author || '').localeCompare(b.author || ''));
@@ -96,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
       postList.appendChild(card);
     });
-    // Attach delete listeners
     document.querySelectorAll('.delete-post').forEach(btn => {
       btn.onclick = async function() {
         const id = this.getAttribute('data-id');
