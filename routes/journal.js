@@ -4,11 +4,9 @@ const JournalPost = require('../models/journalPost');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 
-// Get all posts (newest first)
 router.get('/', async (req, res) => {
   try {
     const posts = await JournalPost.find().sort({ createdAt: -1 }).populate('author', 'firstName lastName email');
-    // Format author as a string and add authorId for frontend
     const formatted = posts.map(post => ({
       ...post.toObject(),
       author: post.author ? `${post.author.firstName} ${post.author.lastName}` : 'Unknown',
@@ -20,14 +18,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create a new post (auth required)
 router.post('/', auth, async (req, res) => {
   const { title, summary, tags, date } = req.body;
   if (!title || !summary || !date) {
     return res.status(400).json({ message: 'Missing required fields.' });
   }
   try {
-    // Use user id from token
     const user = await User.findById(req.user.id);
     if (!user) return res.status(401).json({ message: 'User not found.' });
     const post = new JournalPost({
@@ -38,7 +34,6 @@ router.post('/', auth, async (req, res) => {
       date
     });
     await post.save();
-    // Populate author for response
     await post.populate('author', 'firstName lastName email');
     res.status(201).json({
       ...post.toObject(),
@@ -49,7 +44,6 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-// Delete a post by ID (auth required in real app)
 router.delete('/:id', async (req, res) => {
   try {
     const post = await JournalPost.findByIdAndDelete(req.params.id);

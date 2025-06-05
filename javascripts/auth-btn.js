@@ -1,5 +1,3 @@
-// filepath: /javascripts/auth-btn.js
-// Dynamically update the auth button (Log In/Log Out) in the top bar on every page
 
 document.addEventListener('DOMContentLoaded', function() {
   const token = localStorage.getItem('token');
@@ -19,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Profile button logic for all pages
   const profileBtn = document.getElementById('profile-btn');
   if (profileBtn) {
     profileBtn.addEventListener('click', function() {

@@ -10,7 +10,6 @@ async function loadPlants() {
   return JSON.parse(data);
 }
 
-// Get user's favorite plants full info
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -18,7 +17,6 @@ router.get('/', auth, async (req, res) => {
 
     const plants = await loadPlants();
 
-    // Filter plants by matching pid with user's favorites
     const favoritePlants = plants.filter(plant => user.favorites.includes(plant.pid));
 
     res.json(favoritePlants);
@@ -28,7 +26,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Toggle favorite plant by pid
 router.post('/:pid', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);

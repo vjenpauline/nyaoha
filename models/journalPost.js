@@ -5,7 +5,7 @@ const journalPostSchema = new mongoose.Schema({
   summary: { type: String, required: true },
   tags: [{ type: String }],
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  date: { type: String, required: true }, // Store as formatted string for display
+  date: { type: String, required: true },
   createdAt: { type: Date, default: Date.now }
 });
 

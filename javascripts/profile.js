@@ -1,15 +1,13 @@
-// --- API URL UNIFICATION ---
-// Use port 10000 for localhost for consistency with your backend
 const API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:5000'
   : 'https://nyaoha.onrender.com';
 
 (async function () {
   const token = localStorage.getItem('token');
-  // if (!token) return window.location.href = 'log-in.html'; // <-- TEMPORARILY DISABLED FOR DEBUGGING
+
   if (!token) {
     console.warn('No token found in localStorage.');
-    // Optionally, you can show a message here for debugging
+
   }
 
   try {
@@ -23,14 +21,12 @@ const API_URL = window.location.hostname === 'localhost'
 
     const user = await res.json();
 
-    // Persist verification and favorites state
     localStorage.setItem('emailVerified', user.emailVerified ? 'true' : 'false');
     localStorage.setItem('favorites', JSON.stringify(user.favorites || []));
     localStorage.setItem('firstName', user.firstName || '');
     localStorage.setItem('lastName', user.lastName || '');
     localStorage.setItem('userId', user._id || '');
 
-    // Fill input fields
     const firstNameInput = document.querySelector('.first-name');
     const lastNameInput = document.querySelector('.last-name');
     const emailInput = document.querySelector('.email');
@@ -39,7 +35,6 @@ const API_URL = window.location.hostname === 'localhost'
     lastNameInput.value = user.lastName || '';
     emailInput.value = user.email || '';
 
-    // Handle save button click
     document.querySelector('.save-btn').addEventListener('click', async (e) => {
       e.preventDefault();
 
@@ -72,7 +67,6 @@ const API_URL = window.location.hostname === 'localhost'
       }
     });
 
-    // Email verification UI update
     const verificationSection = document.querySelector('.settings-section .btn');
     if (verificationSection && verificationSection.textContent.includes('Verification')) {
       if (user.emailVerified) {
@@ -91,16 +85,14 @@ const API_URL = window.location.hostname === 'localhost'
     console.error(err);
     alert('Session expired or user not found');
     localStorage.removeItem('token');
-    // window.location.href = 'log-in.html'; // <-- TEMPORARILY DISABLED FOR DEBUGGING
   }
 })();
 
-// Favorite Plants logic
 async function renderFavoritePlants() {
   const token = localStorage.getItem('token');
   const noFavoritesDiv = document.getElementById('no-favorites');
   const favoritesListDiv = document.getElementById('favorites-list');
-  // Safeguard: Only proceed if both elements exist
+
   if (!noFavoritesDiv || !favoritesListDiv) {
     console.warn('Favorites elements not found in DOM.');
     return;
@@ -122,7 +114,7 @@ async function renderFavoritePlants() {
       favoritesListDiv.style.display = 'none';
       return;
     }
-    // Render cards
+
     favoritesListDiv.innerHTML = favorites.map(plant => {
       const pets = plant.animals && plant.animals.length
         ? plant.animals.join(', ')
@@ -145,26 +137,21 @@ async function renderFavoritePlants() {
   }
 }
 
-// --- Journal Posts logic ---
 async function renderJournalPosts() {
   const token = localStorage.getItem('token');
   const journalContentDiv = document.querySelector('.journal-content');
   if (!journalContentDiv) return;
 
-  // Show loading state
   journalContentDiv.innerHTML = '<p>Loading your posts...</p>';
 
   try {
-    // Fetch all posts, then filter by current user
     const res = await fetch(`${API_URL}/api/journal`);
     if (!res.ok) throw new Error('Failed to load journal posts');
     const posts = await res.json();
-    // Get user id from localStorage (set after login/profile fetch)
     const userId = localStorage.getItem('userId');
     const userPosts = posts.filter(post => post.authorId === userId);
 
     if (!userPosts.length) {
-      // Show mascot and button
       journalContentDiv.innerHTML = `
         <img src="pictures/posts_logo.png" alt="Journal mascot" />
         <p>You have no written posts yet.</p>
@@ -176,7 +163,6 @@ async function renderJournalPosts() {
       return;
     }
 
-    // Render cards for each post
     journalContentDiv.innerHTML = userPosts.map(post => `
       <div class="journal-post-card">
         <div class="journal-post-row">
@@ -190,7 +176,7 @@ async function renderJournalPosts() {
         </div>
       </div>
     `).join('');
-    // Add delete event listeners
+
     journalContentDiv.querySelectorAll('.delete-journal-btn').forEach(btn => {
       btn.onclick = async function() {
         if (!confirm('Delete this post?')) return;
@@ -202,7 +188,7 @@ async function renderJournalPosts() {
           });
           if (res.ok) {
             btn.closest('.journal-post-card').remove();
-            // If no more posts, show mascot and button
+
             if (!journalContentDiv.querySelector('.journal-post-card')) {
               journalContentDiv.innerHTML = `
                 <img src="pictures/logo_icon_dark.png" alt="Journal mascot" />
@@ -226,7 +212,6 @@ async function renderJournalPosts() {
   }
 }
 
-// Sub-tab switching (if you want to expand for Favorite Plans later)
 document.querySelectorAll('.sub-tab').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
@@ -236,19 +221,16 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
     document.getElementById('favorites-list').style.display = isPlants ? '' : 'none';
     document.getElementById('no-favorite-plans').style.display = isPlants ? 'none' : 'flex';
     if (isPlants) renderFavoritePlants();
-    // If you add logic for Favorite Plans, call it here
   });
 });
 
-// Ensure correct sub-tab and content on tab switch
 const favoritesTab = document.querySelector('.tab[data-tab="favorites"]');
 if (favoritesTab) {
   favoritesTab.addEventListener('click', () => {
-    // Activate the 'Favorite Plants' sub-tab
     document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
     const plantsTab = document.querySelector('.sub-tab[data-subtab="favorite-plants"]');
     if (plantsTab) plantsTab.classList.add('active');
-    // Show only the plants section
+
     document.getElementById('no-favorites').style.display = '';
     document.getElementById('favorites-list').style.display = '';
     document.getElementById('no-favorite-plans').style.display = 'none';
@@ -256,10 +238,8 @@ if (favoritesTab) {
   });
 }
 
-// Initial render
 if (document.getElementById('favorites-list')) renderFavoritePlants();
 
-// Password change modal logic
 const changePasswordBtn = document.getElementById('change-password-btn');
 const changePasswordModal = document.getElementById('change-password-modal');
 const changePasswordForm = document.getElementById('change-password-form');
@@ -312,7 +292,6 @@ if (changePasswordBtn && changePasswordModal && changePasswordForm && closePassw
   });
 }
 
-// Logout
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {
@@ -321,7 +300,6 @@ if (logoutBtn) {
   });
 }
 
-// Delete Account
 const deleteAccountBtn = document.querySelector('.btn.delete');
 if (deleteAccountBtn) {
   deleteAccountBtn.addEventListener('click', async () => {
@@ -348,7 +326,6 @@ if (deleteAccountBtn) {
   });
 }
 
-// Email verification logic
 const sendVerificationBtn = document.querySelector('.settings-section .btn');
 if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verification')) {
   sendVerificationBtn.addEventListener('click', async () => {
@@ -361,7 +338,6 @@ if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verificatio
       const result = await res.json();
       if (res.ok) {
         alert('Verification email sent! Please check your inbox.');
-        // Show custom modal for code entry
         showVerificationModal();
       } else {
         alert(result.message || 'Failed to send verification email.');
@@ -372,9 +348,7 @@ if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verificatio
   });
 }
 
-// --- Custom modal for verification code entry ---
 function showVerificationModal() {
-  // Remove existing modal if present
   document.getElementById('verify-modal')?.remove();
   const modal = document.createElement('div');
   modal.id = 'verify-modal';
@@ -419,7 +393,6 @@ function showVerificationModal() {
       if (verifyRes.ok) {
         alert('Email verified successfully!');
         modal.remove();
-        // Remove button and show message
         const verificationSection = document.querySelector('.settings-section .btn');
         if (verificationSection && verificationSection.textContent.includes('Verification')) {
           const parent = verificationSection.parentElement;
@@ -443,13 +416,11 @@ function showVerificationModal() {
   };
 }
 
-// Journal tab initial render
 const journalTab = document.querySelector('.tab[data-tab="journal"]');
 if (journalTab) {
   journalTab.addEventListener('click', () => {
     renderJournalPosts();
   });
-  // Initial render if already on journal tab
   if (document.getElementById('journal')?.classList.contains('active')) {
     renderJournalPosts();
   }

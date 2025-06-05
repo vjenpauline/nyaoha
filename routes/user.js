@@ -10,7 +10,6 @@ const crypto = require('crypto');
 
 const router = express.Router();
 
-// Signup route
 router.post('/signup', [
     body('firstName').notEmpty().withMessage('First name is required'),
     body('lastName').notEmpty().withMessage('Last name is required'),
@@ -61,7 +60,6 @@ router.post('/signup', [
     }
 });
 
-// Login route
 router.post('/login', [
     body('email').isEmail().withMessage('Invalid email format'),
     body('password').notEmpty().withMessage('Password is required')
@@ -105,7 +103,6 @@ router.post('/login', [
     }
 });
 
-// /me endpoint
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('firstName lastName email emailVerified favorites photo');
@@ -118,8 +115,6 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-
-// Change password endpoint
 router.post('/change-password', auth, async (req, res) => {
     const userId = req.user.id;
     const { currentPassword, newPassword } = req.body;
@@ -140,7 +135,6 @@ router.post('/change-password', auth, async (req, res) => {
     }
 });
 
-// Delete account endpoint
 router.post('/delete-account', auth, async (req, res) => {
     const userId = req.user.id;
     try {
@@ -153,9 +147,8 @@ router.post('/delete-account', auth, async (req, res) => {
     }
 });
 
-// Update user info
 router.post('/update', auth, async (req, res) => {
-    const userId = req.user.id; // comes from auth middleware
+    const userId = req.user.id;
     const { firstName, lastName, email } = req.body;
 
     try {
@@ -166,7 +159,7 @@ router.post('/update', auth, async (req, res) => {
         let updateFields = { firstName, lastName };
         if (email && email !== user.email) {
             updateFields.email = email;
-            updateFields.emailVerified = false; // Reset verification if email changes
+            updateFields.emailVerified = false;
         }
         const updatedUser = await User.findByIdAndUpdate(
             userId,
@@ -180,12 +173,10 @@ router.post('/update', auth, async (req, res) => {
     }
 });
 
-// Send verification email
 router.post('/send-verification-email', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: 'User not found' });
-    // Check for existing, unexpired code
     const existing = await Verification.findOne({
       userId: user._id,
       used: false,
@@ -194,12 +185,11 @@ router.post('/send-verification-email', auth, async (req, res) => {
     if (existing) {
       return res.status(429).json({ message: 'A verification code was already sent. Please check your email or try again later.' });
     }
-    // Generate a 6-digit code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
-    // Save code in DB
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+
     await Verification.create({ userId: user._id, code, expiresAt });
-    // Send email
+
     await transporter.sendMail({
       from: `Nyaoha <${process.env.EMAIL}>`,
       to: user.email,
@@ -213,7 +203,6 @@ router.post('/send-verification-email', auth, async (req, res) => {
   }
 });
 
-// Verify code endpoint
 router.post('/verify-email', auth, async (req, res) => {
   const { code } = req.body;
   try {

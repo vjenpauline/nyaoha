@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!form) return;
 
   form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Prevent actual form submission
+    e.preventDefault();
 
     const name = document.getElementById('name')?.value;
     const email = document.getElementById('email')?.value;
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       console.log('Message sent:', response.data);
       alert('Message sent successfully!');
-      form.reset(); // clear the form
+      form.reset();
     } catch (error) {
       console.error('Error sending message:', error);
       alert('Failed to send message. Please try again.');

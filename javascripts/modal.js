@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // On page load, render posts from backend
   renderPosts();
 
   postForm.onsubmit = async function (e) {
@@ -123,6 +122,5 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.style.display = 'none';
   };
 
-  // Listen for sort changes
   sortDropdown.addEventListener('change', renderPosts);
 });

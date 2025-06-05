@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // Redirect Based on Authentication Status
     const token = authService.getToken();
     const pathname = window.location.pathname;
 
@@ -79,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = "log-in.html";
     }
 
-    // Signup Form Handling
     document.querySelector('.signup-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const signupForm = e.target;
@@ -107,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Login Form Handling
+
     document.querySelector('.login-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('email').value;
@@ -122,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Redirect Links Based on Authentication
+
     document.querySelectorAll('a[href="profile.html"]').forEach(link => {
         link.addEventListener('click', (e) => {
             if (!authService.isLoggedIn()) {
@@ -141,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Feedback Message Display
     function showMessage(message, type) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}`;

@@ -1,4 +1,4 @@
-// Plant Database Service
+
 const plantService = {
     async getAllPlants() {
         try {
@@ -131,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Ensure fetchPlants() always runs
   (async () => {
     try {
       await fetchFavorites();
@@ -170,7 +169,7 @@ async function toggleFavorite(id, iconEl) {
     alert("Please log in to add favorites.");
     return;
   }
-  // Optimistically update UI
+
   if (userFavorites.includes(id)) {
     userFavorites = userFavorites.filter(fav => fav !== id);
     iconEl.classList.remove('favorited');
@@ -190,7 +189,7 @@ async function toggleFavorite(id, iconEl) {
     saveFavoritesToStorage();
     applyFilters();
   } catch (err) {
-    // Revert UI if failed
+
     if (userFavorites.includes(id)) {
       userFavorites = userFavorites.filter(fav => fav !== id);
       iconEl.classList.remove('favorited');
@@ -217,7 +216,6 @@ function renderPlants(plants, append = false) {
     const link = plant.wikipedia_url || "#";
     const animals = plant.animals?.map(a => `<span class='tag'>${a}</span>`).join(" ") || "";
 
-    // Use pid/id/_id for favorites
     const isFavorited = userFavorites && userFavorites.includes && id ? userFavorites.includes(id) : false;
 
     const card = document.createElement("div");
