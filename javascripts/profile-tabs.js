@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // handle tab switching for profile page
   const tabs = document.querySelectorAll(".tab");
   const tabContents = document.querySelectorAll(".tab-content");
 

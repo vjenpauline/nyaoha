@@ -1,9 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // wait for DOM to load
+
     const API_URL = window.location.hostname === 'localhost'
         ? 'http://localhost:5000'
         : 'https://nyaoha.onrender.com';
 
     const authService = {
+        // define authService object for authentication logic
         saveToken(token) {
             localStorage.setItem('token', token);
         },
@@ -17,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return !!this.getToken();
         },
         async login(email, password) {
+            // login method
             const response = await fetch(`${API_URL}/api/user/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -31,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return data;
         },
         async signup(userData) {
+            // signup method
             const response = await fetch(`${API_URL}/api/user/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -46,10 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return await response.json();
         },
         logout() {
+            // logout method
             this.removeToken();
             window.location.href = '/1-index.html';
         },
         async fetchAuthenticated(url, options = {}) {
+            // fetch with authentication
             const token = this.getToken();
             if (!token) throw new Error('No authentication token found');
 
@@ -72,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const token = authService.getToken();
     const pathname = window.location.pathname;
 
+    // redirect if already logged in or not logged in on certain pages
     if (token && pathname.endsWith('log-in.html')) {
         window.location.href = "profile.html";
     } else if (!token && pathname.endsWith('profile.html')) {
@@ -140,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function showMessage(message, type) {
+        // show message helper function
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}`;
         messageDiv.textContent = message;

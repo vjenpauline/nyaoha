@@ -4,19 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- Google Fonts -->
+    <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <title>Nyaoha | Plant Database</title>
     <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
-    <link rel="stylesheet" href="../stylescripts/style-index-db.css"/>
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+     <link rel="stylesheet" href="../stylescripts/style-index-db.css"/>
+        <!-- aos animation stylesheet -->
+         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+   <title>Nyaoha | Plant Database</title>
   </head>
 
   <body>
 
+    <!-- top navigation bar -->
     <div class="top-bar">
       <div class="leftnav-container">
         <button class="profile-btn" id="profile-btn"><span class="icon">👤</span></button>
@@ -34,12 +36,12 @@
       </nav>
     </div>
 
-    <!-- Page Content -->
+    <!-- main content container -->
     <div class="db-container"> 
       <h1 data-aos="fade-in" data-aos-duration="1000">Plant Database</h1>
       <p class="description" data-aos="fade-in" data-aos-duration="1000">Discover which plants are safe for your furry friends</p>
 
-      <!-- Search + Sort + Filters -->
+      <!-- search, sort, and filter controls -->
       <div class="search-sort" data-aos="fade-in" data-aos-duration="1000">
         <div class="search-box">
           🔍 <input type="text" id="searchInput" placeholder="Search for a plant..." />
@@ -61,12 +63,14 @@
           <option value="desc">Descending (Z-A)</option>
         </select>
       </div>
+      <!-- plant cards grid -->
       <div class="card-grid" id="plantGrid" ></div>
     </div>
 
+    <!-- load more plant cards button -->
     <button id="loadMoreBtn" class="view-button">Explore More Plants</button>
 
-    <!-- Footer -->
+    <!-- footer section -->
     <footer class="footer">
       <div class="footer-container">
         <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
@@ -101,12 +105,14 @@
       <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with love by pauline villahermosa</p>
     </footer>
     <div class="custom-cursor"></div>
+    <!-- scripts -->
     <script src="/javascripts/plant-database.js"></script>
     <script defer src="/javascripts/auth.js"></script>
     <script defer src="/javascripts/auth-btn.js"></script>
     <script src="/javascripts/custom-cursor.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+  // initialize aos animations
   AOS.init();
 </script>
 

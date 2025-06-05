@@ -11,10 +11,13 @@
     
     <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
     <link rel="stylesheet" href="../stylescripts/style-about.css"/>
-    <title>Nyaoha | About</title>
+    
+    <!-- aos animation stylesheet -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <title>Nyaoha | About</title>
 </head>
 <body>
+  <!-- top navigation bar -->
   <div class="top-bar">
             <div class="leftnav-container">
                 <button class="profile-btn" id="profile-btn"><span class="icon">👤</span></button>
@@ -34,7 +37,8 @@
                 </div>
             </nav>
         </div>
-        
+
+  <!-- hero and about section -->
   <header class="hero" >
   <div class="hero-container">
     <div class="image-wrapper" ></div>
@@ -58,7 +62,7 @@
   </div>
 </header>
 
-
+  <!-- team section -->
   <section class="team">
     <h3 data-aos="fade-in" data-aos-duration="2000">Meet the Team</h3>
     <div class="team-members">      <div class="member" data-aos="flip-right"
@@ -94,6 +98,7 @@
     </div>
   </section>
 
+  <!-- contact section -->
   <section class="contact" id="contact" >
     <div class="contact-info" data-aos="fade-up" data-aos-duration="2000">
       <h4>Get in Touch</h4>
@@ -120,6 +125,7 @@
     </form>
   </section>
 
+  <!-- footer section -->
   <footer class="footer">
         <div class="footer-container">
             <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
@@ -158,13 +164,15 @@
         <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with love by pauline villahermosa</p>
     </footer>
 <div class="custom-cursor"></div>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="javascripts/contact-form.js"></script>
-  <script defer src="/javascripts/auth.js"></script>
-  <script defer src="/javascripts/auth-btn.js"></script>
-  <script src="/javascripts/custom-cursor.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="javascripts/contact-form.js"></script>
+<script defer src="/javascripts/auth.js"></script>
+<script defer src="/javascripts/auth-btn.js"></script>
+<script src="/javascripts/custom-cursor.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+  // initialize aos animations
   AOS.init();
 </script>
 

@@ -10,10 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
       <link rel="icon" type="image/x-icon" href="/pictures/favicon.png">
     <link rel="stylesheet" href="/stylescripts/style-login.css"/>
-    <title>Nyaoha | Log-In</title>
+   <!-- aos animation stylesheet -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+     <title>Nyaoha | Log-In</title>
 </head>
 <body>
+  <!-- top navigation bar -->
   <div class="top-bar">
     <div class="leftnav-container">
       <button class="profile-btn" id="profile-btn"><span class="icon">👤</span></button>
@@ -32,6 +34,7 @@
     </nav>
 </div>
 
+  <!-- login form main section -->
   <main class="login-container" data-aos="fade-in" data-aos-duration="1000">
     <form class="login-form" method="post" autocomplete="on">
         <div class="form-header">
@@ -78,6 +81,7 @@
     </form>
   </main>
 
+  <!-- footer section -->
   <footer class="footer">
         <div class="footer-container">
             <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
@@ -116,11 +120,13 @@
         <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with love by pauline villahermosa</p>
     </footer>
     <div class="custom-cursor"></div>
+    <!-- scripts -->
     <script defer src="/javascripts/auth.js"></script>
     <script defer src="/javascripts/auth-btn.js"></script>
     <script src="/javascripts/custom-cursor.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+  // initialize aos animations
   AOS.init();
 </script>
 

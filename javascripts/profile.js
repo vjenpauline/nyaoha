@@ -88,6 +88,7 @@ const API_URL = window.location.hostname === 'localhost'
   }
 })();
 
+// render favorite plants section
 async function renderFavoritePlants() {
   const token = localStorage.getItem('token');
   const noFavoritesDiv = document.getElementById('no-favorites');
@@ -137,6 +138,7 @@ async function renderFavoritePlants() {
   }
 }
 
+// render journal posts section
 async function renderJournalPosts() {
   const token = localStorage.getItem('token');
   const journalContentDiv = document.querySelector('.journal-content');
@@ -212,6 +214,7 @@ async function renderJournalPosts() {
   }
 }
 
+// handle sub-tab switching for favorites/plans
 document.querySelectorAll('.sub-tab').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
@@ -224,6 +227,7 @@ document.querySelectorAll('.sub-tab').forEach(btn => {
   });
 });
 
+// handle favorites tab click
 const favoritesTab = document.querySelector('.tab[data-tab="favorites"]');
 if (favoritesTab) {
   favoritesTab.addEventListener('click', () => {
@@ -240,6 +244,7 @@ if (favoritesTab) {
 
 if (document.getElementById('favorites-list')) renderFavoritePlants();
 
+// handle password change modal and form
 const changePasswordBtn = document.getElementById('change-password-btn');
 const changePasswordModal = document.getElementById('change-password-modal');
 const changePasswordForm = document.getElementById('change-password-form');
@@ -292,6 +297,7 @@ if (changePasswordBtn && changePasswordModal && changePasswordForm && closePassw
   });
 }
 
+// handle logout
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', () => {
@@ -300,6 +306,7 @@ if (logoutBtn) {
   });
 }
 
+// handle account deletion
 const deleteAccountBtn = document.querySelector('.btn.delete');
 if (deleteAccountBtn) {
   deleteAccountBtn.addEventListener('click', async () => {
@@ -326,6 +333,7 @@ if (deleteAccountBtn) {
   });
 }
 
+// handle email verification
 const sendVerificationBtn = document.querySelector('.settings-section .btn');
 if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verification')) {
   sendVerificationBtn.addEventListener('click', async () => {
@@ -348,6 +356,7 @@ if (sendVerificationBtn && sendVerificationBtn.textContent.includes('Verificatio
   });
 }
 
+// show verification modal
 function showVerificationModal() {
   document.getElementById('verify-modal')?.remove();
   const modal = document.createElement('div');
@@ -416,6 +425,7 @@ function showVerificationModal() {
   };
 }
 
+// handle journal tab click
 const journalTab = document.querySelector('.tab[data-tab="journal"]');
 if (journalTab) {
   journalTab.addEventListener('click', () => {

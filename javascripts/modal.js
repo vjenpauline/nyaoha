@@ -1,7 +1,9 @@
+// set API URL for journal
 const API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:5000/api/journal'
   : 'https://nyaoha.onrender.com/api/journal';
 
+// wait for DOM to load and get modal elements
 document.addEventListener('DOMContentLoaded', function () {
   const modal = document.getElementById('writePostModal');
   const openBtn = document.querySelector('.write-post');
@@ -12,20 +14,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const tagColors = ['#4F7E24', '#36C9C6', '#ED6A5A', '#CCDBBF', '#959595'];
 
+  // helper: get current user from local storage
   function getCurrentUser() {
     const first = localStorage.getItem('firstName') || '';
     const last = localStorage.getItem('lastName') || '';
     return (first + ' ' + last).trim();
   }
 
+  // helper: format date
   function formatDate(date) {
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 
+  // open/close modal event handlers
   openBtn.onclick = () => { modal.style.display = 'flex'; };
   closeBtn.onclick = () => { modal.style.display = 'none'; };
   window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
 
+  // fetch, create, delete, and render posts
   async function fetchPosts() {
     try {
       const res = await fetch(API_URL);
@@ -98,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   renderPosts();
 
+  // handle post form submission
   postForm.onsubmit = async function (e) {
     e.preventDefault();
     const title = document.getElementById('postTitle').value.trim();
@@ -112,5 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.style.display = 'none';
   };
 
+  // handle sort dropdown change
   sortDropdown.addEventListener('change', renderPosts);
 });

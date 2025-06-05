@@ -4,27 +4,32 @@
   <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- Google Fonts -->
+    <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
     
     <link rel="icon" type="image/x-icon" href="/pictures/favicon.png">
     <link rel="stylesheet" href="/stylescripts/style-index-db.css"/>
+    <!-- aos animation stylesheet -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title>Nyaoha</title>
     
 </head>
 <body>
+    <!-- header section -->
     <header class="header">
         <div class="top-bar">
             <div class="leftnav-container">
+                <!-- profile button -->
                 <button class="profile-btn" id="profile-btn"><span class="icon">👤</span></button>
+                <!-- login button -->
                 <a href="log-in.html">
                   <button class="login-btn">Log In</button>
                 </a>
             </div>
 
+            <!-- navigation bar -->
             <nav class="navbar">
                 <button class="nav-button"> </button>
                 <div class="dropdown">
@@ -37,6 +42,7 @@
             </nav>
         </div>
 
+        <!-- hero section -->
         <div class="hero">
             <div class="hero-text">
                 <h1 data-aos="fade-down-right"
@@ -54,6 +60,7 @@
         </div>
     </header>
 
+    <!-- info grid section -->
     <section class="info-grid">
         <div class="section-header">
             <h1 data-aos="fade-in">Gardening Made Safe for You & Your Pets</h1>
@@ -61,24 +68,28 @@
         </div>
         
         <div class="grid">
+            <!-- card 1 -->
             <div class="card cyan" data-aos="zoom-in" data-aos-duration="500">
                 <img src="pictures\icons\icon-planting.png" alt="Icon" />
                 <h2>Comprehensive Plant Database</h2>
                 <p>Explore a vast collection of plants with detailed care instructions and pet toxicity warnings.</p>
             </div>
 
+            <!-- card 2 -->
             <div class="card coral" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="100">
                 <img src="pictures\icons\icon-planner.png" alt="Icon" />
                 <h2>Interactive Garden Planner</h2>
                 <p>Design your dream garden effortlessly with drag-and-drop tools. Visualize your space before bringing it to life.</p>
             </div>
 
+            <!-- card 3 -->
             <div class="card brown" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
                 <img src="pictures\icons\icon-blog.png" alt="Icon" />
                 <h2>Community Blog</h2>
                 <p>Discover inspiring garden plans from fellow plant lovers, or share your own with the nyaoha community.</p>
             </div>
 
+            <!-- card 4 -->
             <div class="card yellow" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300">
                 <img src="pictures\icons\icon-error.png" alt="Icon" />
                 <h2>Pet-Safe Filters</h2>
@@ -87,7 +98,7 @@
         </div>
     </section>
 
-
+    <!-- feature section -->
     <section class="feature-section">
         <div class="feature-content" >
             <h1 data-aos="fade-down"
@@ -102,6 +113,7 @@
         </div>
     </section>
 
+    <!-- footer section -->
     <footer class="footer">
         <div class="footer-container">
             <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
@@ -141,15 +153,18 @@
     </footer>
 <div class="custom-cursor"></div>
 
+<!-- scripts -->
 <script src="/javascripts/auth.js"></script>
 <script src="/javascripts/auth-btn.js"></script>
 <script src="/javascripts/custom-cursor.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+  // initialize aos animations
   AOS.init();
 </script>
 
 <script>
+  // search button functionality
   document.getElementById("homeSearchBtn").addEventListener("click", () => {
     const query = document.getElementById("homeSearchInput").value.trim();
     if (query) {

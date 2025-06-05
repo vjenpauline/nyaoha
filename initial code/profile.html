@@ -14,11 +14,13 @@
 
   <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
   <link rel="stylesheet" href="../stylescripts/style-profile.css" />
-  <title>Nyaoha | Profile</title>
+   <!-- aos animation stylesheet -->
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<title>Nyaoha | Profile</title>
 </head>
 
 <body>
+  <!-- top navigation bar -->
   <div class="top-bar">
     <div class="leftnav-container">
       <button class="profile-btn" id="profile-btn"><span class="icon">👤</span></button>
@@ -39,6 +41,7 @@
     </nav>
   </div>
 
+  <!-- profile main section with tabs -->
   <section class="profile-container">
     <header class="profile-header" data-aos="fade-in" data-aos-duration="1000">
       <h1>Your Profile</h1>
@@ -51,6 +54,7 @@
       </div>
     </header>
 
+    <!-- profile info tab -->
     <div class="tab-content active" id="profile">
       <div class="card">
         <h2>Profile Information</h2>
@@ -74,6 +78,7 @@
       </div>
     </div>
 
+    <!-- favorites tab -->
     <div class="tab-content" id="favorites">
       <div class="card favorites-card">
         <div class="sub-tabs">
@@ -95,6 +100,7 @@
       </div>
     </div>
 
+    <!-- journal tab -->
       <div class="tab-content" id="journal">
         <div class="card journal-card">
           <h2>My Garden Journal Posts</h2>
@@ -106,6 +112,7 @@
         </div>
       </div>
 
+    <!-- settings tab -->
       <div class="tab-content" id="settings">
         <div class="card">
           <div class="settings-section">
@@ -156,6 +163,7 @@
 
   </section>
 
+  <!-- footer section -->
   <footer class="footer">
     <div class="footer-container">
       <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
@@ -195,15 +203,17 @@
     <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with love by pauline villahermosa</p>
   </footer>
   <div class="custom-cursor"></div>
+  <!-- scripts -->
   <script src="../javascripts/auth.js"></script>
   <script src="../javascripts/auth-btn.js"></script>
   <script src="../javascripts/profile.js"></script>
   <script src="../javascripts/profile-tabs.js"></script>
   <script src="/javascripts/custom-cursor.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
+  <script>
+    // initialize aos animations
+    AOS.init();
+  </script>
 
 </body>
 

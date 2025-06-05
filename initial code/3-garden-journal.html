@@ -11,11 +11,13 @@
     
     <link rel="icon" type="image/x-icon" href="..\pictures\favicon.png">
     <link rel="stylesheet" href="../stylescripts/style-journal.css"/>
-    <title>Nyaoha | Garden Journal</title>
+         <!-- aos animation stylesheet -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-</head>
+   <title>Nyaoha | Garden Journal</title>
+  </head>
 
 <body>
+  <!-- top navigation bar -->
   <div class="top-bar">
             <div class="leftnav-container">
                 <button class="profile-btn" id="profile-btn"><span class="icon">👤</span></button>
@@ -42,6 +44,7 @@
       <p>Post your tips and tricks to inspire others. Let's hear how you garden! </p>
     </header>
 
+    <!-- controls for sorting and writing posts -->
     <div class="controls">
       <div class="sort" data-aos="fade-right" data-aos-duration="1000">
         <select id="journalSortDropdown" class="sort-dropdown">
@@ -52,7 +55,7 @@
       <button class="write-post" data-aos="fade-left" data-aos-duration="1000">✏️ Write a Post</button>
     </div>
 
-    <!-- Write Post Modal -->
+    <!-- write post modal -->
     <div id="writePostModal" class="modal">
       <div class="modal-content">
         <span class="close" id="closeModalBtn">&times;</span>
@@ -69,10 +72,12 @@
       </div>
     </div>
 
+    <!-- journal post list -->
     <section class="post-list">
     </section>
   </div>
 
+  <!-- footer section -->
   <footer class="footer">
         <div class="footer-container">
             <img src="pictures/logo_icon_light_borderless.png" alt="Nyaoha Icon" class="footer-icon">
@@ -111,12 +116,14 @@
         <p class="footer-bottom">&copy; <strong>nyaoha</strong>. made with love by pauline villahermosa</p>
     </footer>
 <div class="custom-cursor"></div>
-    <script defer src="/javascripts/auth.js"></script>
-    <script defer src="/javascripts/auth-btn.js"></script>
-    <script defer src="/javascripts/modal.js"></script>
-    <script src="/javascripts/custom-cursor.js"></script>
+<!-- scripts -->
+<script defer src="/javascripts/auth.js"></script>
+<script defer src="/javascripts/auth-btn.js"></script>
+<script defer src="/javascripts/modal.js"></script>
+<script src="/javascripts/custom-cursor.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+  // initialize aos animations
   AOS.init();
 </script>
 

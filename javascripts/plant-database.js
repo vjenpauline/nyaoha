@@ -1,4 +1,3 @@
-
 const plantService = {
     async getAllPlants() {
         try {
@@ -143,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 });
 
+// sync and save favorites to local storage
 async function fetchFavorites() {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -163,6 +163,7 @@ async function fetchFavorites() {
   }
 }
 
+// fetch and render plants, handle filters and favorites
 async function toggleFavorite(id, iconEl) {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -202,6 +203,7 @@ async function toggleFavorite(id, iconEl) {
   }
 }
 
+// render plant cards
 function renderPlants(plants, append = false) {
   if (!append) grid.innerHTML = "";
   syncFavoritesFromStorage();
@@ -249,6 +251,7 @@ function renderPlants(plants, append = false) {
   });
 }
 
+// apply filters and sorting
 function applyFilters() {
   const searchInput = document.getElementById("searchInput");
   const term = searchInput ? searchInput.value.toLowerCase() : '';
@@ -278,6 +281,7 @@ function applyFilters() {
   renderNextPage();
 }
 
+// render next page of plants
 function renderNextPage() {
   const nextPlants = filteredData.slice(currentIndex, currentIndex + PLANTS_PER_PAGE);
   renderPlants(nextPlants, currentIndex !== 0);
@@ -290,6 +294,7 @@ function renderNextPage() {
   }
 }
 
+// event listeners for sorting, filtering, and loading more
 sortDropdown.addEventListener("change", applyFilters);
 document.addEventListener("change", applyFilters);
 loadMoreBtn.addEventListener("click", renderNextPage);
