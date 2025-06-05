@@ -11,6 +11,7 @@
     
     <link rel="icon" type="image/x-icon" href="/pictures/favicon.png">
     <link rel="stylesheet" href="/stylescripts/style-index-db.css"/>
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title>Nyaoha</title>
     
 </head>
@@ -38,13 +39,14 @@
 
         <div class="hero">
             <div class="hero-text">
-                <h1>
+                <h1 data-aos="fade-down-right"
+     data-aos-duration="1000">
                 PLAN <em>and</em> GROW YOUR <br>
                 <em>dream garden,</em><br>
                 KEEP YOUR PETS <em>safe.</em>
                 </h1>
-                <p class="subtext">Search our database of over 1000+ pet-safe plants</p>
-                <div class="search-bar">
+                <p class="subtext" data-aos="fade-in">Search our database of over 1000+ pet-safe plants</p>
+                <div class="search-bar" data-aos="fade-in" data-aos-duration="1000">
                     <input type="text" id="homeSearchInput" placeholder="🔍 Search for a plant...">
                     <button class="search-btn" id="homeSearchBtn">Search</button>
                 </div>
@@ -54,30 +56,30 @@
 
     <section class="info-grid">
         <div class="section-header">
-            <h1>Gardening Made Safe for You & Your Pets</h1>
-            <p>With smart planning tools, create the perfect patch and keep everyone happy.</p>
+            <h1 data-aos="fade-in">Gardening Made Safe for You & Your Pets</h1>
+            <p data-aos="fade-in">With smart planning tools, create the perfect patch and keep everyone happy.</p>
         </div>
         
         <div class="grid">
-            <div class="card cyan">
+            <div class="card cyan" data-aos="zoom-in" data-aos-duration="500">
                 <img src="pictures\icons\icon-planting.png" alt="Icon" />
                 <h2>Comprehensive Plant Database</h2>
                 <p>Explore a vast collection of plants with detailed care instructions and pet toxicity warnings.</p>
             </div>
 
-            <div class="card coral">
+            <div class="card coral" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="100">
                 <img src="pictures\icons\icon-planner.png" alt="Icon" />
                 <h2>Interactive Garden Planner</h2>
                 <p>Design your dream garden effortlessly with drag-and-drop tools. Visualize your space before bringing it to life.</p>
             </div>
 
-            <div class="card brown">
+            <div class="card brown" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
                 <img src="pictures\icons\icon-blog.png" alt="Icon" />
                 <h2>Community Blog</h2>
                 <p>Discover inspiring garden plans from fellow plant lovers, or share your own with the nyaoha community.</p>
             </div>
 
-            <div class="card yellow">
+            <div class="card yellow" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="300">
                 <img src="pictures\icons\icon-error.png" alt="Icon" />
                 <h2>Pet-Safe Filters</h2>
                 <p>Quickly find pet-friendly plants with smart filters and get notified of potential hazards for pets in your selection.</p>
@@ -87,10 +89,13 @@
 
 
     <section class="feature-section">
-        <div class="feature-content">
-            <h1><strong>Ready to Create Your Safe Space?</strong></h1>
-            <p>Join thousands of plant and pet owners who trust <strong> nyaoha </strong> for their gardening needs.</p>
-            <div class="buttons">
+        <div class="feature-content" >
+            <h1 data-aos="fade-down"
+     data-aos-duration="1000"><strong>Ready to Create Your Safe Space?</strong></h1>
+            <p data-aos="fade-down"
+     data-aos-duration="1000">Join thousands of plant and pet owners who trust <strong> nyaoha </strong> for their gardening needs.</p>
+            <div class="buttons" data-aos="fade-up"
+     data-aos-duration="1000">
                 <a href="3-garden-journal.html">Join Our Community</a>
                 <a href="2-plant-database.html">Explore Plants</a>
             </div>
@@ -139,7 +144,11 @@
 <script src="/javascripts/auth.js"></script>
 <script src="/javascripts/auth-btn.js"></script>
 <script src="/javascripts/custom-cursor.js"></script>
-</body>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
 <script>
   document.getElementById("homeSearchBtn").addEventListener("click", () => {
     const query = document.getElementById("homeSearchInput").value.trim();
@@ -150,5 +159,6 @@
     }
   });
 </script>
+</body>
 
 </html>

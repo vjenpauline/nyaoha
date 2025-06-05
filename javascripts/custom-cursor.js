@@ -23,11 +23,11 @@ const interactiveElements = 'a, button, input, textarea, select, [contenteditabl
 
 document.querySelectorAll(interactiveElements).forEach((el) => {
   el.addEventListener('mouseenter', () => {
-    cursor.style.width = '20px';
-    cursor.style.height = '20px';
+    cursor.style.width = '8px';
+    cursor.style.height = '8px';
   });
   el.addEventListener('mouseleave', () => {
-    cursor.style.width = '10px';
-    cursor.style.height = '10px';
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
   });
 });
