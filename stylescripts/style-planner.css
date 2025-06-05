@@ -195,21 +195,6 @@ header {
   margin-bottom: 2rem;
 }
 
-header h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #2d2d2d;
-}
-
-.create-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 1rem;
-  border: none;
-  cursor: pointer;
-}
-
 .announcement {
   background-color: #d9eacc;
   margin: 0 auto;

@@ -223,7 +223,7 @@ header p {
 .sort select {
   padding: 0.4rem 0.6rem;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 2rem;
   background-color: #fff;
 }
 
@@ -232,8 +232,14 @@ header p {
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
+  border-radius: 82rem;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.write-post:hover {
+  background-color: #23231A;
+  color: #F3EDE4;
 }
 
 .post-list {

@@ -11,13 +11,9 @@ header h1 {
   color: #2d2d2d;
 }
 
-.create-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 1rem;
-  border: none;
-  cursor: pointer;
+header p {
+  font-size: 1rem;
+  color: $gray;
 }
 
 .announcement {
