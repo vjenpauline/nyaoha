@@ -87,7 +87,7 @@ body {
   transition: background-color 0.3s ease;
 }
 .navbar:hover .nav-button {
-  background: url("/pictures/wordmark_dark.svg") center/40% no-repeat #23231A;
+  background: url("/pictures/wordmark_light.svg") center/40% no-repeat #23231A;
 }
 .navbar .dropdown {
   display: none;
@@ -221,8 +221,8 @@ body {
 }
 .hero .hero-text h1 {
   color: #F3EDE4;
-  font-size: 2rem;
-  line-height: 2.5rem;
+  font-size: 3rem;
+  line-height: 3.5rem;
   margin-bottom: 1rem;
 }
 .hero .hero-text h1 strong {

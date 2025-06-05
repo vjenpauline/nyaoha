@@ -87,7 +87,7 @@ body {
   transition: background-color 0.3s ease;
 }
 .navbar:hover .nav-button {
-  background: url("/pictures/wordmark_dark.svg") center/40% no-repeat #23231A;
+  background: url("/pictures/wordmark_light.svg") center/40% no-repeat #23231A;
 }
 .navbar .dropdown {
   display: none;
