@@ -206,15 +206,6 @@ body {
   mix-blend-mode: multiply;
 }
 
-.logo {
-  background: #4c7410;
-  padding: 0.5rem 2rem;
-  border-radius: 20px;
-  font-size: 1.5rem;
-  color: white;
-  font-weight: bold;
-}
-
 .login-container {
   display: flex;
   justify-content: center;
@@ -252,17 +243,10 @@ body {
   width: 100%;
   padding: 0.7rem;
   border-radius: 20px;
-  border: 1px solid #4c7410;
-}
-.login-form .forgot {
-  display: block;
-  text-align: left;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-  color: #4c7410;
+  border: 1px solid #4F7E24;
 }
 .login-form .login-btn {
-  background: #4c7410;
+  background: #4F7E24;
   color: white;
   border: none;
   border-radius: 20px;
@@ -280,7 +264,7 @@ body {
   font-size: 0.9rem;
 }
 .login-form .signup-link a {
-  color: #4c7410;
+  color: #4F7E24;
   font-weight: bold;
   text-decoration: none;
 }/*# sourceMappingURL=style-login.css.map */

@@ -56,7 +56,7 @@
     width: 100%;
     padding: 0.7rem;
     border-radius: 20px;
-    border: 1px solid #4c7410;
+    border: 1px solid $green;
     outline: none;
   }
 
@@ -69,14 +69,14 @@
     color: $grey;
 
     a {
-      color: #4c7410;
+      color: $green;
       font-weight: 600;
       text-decoration: none;
     }
   }
 
   button {
-    background: #4c7410;
+    background: $green;
     color: white;
     border: none;
     border-radius: 20px;
@@ -96,7 +96,7 @@
     font-size: 0.9rem;
 
     a {
-      color: #4c7410;
+      color: $green;
       font-weight: bold;
       text-decoration: none;
     }

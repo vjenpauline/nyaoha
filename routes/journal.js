@@ -1,9 +1,11 @@
+// express route for journal posts
 const express = require('express');
 const router = express.Router();
 const JournalPost = require('../models/journalPost');
 const auth = require('../middleware/auth');
 const User = require('../models/user');
 
+// get all journal posts
 router.get('/', async (req, res) => {
   try {
     const posts = await JournalPost.find().sort({ createdAt: -1 }).populate('author', 'firstName lastName email');
@@ -18,6 +20,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// create a new journal post
 router.post('/', auth, async (req, res) => {
   const { title, summary, tags, date } = req.body;
   if (!title || !summary || !date) {
@@ -44,6 +47,7 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// delete a journal post
 router.delete('/:id', async (req, res) => {
   try {
     const post = await JournalPost.findByIdAndDelete(req.params.id);

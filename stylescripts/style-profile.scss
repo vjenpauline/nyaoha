@@ -65,30 +65,6 @@
       margin-bottom: 1rem;
     }
 
-    .photo-section {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-
-      .avatar {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: #222;
-      }
-
-      .change-photo {
-        background: transparent;
-        border: 1px solid #4f8a10;
-        color: #4f8a10;
-        padding: 0.4rem 0.8rem;
-        border-radius: 2rem;
-        cursor: pointer;
-        font-weight: bold;
-      }
-    }
-
     form {
       .form-row {
         display: flex;
@@ -165,8 +141,8 @@
 
       .btn {
         background: transparent;
-        border: 1px solid #4f8a10;
-        color: #4f8a10;
+        border: 1px solid $green;
+        color: $green;
         padding: 0.4rem 1rem;
         border-radius: 2rem;
         font-weight: bold;
@@ -200,7 +176,7 @@
 .card.favorites-card {
   padding: 2rem;
   border: none;
-  background: #fff;
+  background: white;
   border-radius: 1rem;
   text-align: center;
 
@@ -246,7 +222,7 @@
     }
 
     .explore-btn {
-      background: #4f8a10;
+      background: $green;
       color: white;
       border: none;
       padding: 0.6rem 1.5rem;
@@ -262,7 +238,7 @@
 }
 .card.journal-card {
   text-align: center;
-  background: #fff;
+  background: $white;
   border: 1px solid #cde4b2;
   border-radius: 1rem;
   padding: 2rem;
@@ -291,8 +267,8 @@
 
     .write-post-btn {
       background: transparent;
-      color: #000;
-      border: 1px solid #000;
+      color: $black;
+      border: 1px solid $black;
       padding: 0.6rem 1.5rem;
       border-radius: 2rem;
       font-weight: bold;
@@ -336,7 +312,7 @@
   }
 
   .explore-btn {
-    background: #4f8a10;
+    background: $green;
     color: white;
     border: none;
     padding: 0.4rem 3.5rem; 
@@ -445,7 +421,7 @@
 .journal-post-card {
   border-bottom: 1px solid #eee;
   padding: 1rem 0.5rem;
-  background: #fff;
+  background: $white;
   border-radius: 12px;
   margin-bottom: 0.5rem;
 }
@@ -483,13 +459,13 @@
 
 .journal-post-tags {
   font-size: 0.9em;
-  color: #4c7410;
+  color: $green;
   font-family: 'Poppins', sans-serif;
 }
 
 .delete-journal-btn {
   background: #a50000;
-  color: #fff;
+  color: $white;
   border: none;
   padding: 0.3rem 0.8rem;
   border-radius: 8px;

@@ -255,7 +255,7 @@ body {
   width: 100%;
   padding: 0.7rem;
   border-radius: 20px;
-  border: 1px solid #4c7410;
+  border: 1px solid #4F7E24;
   outline: none;
 }
 .signup-form .terms {
@@ -267,12 +267,12 @@ body {
   color: #959595;
 }
 .signup-form .terms a {
-  color: #4c7410;
+  color: #4F7E24;
   font-weight: 600;
   text-decoration: none;
 }
 .signup-form button {
-  background: #4c7410;
+  background: #4F7E24;
   color: white;
   border: none;
   border-radius: 20px;
@@ -290,7 +290,7 @@ body {
   font-size: 0.9rem;
 }
 .signup-form .signin a {
-  color: #4c7410;
+  color: #4F7E24;
   font-weight: bold;
   text-decoration: none;
 }/*# sourceMappingURL=style-signup.css.map */

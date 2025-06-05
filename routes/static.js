@@ -3,6 +3,7 @@ const path = require('path');
 
 const router = express.Router();
 
+// express route for serving static html files
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../initial code', '1-index.html'));
 });

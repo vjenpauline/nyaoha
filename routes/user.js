@@ -10,6 +10,8 @@ const crypto = require('crypto');
 
 const router = express.Router();
 
+// express route for user authentication and profile actions
+
 router.post('/signup', [
     body('firstName').notEmpty().withMessage('First name is required'),
     body('lastName').notEmpty().withMessage('Last name is required'),

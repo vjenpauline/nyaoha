@@ -8,7 +8,7 @@ header {
 header h1 {
   font-size: 2rem;
   font-weight: bold;
-  color: #2d2d2d;
+  color: $black;
 }
 
 header p {
@@ -45,7 +45,7 @@ header p {
 
 .write-post {
   background-color: $green;
-  color: #fff;
+  color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 82rem;
@@ -66,7 +66,7 @@ header p {
 }
 
 .card {
-  background-color: #fff;
+  background-color: white;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   padding: 1.5rem;
@@ -127,7 +127,7 @@ header p {
 .delete-post {
   font-family: 'Poppins', sans-serif;
   background: #e74c3c;
-  color: #fff;
+  color: white;
   border: none;
   padding: 0.45rem 1.1rem;
   border-radius: 8px;
@@ -149,7 +149,7 @@ header p {
   padding: 0.4rem 0.8rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: white;
   cursor: pointer;
 }
 
@@ -165,7 +165,7 @@ header p {
   justify-content: center;
 }
 .modal-content {
-  background: #fff;
+  background: white;
   padding: 2em;
   border-radius: 10px;
   width: 90%;
@@ -195,9 +195,9 @@ header p {
 #postForm button {
   width: 100%;
   padding: 0.7em;
-  background: #7dd181;
+  background: $green;
   border: none;
-  color: #fff;
+  color: white;
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;

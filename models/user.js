@@ -6,8 +6,8 @@ const userSchema = new mongoose.Schema({
   lastName:  { type: String, required: true },
   email:     { type: String, required: true, unique: true },
   password:  { type: String, required: true },
-  emailVerified: { type: Boolean, default: false, index: true },
-  favorites: [{ type: String, index: true }]
+  emailVerified: { type: Boolean, default: false, index: true }, // can be verified through email verification on website
+  favorites: [{ type: String, index: true }] // array of favorite plant names
 });
 
 module.exports = mongoose.model('User', userSchema);
